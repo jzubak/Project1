@@ -1,0 +1,22 @@
+.headerbox{
+    background-color: rgba(41, 100, 76, 0.658)
+}
+.text{
+    font-family: 'Raleway', sans-serif;
+}
+
+.startlocation{
+    font-size: 20px
+    }
+.endlocation{
+    font-size: 20px
+}
+.startcard{
+    font-size: 16px
+}
+.endcard{
+    font-size: 16px
+}
+.weathercard{
+    font-size: 16px
+}
