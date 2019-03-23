@@ -4,9 +4,7 @@
 .text{
     font-family: 'Raleway', sans-serif;
 }
-button{
-    border: none;
-}
+
 .startlocation{
     font-size: 20px;
     font-weight: 500;
@@ -41,10 +39,18 @@ input {
     padding: 15px;
 }
 
-button {
+.buttonsearch {
+    border: none;
     width: 250px;
     background: #00ba9b;
     padding: 15px;
+    color: #ffffff;
+}
+
+.buttonhead{
+    border: none;
+    max-width: 250px;
+    background: #00ba9b;
     color: #ffffff;
 }
 
