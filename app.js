@@ -6,6 +6,7 @@ var city1_id;
 var city2_id;
 var city1country_id;
 var city2country_id;
+var count_id;
 var resto_id;
 var restoName;
 var restoImg;
@@ -72,13 +73,21 @@ $(document).ready(function () {
 
         // (3) city_id(s) and cuinsine_id(s) are passed into Zomato API via AJAX GET for results on the search response
 
-        // var qryEntity = 287
-        // var qryCuisine = 25
+        // Philly
+        // var qryEntity = 287;
+
+        // Chinese
+        // var qryCuisine = 25;
     
-        // 
-        var cuisine_id = 227;
+        // Bar Food
+        //var cuisine_id = 227;
+
+        // Fusion
+        var cuisine_id =274;
+
+        var count_id=3;
     
-        var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + cuisine_id + "&entity_type=city"; 
+        var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + cuisine_id + "&entity_type=city&count=" + count_id; 
     
         console.log(queryURL);
     
@@ -130,8 +139,6 @@ $(document).ready(function () {
                 votes: votes}
                 
             obj_city1.push(pairedValKey);
-            
-            };
 
             console.log(obj_city1);
 
@@ -139,10 +146,10 @@ $(document).ready(function () {
             // add another attr with URL
             // add a data-value?
 
-            img1 = obj_city1[2].image;
+            img1 = obj_city1[i].image;
             console.log(img1);
 
-            name1 = obj_city1[2].name;
+            name1 = obj_city1[i].name;
             console.log(name1);
 
             pImg = $("<img>").attr("src", img1);
@@ -152,6 +159,8 @@ $(document).ready(function () {
             rando_resto1.append(pName);
 
             $("#reco-restos").prepend(rando_resto1);
+            
+            };
 
         });
 
