@@ -1,3 +1,23 @@
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  
+  body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+    font-family: 'Raleway', sans-serif;
+  }
+
 .headerbox{
     background-color: rgba(41, 100, 76, 0.658)
 }
@@ -5,6 +25,13 @@
     font-family: 'Raleway', sans-serif;
 }
 
+<<<<<<< HEAD
+=======
+
+button{
+    border: none;
+}
+>>>>>>> c121685ffce1f5d0d7836310fe4d09d293df67b3
 .startlocation{
     font-size: 20px;
     font-weight: 500;
@@ -13,7 +40,7 @@
     font-size: 20px
 }
 .startcard{
-    font-size: 16px;
+    font-size: 16px
     font-weight: 250;
 }
 .endcard{
@@ -22,14 +49,12 @@
 .weathercard{
     font-size: 16px
 }
-
 nav {
     position: fixed;
     height: 50px;
     top: 0;
     width: 100%;
 }
-
 input {
     float: none;
     display: block;
@@ -38,14 +63,20 @@ input {
     margin: 0;
     padding: 15px;
 }
+<<<<<<< HEAD
 
 .buttonsearch {
     border: none;
+=======
+.button {
+>>>>>>> c121685ffce1f5d0d7836310fe4d09d293df67b3
     width: 250px;
     background: #00ba9b;
     padding: 15px;
     color: #ffffff;
+    text-align: center;
 }
+<<<<<<< HEAD
 
 .buttonhead{
     border: none;
@@ -55,13 +86,21 @@ input {
 }
 
 button:hover {
+=======
+.button:hover {
+>>>>>>> c121685ffce1f5d0d7836310fe4d09d293df67b3
     background: #006e5b !important;
 }
-
-footer {
-    background-color: #e7e7e7;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+  }
+img {
+    width: 100%;
+    max-width: 100px;
 }
-
