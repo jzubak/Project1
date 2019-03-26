@@ -1,0 +1,10 @@
+#weather {
+    display: none;
+}
+#day, #temp, #clouds, #rain {
+    font-size: 1.5rem;
+}
+#day {
+    font-size: 2rem;
+    font-weight: bold;
+}
