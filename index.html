@@ -14,13 +14,18 @@
       <script src="index.js"></script>
    </head>
    <body>
-         <nav class="navbar navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">
-                <img width="150" src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png"
-                    class="d-inline-block align-top" alt="">
-                &nbsp; &nbsp; Home
-            </a>
-        </nav>
+        <nav class="navbar navbar-dark bg-primary fixed-top" >
+                <div class="navbar-brand">
+                  <div class="logo text">Three Course Travel</div>
+                <!-- <img width="150" src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png"  class="d-inline-block align-top" alt=""> -->
+                <ul class ="navkeys">
+                <li><a class="text buttonhead" href="index.html">Home</a></li>
+                <li><a class="text buttonhead" href="index.html" target="_blank">New Search</a></li>
+                <li><button class="text nackeys buttonhead">Go!</button><label><input type="text" placeholder="Recent Searches" class="searched"></label></li>
+               </ul>
+            </div>
+             </nav>
+
       <div class="container-fluid" style="margin-top:100px;">
          <!-- Image and text -->
          
@@ -36,15 +41,21 @@
                   <div class="col-12">
                      <label>
                      <input type="text" placeholder="Where are you located?" id="startLocation">
+
                      </label>
                   <br>
                      <label>
                      <input type="text" placeholder="Where are you going?" id="endLocation">
+
                      </label>
                   
                         <input id="submit-btn" type="submit" value="Go!" class="button">
                   </div>
-                  </form>
+                  <div class="col-12">
+                     <button class="buttonsearch">
+                     Go!
+                     </button>
+                  </div>
                </div>
             </div>
          </div>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // (1) get start and end city strings 
 
 var city1name = "Mumbai"
@@ -274,6 +275,9 @@ $(document).ready(function () {
         
         
 });
+=======
+<<<<<<< Updated upstream
+>>>>>>> master
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
@@ -426,3 +430,5 @@ $.ajax({
     });
 
 });
+=======
+>>>>>>> Stashed changes
