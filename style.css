@@ -1,3 +1,4 @@
+
 html {
     height: 100%;
     box-sizing: border-box;
@@ -23,6 +24,8 @@ html {
 .text{
     font-family: 'Raleway', sans-serif;
 }
+
+
 button{
     border: none;
 }
@@ -34,7 +37,7 @@ button{
     font-size: 20px
 }
 .startcard{
-    font-size: 16px;
+    font-size: 16px
     font-weight: 250;
 }
 .endcard{
