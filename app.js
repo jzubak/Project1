@@ -1,3 +1,16 @@
-#bg {
-    background-image: url("https://i.pinimg.com/originals/58/7e/f0/587ef0e76197c192cbabb5efda0c92d6.jpg");
-}
+jordyn-branching-test
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
+    authDomain: "project1-2f7ae.firebaseapp.com",
+    databaseURL: "https://project1-2f7ae.firebaseio.com",
+    projectId: "project1-2f7ae",
+    storageBucket: "project1-2f7ae.appspot.com",
+    messagingSenderId: "842716287063"
+  };
+  firebase.initializeApp(config);
+
+
+
+ master
