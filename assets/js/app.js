@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
@@ -150,3 +151,5 @@ $.ajax({
     });
 
 });
+=======
+>>>>>>> Stashed changes
