@@ -53,7 +53,9 @@ img {
 #brand-logo {
     padding: 50px 30px;
 }
-
+#searchResults {
+    display: none;
+}
 /* Fonts Classes */
 .brand-title {
     font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
