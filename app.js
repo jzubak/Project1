@@ -1,6 +1,6 @@
 // (1) get start and end city strings 
 
-var city1name = "Mumbai"
+var city1name = "Sydney"
 var city2name = "Philadelphia"
 var city1_id;
 var city2_id;
@@ -36,8 +36,10 @@ var arrCountryCuisines = [
     {countryID: 215, posID: 22, country: "United Kingdom", cuisines: [{cuisine_name: "British", cuisine_id: 133},{cuisine_name: "Bar Food", cuisine_id: 227},{cuisine_name: "Burger", cuisine_id: 168},{cuisine_name: "Cafe", cuisine_id: 30},{cuisine_name: "Fish and Chips", cuisine_id: 298}, {cuisine_name: "Fusion", cuisine_id: 274},{cuisine_id: 148, cuisine_name: "Indian"},  {cuisine_name: "International", cuisine_id: 154}, {cuisine_name: "Irish", cuisine_id: 135},{cuisine_name: "Pub Food", cuisine_id: 983},{cuisine_name: "Seafood", cuisine_id: 83}, {cuisine_name: "Steak", cuisine_id: 141}, {cuisine_name: "Vegetarian", cuisine_id: 308}]},
     {countryID: 216, posID: 23, country: "United States", cuisines: [{cuisine_name: "American", cuisine_id: 1}, {cuisine_name: "Amish", cuisine_id: 954}, {cuisine_name: "BBQ", cuisine_id: 193},{cuisine_name: "Bar Food", cuisine_id: 227},{cuisine_name: "Burger", cuisine_id: 168},{cuisine_name: "Cafe", cuisine_id: 30},{cuisine_name: "Cajun", cuisine_id: 491}, {cuisine_name: "California", cuisine_id: 956},{cuisine_name: "Caribbean", cuisine_id: 158},{cuisine_name: "Deli", cuisine_id: 192}, {cuisine_name: "Diner", cuisine_id: 541}, {cuisine_name: "Fusion", cuisine_id: 274}, {cuisine_name: "Hawaiian", cuisine_id: 521},{cuisine_name: "International", cuisine_id: 154}, {cuisine_name: "Israeli", cuisine_id: 218}, {cuisine_name: "Jewish", cuisine_id: 265}, {cuisine_name: "Mexican", cuisine_id: 73}, {cuisine_name: "New American", cuisine_id: 996},{cuisine_name: "New Mexican", cuisine_id: 995},{cuisine_name: "Pacific", cuisine_id: 321}, {cuisine_name: "Pacific Northwest", cuisine_id: 963},{cuisine_name: "Pizza", cuisine_id: 82}, {cuisine_name: "Po'Boys", cuisine_id: 970},{cuisine_name: "Pub Food", cuisine_id: 983}, {cuisine_name: "Seafood", cuisine_id: 83}, {cuisine_name: "Soul Food", cuisine_id: 461}, {cuisine_name: "Southern", cuisine_id: 471}, {cuisine_name: "Southwestern", cuisine_id: 966},{cuisine_name: "Steak", cuisine_id: 141}, {cuisine_name: "Sushi", cuisine_id: 177}, {cuisine_name: "Tex-Mex", cuisine_id: 150}, {cuisine_name: "Vegetarian", cuisine_id: 308}]}];
 
-var city1CuisineID;
-var city2CuisineID;
+var city1countryIDpos;
+var city2countryIDpos;
+var city1cuisineID = "";
+var city2cuisineID = "";
 
 var count_id;
 
@@ -84,11 +86,10 @@ var segIndexPrice = 0;
 var segIndexRating = 0;
 
 // function isCountryID(element) {
-//     console.log("the city1country_id is: " + city1country_id);
 //     for (i=0;i<arrCountryCuisines.length;i++){
 //         if (element !== arrCountryCuisines[i].countryID) {
 //         }else{
-//             return element;
+//             return i;
 //         }
 //   }
 // }
@@ -123,31 +124,46 @@ $(document).ready(function () {
         // (2) need to apply country_id to grab cuisine strings and cuisine_id from array defined below
         //var country = ["Australia", "Brasil"];
 
-        // city1CuisineID = arrCountryCuisines.countryID(city1country_id).find(cuisines);
-        // city1CuisineID = arrCountryCuisines.findIndex(isCountryID(city1country_id));
-        // console.log("the city1CuisineID is: " + city1CuisineID);
+        // city1countryIDpos = arrCountryCuisines.findIndex(isCountryID(city1country_id));
+        // console.log("the city1countryIDpos is: " + city1countryIDpos);
+
+        // -->DUMMUY-ED UP DATA TO TEST THE BALANCE OF THE CUISINE ID LOOKUP OPS<--
+        //
+        // should return the 5th position in the index per the countryID (1) fron the city AJAX call
+        // and the subsequent build of a string of integers = cuisine_id(s) per the arrCountryCuisines
+
+        //India
+        //city1countryIDpos = 5;
+        city1countryIDpos=0;
+        
+        console.log("The numner of cuisines for " + city1country_name + " is " + arrCountryCuisines[city1countryIDpos].cuisines.length);
+
+        for (i=0;i<arrCountryCuisines[city1countryIDpos].cuisines.length;i++){
+
+            city1cuisineID = arrCountryCuisines[city1countryIDpos].cuisines[i].cuisine_id + ", " + city1cuisineID;
+        };
+
+        console.log("the city1CuisineID is: " + city1cuisineID);
 
         // based on country from Zomato qryStartCity and qryEndCity selections, grab country, and apply
         // cuisine_ID
 
         // (3) city_id(s) and cuinsine_id(s) are passed into Zomato API via AJAX GET for results on the search response
 
-        // Philly
-        // var qryEntity = 287;
-
+        // STATIC CUISINE DATA IDs
         // Chinese
         // var qryCuisine = 25;
-    
         // Bar Food
         //var cuisine_id = 227;
-
         // Fusion
-        var cuisine_id =274;
+        // var cuisine_id =274;
 
+        // STATIC RESPONSE COUNT AMOUNTS
         // var count_id=20;
         var count_id=3;
     
-        var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + cuisine_id + "&entity_type=city&count=" + count_id; 
+        // var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + cuisine_id + "&entity_type=city&count=" + count_id; 
+        var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + city1cuisineID + "&entity_type=city&count=" + count_id; 
     
         //console.log(queryURL);
     
@@ -209,6 +225,8 @@ $(document).ready(function () {
                 votes: votes}
                 
             obj_city1.push(pairedValKey);
+
+            console.log(obj_city1);
 
             // POPULATE THE DIV
             rando_resto1 = $("<div class='rando_resto'>");
