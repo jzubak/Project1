@@ -81,6 +81,9 @@ img {
     float: none; 
     margin-bottom: 10px; 
 }
+.card-img-top {
+    max-width: 300px;
+}
 /* Design Elements */
 .button {
     width: 250px;
