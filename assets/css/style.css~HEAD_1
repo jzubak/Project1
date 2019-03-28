@@ -1,24 +1,29 @@
+
+
 /* Resets */
 html {
     height: 100%;
     box-sizing: border-box;
   }
   
-.polymorph {
-    fill:#00A99D;
-}
   *,
   *:before,
   *:after {
     box-sizing: inherit;
   }
+  
   body {
+    position: relative;
+    margin: 0;
     padding-bottom: 6rem;
     min-height: 100%;
     font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
   }
-/* HTML elements */
 
+/* HTML elements */
+button{
+    border: none;
+}
 input {
     float: none;
     display: block;
@@ -32,8 +37,11 @@ img {
 }
 
 /* Component Class Elements */
+.headerbox{
+    background-color: rgba(41, 100, 76, 0.658)
+}
 .footer {
-    position: fixed;
+    position: absolute;
     right: 0;
     bottom: 0;
     left: 0;
@@ -41,51 +49,11 @@ img {
     background-color: #efefef;
     text-align: center;
   }
+
 #brand-logo {
     padding: 50px 30px;
-
-button{
-    border: none;
 }
 
-.searched{
-    max-width: 250px;
-    max-height: 50px;
-}
-#searchResults {
-    display: none;
-}
-/* Fonts Classes */
-.brand-title {
-    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
-    font-size: 50px;
-    line-height: 65px;
-    font-weight: 700;
-}
-.text {
-    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    line-height: 20px;
-}
-#startWeather, #endWeather {
-    text-align: center;
-    font-size: 16px;
-    font-weight: 300;
-}
-.degrees {
-    text-align: center;
-
-.startlocation{
-    font-size: 20px;
-    font-weight: 500;
-    }
-.endlocation{
-    font-size: 20px
-
-}
-#searchResults {
-    display: none;
-}
 /* Fonts Classes */
 .brand-title {
     font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
@@ -113,6 +81,7 @@ button{
     font-size: 22px;
     font-weight: 700;
 }
+
 #weatherImg {
     margin-bottom: 15px;
 }
@@ -122,6 +91,7 @@ button{
     margin-bottom: 10px; 
 }
 /* Design Elements */
+
 .button {
     width: 250px;
     background: #00ba9b;
@@ -132,12 +102,4 @@ button{
 .button:hover {
     background: #006e5b !important;
 }
-/*contact page images*/
-.headshots{
-    position: relative;
-    float: left;
-    height: 200px;
-    width: 200px;
-    padding-left: 20px;
-    margin-right: 15px;
-}
+
