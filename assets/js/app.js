@@ -39,7 +39,7 @@ var objCountryCuisines = {
     163: {country: "Poland", cuisines: [{cuisine_name: "Polish", cuisine_id: 219}, {cuisine_name: "Eastern European", cuisine_id: 651}, {cuisine_name: "European", cuisine_id: 38}, {cuisine_name: "Bar Food", cuisine_id: 227},{cuisine_name: "Burger", cuisine_id: 168},{cuisine_name: "Cafe", cuisine_id: 30}, {cuisine_name: "Fusion", cuisine_id: 274},{cuisine_name: "International", cuisine_id: 154},{cuisine_name: "Pub Food", cuisine_id: 983}, {cuisine_name: "Russian", cuisine_id: 84}, {cuisine_name: "Seafood", cuisine_id: 83}, {cuisine_name: "Steak", cuisine_id: 141}, {cuisine_name: "Vegetarian", cuisine_id: 308}]},
     164: {country: "Portugal",  cuisines: [{cuisine_name: "Portuguese", cuisine_id: 87}, {cuisine_name: "Brazilian", cuisine_id: 159}, {cuisine_name: "BBQ", cuisine_id: 193}, {cuisine_name: "Bar Food", cuisine_id: 227},{cuisine_name: "Cafe", cuisine_id: 30}, {cuisine_name: "Fusion", cuisine_id: 274}, {cuisine_name: "Grill", cuisine_id: 181},{cuisine_name: "International", cuisine_id: 154}, {cuisine_name: "Latin American", cuisine_id: 136}, {cuisine_name: "Pub Food", cuisine_id: 983},{cuisine_name: "Seafood", cuisine_id: 83}, {cuisine_name: "Steak", cuisine_id: 141}, {cuisine_name: "Tapas", cuisine_id: 179}, {cuisine_name: "Vegetarian", cuisine_id: 308}]},
     166: {country: "Qatar", cuisines: [{}, {}]},
-    182: {country: "Singapore", cuisines: [{}, {}]},
+    184: {country: "Singapore", cuisines: [{}, {}]},
     189: {country: "South Africa", cuisines: [{cuisine_name: "South African", cuisine_id: 267}, {cuisine_name: "BBQ", cuisine_id: 193},{cuisine_name: "Bar Food", cuisine_id: 227},{cuisine_name: "British", cuisine_id: 133},{cuisine_name: "Burger", cuisine_id: 168},{cuisine_name: "Cafe", cuisine_id: 30}, {cuisine_name: "European", cuisine_id: 38}, {cuisine_name: "Fusion", cuisine_id: 274}, {cuisine_name: "International", cuisine_id: 154}, {cuisine_name: "Pub Food", cuisine_id: 983},{cuisine_name: "Seafood", cuisine_id: 83}, {cuisine_name: "Steak", cuisine_id: 141}, {cuisine_name: "Sushi", cuisine_id: 177}, {cuisine_name: "Vegetarian", cuisine_id: 308}]}, 
     191: {country: "Sri Lanka", cuisines: [{}, {}]},
     208: {country: "Turkey", cuisines: [{cuisine_name: "Turkish", cuisine_id: 142}, {cuisine_name: "Bar Food", cuisine_id: 227},{cuisine_name: "Cafe", cuisine_id: 30},{cuisine_name: "Fusion", cuisine_id: 274}, {cuisine_name: "International", cuisine_id: 154}, {cuisine_name: "Armenian", cuisine_id: 175}, {cuisine_name: "Greek", cuisine_id: 156}, {cuisine_name: "Iranian", cuisine_id: 140}, {cuisine_name: "Israeli", cuisine_id: 218}, {cuisine_name: "Kebab", cuisine_id: 178}, {cuisine_name: "Mediterranean", cuisine_id: 70}, {cuisine_name: "Middle Eastern", cuisine_id: 137},{cuisine_name: "Pub Food", cuisine_id: 983},{cuisine_name: "Salad", cuisine_id: 998}, {cuisine_name: "Seafood", cuisine_id: 83}, {cuisine_name: "Steak", cuisine_id: 141}, {cuisine_name: "Vegetarian", cuisine_id: 308}]}, 
@@ -66,15 +66,19 @@ var currency;
 var avg_cost_two;
 var price_range;
 var cuisine_id;
+var cuisine;
 var cuisines;
 var votes;
 
 var pairedValKey;
 var obj_city1 = [];
-var obj_coty2 = [];
+var obj_city2 = [];
 var rando_resto1;
 var pName;
 var pImg;
+var pCuisine;
+var pPrice;
+var pRating;
 
 var totalVotes = 0;
 var totalPrice = 0;
@@ -102,6 +106,8 @@ $(document).ready(function () {
     
     $("#submit-btn").on("click", (event) => {
     event.preventDefault();
+    
+    // BEGIN STARTCITY AKA CITY1
 
     city1name = $("#startLocation").val();
     console.log("the city1name is: " + city1name);  
@@ -123,8 +129,9 @@ $(document).ready(function () {
         city1country_name = city1response.location_suggestions[0].country_name;
         console.log("the start city COUNTRY NAME is: " + city1country_name);
         
-        console.log("The numner of cuisines for " + city1country_name + " is " + objCountryCuisines[city1country_id].cuisines.length);
+        console.log("The number of cuisines for " + city1name + ", " + city1country_name + " is : " + objCountryCuisines[city1country_id].cuisines.length);
 
+        // loop to collect cusisine_id(s) from objCountryCuisines for the [city1name and city1country_id]
         for (var i=0;i<objCountryCuisines[city1country_id].cuisines.length;i++){
 
             city1cuisineID = objCountryCuisines[city1country_id].cuisines[i].cuisine_id + ", " + city1cuisineID;
@@ -147,30 +154,27 @@ $(document).ready(function () {
             console.log(city1search); 
 
             for(i=0;i<city1search.restaurants.length;i++){
-            
+            //  price_range SEGMENTATION
+            price_range= city1search.restaurants[i].restaurant.price_range;
             // id
             resto_id = city1search.restaurants[i].restaurant.id;
             //  name
             restoName = city1search.restaurants[i].restaurant.name;
+            //  cuisine
+            cuisine = city1search.restaurants[i].restaurant.cuisines;
+            console.log("the cuisines are: " + cuisine);
             //  image
             restoImg = city1search.restaurants[i].restaurant.featured_image;
             //  url
             restoURL = city1search.restaurants[i].restaurant.url;
-            //  aggregate_rating
-            price_range= city1search.restaurants[i].restaurant.price_range;
-            //  aggregate_rating
-            agg_rating = parseFloat(city1search.restaurants[i].restaurant.user_rating.aggregate_rating);
-            console.log("The agg_rating is: " + agg_rating);
-            //  rating_text
-            rating_text = city1search.restaurants[i].restaurant.user_rating.rating_text;
+            //  currency
+            currency = city1search.restaurants[i].restaurant.currency;
             //  avg_cost_two
             avg_cost_two = city1search.restaurants[i].restaurant.average_cost_for_two;
-            //  avg_cost_two
-            currency = city1search.restaurants[i].restaurant.currency;
-            //  price_range
-            price_range = city1search.restaurants[i].restaurant.price_range;
-            //  cuisine
-            votes = city1search.restaurants[i].restaurant.cuisines;
+            //  aggregate_rating
+            agg_rating = parseFloat(city1search.restaurants[i].restaurant.user_rating.aggregate_rating);
+            //  rating_text
+            rating_text = city1search.restaurants[i].restaurant.user_rating.rating_text;
             //  votes
             votes = parseFloat(city1search.restaurants[i].restaurant.user_rating.votes);
             
@@ -181,18 +185,17 @@ $(document).ready(function () {
 
             // CREATE ARRAY OF API DATA
             pairedValKey={
+                price_range: price_range,
                 resto_id: resto_id,
                 name : restoName,
-                image: restoImg,    
+                cuisine_id: city1cuisineID,
+                cuisine: cuisine,
+                restoImg: restoImg,    
                 url: restoURL,
-                price_range: price_range,
+                currency: currency,
+                avg_cost_two: avg_cost_two,
                 agg_rating : agg_rating,
                 rating_text: rating_text,
-                avg_cost_two: avg_cost_two,
-                currency: currency,
-                price_range: price_range,
-                cuisine_id: cuisine_id,
-                cuisines : cuisines,
                 votes: votes}
                 
             obj_city1.push(pairedValKey);
@@ -200,35 +203,63 @@ $(document).ready(function () {
             console.log(obj_city1);
 
             // POPULATE THE DIV
-            rando_resto1 = $("<div class='rando_resto'>");
-
-            img1 = obj_city1[i].image;
-
-            name1 = obj_city1[i].name;
+            city1resto = $("<div class='city1resto'>");
             
+            // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
             
-            // IMAGE NEEDS A CLASS
-            pImg = $("<img>").attr({
-                    "src": img1,
-                    "data-value": restoURL
-                    });
+            pName = $("<p>").attr({
+                "class": "city1restoName",
+                "text": name
+                });
+            // pName = $("<p>").text(name1);
+            city1resto.append(pName);
 
-            rando_resto1.append(pImg)
-            
-            // NAME NEEDS A CLASS
-            pName = $("<p>").text(name1);
-            rando_resto1.append(pName);
+            // ADD RATING, CUISINES --> NEED CLASS 
 
-            // ADD PRICE PER COUPLE (PARENTHETICALLY THE CURRENCY), RATING, CUISINES --> NEED CLASS 
-            // ADD <p> 
+            pPrice = $("<p>").attr({
+                "class": "city1restoPrice",
+                "text": currency + avg_cost_two
+                });
+            city1resto.append(pPrice);
 
-            // $("#reco-restos").prepend(rando_resto1);
-            $("#startCards").prepend(rando_resto1);
-            
+            // console.log(pPrice);
+
+            pCuisine = $("<p>").attr({
+                "class": "city1restoCuisine",
+                "text": cuisine
+                });
+            city1resto.append(pCuisine);
+
+            pRating = $("<p>").attr({
+                "class": "city1restoRating",
+                "text": agg_rating
+                });
+            city1resto.append(pRating);
+
+            // pImg = $("<img>").attr({
+            //     "class": "city1restoIMG",
+            //     "src": restoImg,
+            //     "data-value": restoURL
+            //     });
+
+            // city1resto.append(pImg)
+
+            // PREPEND TO startCards DIV
+            // $("#startCards").prepend(city1resto);
+            $("#startCards").append(city1resto);    
+
+            // BEGIN END CITY AKA CITY2
+            //
+            //
+
             };
 
+
+
+
+
             // (1) 
-            // FULL ARRAY METRICS
+            // FULL METRICS FOR BOTH CITY1 AND CITY2 OBJECTS
 
             // get averages
             console.log("The TOTAL VOTES IS: " + totalVotes);
@@ -242,17 +273,17 @@ $(document).ready(function () {
             avgRating = parseFloat(totalRating/count_id).toFixed(1);
             console.log("The average RATING is: " + avgRating);
 
-            // index on each restaurant from the array
-            // need a for loop for the array
+            // index on each restaurant from the object
+            // need a for loop for the object
             // push index to each key pair-value for
             //  --> Votes
             //  --> Price
             //  --> Rating
 
             //  (2) 
-            //  PRICING SEGMENT ARRAY METRICS
+            //  SUB-SEGMENT BY PRICE_RANGE OBJECT METRICS
             //
-            // separate array into 4 NEW ARRAYS BY price_range (1, 2, 3, 4) segment 
+            // separate EACH CITY object into 4 NEW ARRAYS BY price_range (1, 2, 3, 4) segment 
             //
             // segCount =
             // segTotalVote =
@@ -265,7 +296,7 @@ $(document).ready(function () {
             // indexPrice =
             // indexRating = 
             //
-            // FOR EACH segment ARRAY
+            // FOR EACH SUB-SEGMENT BY PRICE-RANGE
             //  --> calculate totals for
             //      --> Votes
             //      --> Price
@@ -281,28 +312,16 @@ $(document).ready(function () {
             //
             //  --> PUSH indices to EACH RESTAURANT IN SEGMENT ARRAY
             //
-            //  PERFORM ANALYSI ON PRICE_RANGE SEGMENT ARRAYS TO DETERMINE THE 
+            //  PERFORM ANALYSIS ON PRICE_RANGE SEGMENT ARRAYS TO DETERMINE THE 
             //  OPTIMAL RESTAURANT RECOMMENDATION BY SEGMENT=4, SEGMENT =1, and SEGMENT OR(2,3)
 
             // need for loop to append each from the SEGMENT ARRAYS
 
-            // rando_resto1 = $("<div class='rando_resto'>");
-
-            // img1 = obj_city1[i].image;
-
-            // name1 = obj_city1[i].name;
-
-            // pImg = $("<img>").attr({
-            //          "src": img1,
-            //          "data-value": restoURL
-            //          });
-
-            // rando_resto1.append(pImg)
-
-            // pName = $("<p>").text(name1);
-            // rando_resto1.append(pName);
-
-            // $("#reco-restos").prepend(rando_resto1);
+            // MOVE THE <DIV> APPEND/PREPEBD PROCESS ^^^ DOWN HERE FOR BOTH CITY1 AND CITY2
+            //
+            //
+            //
+            //
 
         });
 
