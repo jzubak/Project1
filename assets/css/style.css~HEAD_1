@@ -1,0 +1,105 @@
+
+
+/* Resets */
+html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  
+  body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+  }
+
+/* HTML elements */
+button{
+    border: none;
+}
+input {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 250px;;
+    margin: 0;
+    padding: 15px;
+}
+img {
+    width: 100%;
+}
+
+/* Component Class Elements */
+.headerbox{
+    background-color: rgba(41, 100, 76, 0.658)
+}
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+  }
+
+#brand-logo {
+    padding: 50px 30px;
+}
+
+/* Fonts Classes */
+.brand-title {
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    line-height: 65px;
+    font-weight: 700;
+}
+.text {
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+#startWeather, #endWeather {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+}
+.degrees {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+#startLocationResult, #endLocationResult {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+#weatherImg {
+    margin-bottom: 15px;
+}
+.card {
+    margin: 0 auto; 
+    float: none; 
+    margin-bottom: 10px; 
+}
+/* Design Elements */
+
+.button {
+    width: 250px;
+    background: #00ba9b;
+    padding: 15px;
+    color: #ffffff;
+    text-align: center;
+}
+.button:hover {
+    background: #006e5b !important;
+}
+

@@ -43,6 +43,28 @@ button{
     max-width: 250px;
     max-height: 50px;
 }
+#searchResults {
+    display: none;
+}
+/* Fonts Classes */
+.brand-title {
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    line-height: 65px;
+    font-weight: 700;
+}
+.text {
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+#startWeather, #endWeather {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+}
+.degrees {
+    text-align: center;
 
 .startlocation{
     font-size: 20px;
