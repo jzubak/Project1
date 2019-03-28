@@ -70,14 +70,13 @@ img {
 }
 .degrees {
     text-align: center;
-
+}
 .startlocation{
     font-size: 20px;
     font-weight: 500;
     }
 .endlocation{
     font-size: 20px;
-
 }
 #searchResults {
     display: none;
