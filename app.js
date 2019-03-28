@@ -1,8 +1,19 @@
-<<<<<<< HEAD
-// (1) get start and end city strings 
+//declare variables
+var city = "philadelphia";
+var country = "us";
+var APIKey = "";
+var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ", " + country + "Burundi&units=imperial&appid=" + APIKey;
+var sumTemp = 0;
+var sumClouds = 0;
+var sumRain = 0;
+var aveTemp;
+var aveClouds;
+var aveRain;
 
-var city1name = "Sydney"
-var city2name = "Philadelphia"
+// var city1name = "Sydney"
+// var city2name = "Philadelphia"
+var city1name;
+var city2name;
 var city1_id;
 var city2_id;
 
@@ -86,26 +97,16 @@ var segIndexVotes = 0;
 var segIndexPrice = 0;
 var segIndexRating = 0;
 
-// function isCountryID(element) {
-//     for (var i=0;i<objCountryCuisines.length;i++){
-//         if (element !== objCountryCuisines[i].countryID) {
-//         }else{
-//             // return objCountryCuisines[i];
-//             return i;
-//         }   
-//   }
-// }
 
 $(document).ready(function () {
     
-    // $("#submit-btn").on("click", (event) => {
-    // event.preventDefault();
+    $("#submit-btn").on("click", (event) => {
+    event.preventDefault();
 
-    // city1Name = $("#startLocation").val();
+    city1name = $("#startLocation").val();
+    console.log("the city1name is: " + city1name);  
 
     var queryURL ="https://developers.zomato.com/api/v2.1/cities?q=" + city1name + "&count=1";
-    
-    //console.log(queryURL);
     
     $.ajax({
         url: queryURL,
@@ -116,23 +117,11 @@ $(document).ready(function () {
         console.log(city1response);     
         
         city1_id= city1response.location_suggestions[0].id;
-        //console.log("the start city is: " + city1_id);
 
         city1country_id = city1response.location_suggestions[0].country_id;
         console.log("the start city COUNTRY ID is: " + city1country_id);
         city1country_name = city1response.location_suggestions[0].country_name;
         console.log("the start city COUNTRY NAME is: " + city1country_name);
-
-        // -->DUMMY-ED UP DATA TO TEST THE BALANCE OF THE CUISINE ID LOOKUP OPS<--
-        //
-        // should return the 5th position in the index per the countryID (1) fron the city AJAX call
-        // and the subsequent build of a string of integers = cuisine_id(s) per the objCountryCuisines
-
-        //India
-        //city1countryIDpos = 5;
-
-        // Australia
-        // city1countryIDpos=0;
         
         console.log("The numner of cuisines for " + city1country_name + " is " + objCountryCuisines[city1country_id].cuisines.length);
 
@@ -143,27 +132,11 @@ $(document).ready(function () {
 
         console.log("the city1CuisineID is: " + city1cuisineID);
 
-        // based on country from Zomato qryStartCity and qryEndCity selections, grab country, and apply
-        // cuisine_ID
-
-        // (3) city_id(s) and cuinsine_id(s) are passed into Zomato API via AJAX GET for results on the search response
-
-        // STATIC CUISINE DATA IDs
-        // Chinese
-        // var qryCuisine = 25;
-        // Bar Food
-        //var cuisine_id = 227;
-        // Fusion
-        // var cuisine_id =274;
-
         // STATIC RESPONSE COUNT AMOUNTS
         // var count_id=20;
         var count_id=3;
     
-        // var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + cuisine_id + "&entity_type=city&count=" + count_id; 
         var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + city1cuisineID + "&entity_type=city&count=" + count_id; 
-    
-        //console.log(queryURL);
     
         $.ajax({
             url: queryURL,
@@ -243,7 +216,8 @@ $(document).ready(function () {
             pName = $("<p>").text(name1);
             rando_resto1.append(pName);
 
-            $("#reco-restos").prepend(rando_resto1);
+            // $("#reco-restos").prepend(rando_resto1);
+            $("#startCards").prepend(rando_resto1);
             
             };
 
@@ -327,13 +301,8 @@ $(document).ready(function () {
         });
 
     });
-        
-        
-});
-=======
-<<<<<<< Updated upstream
->>>>>>> master
-  // Initialize Firebase
+    
+    // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
     authDomain: "project1-2f7ae.firebaseapp.com",
@@ -344,17 +313,6 @@ $(document).ready(function () {
   };
   firebase.initializeApp(config);
 
-//declare variables
-var city = "philadelphia";
-var country = "us";
-var APIKey = "";
-var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + ", " + country + "Burundi&units=imperial&appid=" + APIKey;
-var sumTemp = 0;
-var sumClouds = 0;
-var sumRain = 0;
-var aveTemp;
-var aveClouds;
-var aveRain;
 function resetVars() {
     sumTemp = 0;
     sumClouds = 0;
@@ -485,5 +443,8 @@ $.ajax({
     });
 
 });
-=======
->>>>>>> Stashed changes
+        
+});
+
+};
+
