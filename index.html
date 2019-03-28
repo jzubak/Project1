@@ -12,44 +12,50 @@
       <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
       <!--
       <script src="assets/js/app.js"></script>
-      <script src="assets/js/index.js"></script> -->
-      <script src="assets/js/anime.js"></script>
+
+      <script src="assets/js/index.js"></script>
+      <style>
+      </style>
+
    </head>
    <body>
       <!-- Nav -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Three Course Travel</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Previous</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Contact Us</a>
-                </li>
-              </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form>
-            </div>
-          </nav>
-      
+
+         <a class="navbar-brand" href="#">Three Course Travel</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+               <li class="nav-item active">
+                  <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" href="history.html">History</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link disabled" href="contact.html">Contact Us</a>
+               </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+               <input class="form-control mr-sm-2" type="search" placeholder="Search">
+               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+         </div>
+      </nav>
+      <!-- SVG 
+         <svg viewBox="0 0 1366 768">
+               <polygon class="polymorph" points="1366,768 0,768 0,0 683,0 1366,0 	"/>
+            </svg>-->
+
       <div class="container-fluid">
          <!-- Brand Hero -->
          <div class="container">
             <div class="row">
                <div class="col-12" id="brand-logo">
-                     <h1 class="brand-title text-center">Three Course Travel</h1>
+                  <h1 class="brand-title text-center">Three Course Travel</h1>
                </div>
-               
             </div>
          </div>
          <!-- Search Bar -->
@@ -72,7 +78,6 @@
             </div>
          </div>
          <!-- Loading -->
-        
          <!-- Results -->
          <div class="container" id="searchResults">
             <div class="row justify-content-center">
@@ -86,84 +91,56 @@
                         Weather
                      </div>
                      <div class="degrees">
-                           81&#176;
-                        </div>
-                        <div id="weatherImg">
-                            <img src="assets/images/Sunny.png" style="max-width: 150px;">
-                           </div>
+                        81&#176;
+                     </div>
+                     <div id="weatherImg">
+                        <img src="assets/images/Sunny.png" style="max-width: 150px;">
+                     </div>
                   </div>
                   <div id="startCards">
-                        <div class="card" style="width: 18rem;">
-                              <img class="card-img-top" src="http://lorempixel.com/400/300/nature" alt="Card image cap">
-                              <div class="card-body">
-                                <h5 class="card-title"><span id="restName">Restaurant Title</span></h5>
-                                <p class="card-text"><span id="estDescription">Description</span></p>
-                              </div>
-                              <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Price Range: <span id="priceRange">$-$$$$</span></li>
-                                <li class="list-group-item">Cuisine</li>
-                                <li class="list-group-item">Other info B</li>
-                              </ul>
-                              <div class="card-body">
-                                <a href="#" class="card-link">Website</a>
-                                <a href="#" class="card-link">Maps</a>
-                                <a href="#" class="card-link">Book</a>
-                              </div>
-                            </div>
-                            <div class="card" style="width: 18rem;">
-                                 <img class="card-img-top" src="http://lorempixel.com/400/250/nature" alt="Card image cap">
-                                 <div class="card-body">
-                                       <h5 class="card-title"><span id="restName">Restaurant Title</span></h5>
-                                       <p class="card-text"><span id="estDescription">Description</span></p>
-                                     </div>
-                                     <ul class="list-group list-group-flush">
-                                       <li class="list-group-item">Price Range: <span id="priceRange">$-$$$$</span></li>
-                                       <li class="list-group-item">Cuisine</li>
-                                       <li class="list-group-item">Other info B</li>
-                                     </ul>
-                                     <div class="card-body">
-                                          <a href="#" class="card-link">Website</a>
-                                          <a href="#" class="card-link">Maps</a>
-                                          <a href="#" class="card-link">Book</a>
-                                 </div>
-                               </div>
-                               <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" src="http://lorempixel.com/400/200/nature" alt="Card image cap">
-                                    <div class="card-body">
-                                          <h5 class="card-title"><span id="restName">Restaurant Title</span></h5>
-                                          <p class="card-text"><span id="estDescription">Description</span></p>
-                                        </div>
-                                        <ul class="list-group list-group-flush">
-                                          <li class="list-group-item">Price Range: <span id="priceRange">$-$$$$</span></li>
-                                          <li class="list-group-item">Cuisine</li>
-                                          <li class="list-group-item">Other info B</li>
-                                        </ul>
-                                        <div class="card-body">
-                                             <a href="#" class="card-link">Website</a>
-                                             <a href="#" class="card-link">Maps</a>
-                                             <a href="#" class="card-link">Book</a>
-                                    </div>
-                                  </div>
+                     <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="http://lorempixel.com/400/300/abstract" alt="Card image cap">
+                        <div class="card-body">
+                           <h5 class="card-title">Restaurant</h5>
+                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                           <a href="#" class="btn btn-primary">Website</a>
+                        </div>
+                     </div>
+                     <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="http://lorempixel.com/400/300/abstract" alt="Card image cap">
+                        <div class="card-body">
+                           <h5 class="card-title">Restaurant</h5>
+                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                           <a href="#" class="btn btn-primary">Website</a>
+                        </div>
+                     </div>
+                     <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="http://lorempixel.com/400/300/abstract" alt="Card image cap">
+                        <div class="card-body">
+                           <h5 class="card-title">Restaurant</h5>
+                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                           <a href="#" class="btn btn-primary">Website</a>
+                        </div>
+                     </div>
                   </div>
                </div>
-         
                <!-- End Location Column -->
                <div class="col col-sm-6" id="endCol">
                   <div id="endLocationResult">
                      End Location
                   </div>
                   <div id="endWeather">
-                        <div>
-                           Weather
-                        </div>
-                        <div class="degrees">
-                              81&#176;
-                           </div>
-                           <div id="weatherImg">
-                               <img src="assets/images/Partly Cloudy.png" style="max-width: 150px;">
-                              </div>
+                     <div>
+                        Weather
                      </div>
-                  <div id="startCards">
+                     <div class="degrees">
+                        81&#176;
+                     </div>
+                     <div id="weatherImg">
+                        <img src="assets/images/Partly Cloudy.png" style="max-width: 150px;">
+                     </div>
+                  </div>
+                  <div id="endCards">
                      <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="http://lorempixel.com/400/300/abstract" alt="Card image cap">
                         <div class="card-body">
@@ -194,8 +171,25 @@
          </div>
          <!-- Footer -->
       </div>
-      <div class="footer text-center py-3">© 2019 Copyright:
-         <a href="https://mdbootstrap.com/education/bootstrap/"> github.com</a>
-      </div>
+
+      <footer>
+         <div class="footer text-center">© 2019 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/"> github.com</a>
+         </div>
+      </footer>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>
+      <script>
+         $(document).ready(function(){
+            $("#submit-btn").click(function(){
+               $("#searching").hide();
+               $("#searchResults").show();
+               return false;
+            });
+         });
+         
+         
+         
+         
+      </script>
    </body>
 </html>
