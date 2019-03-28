@@ -1,6 +1,4 @@
 
-
-/* Resets */
 html {
     height: 100%;
     box-sizing: border-box;
@@ -17,41 +15,33 @@ html {
     margin: 0;
     padding-bottom: 6rem;
     min-height: 100%;
-    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+    font-family: 'Raleway', sans-serif;
   }
 
-/* HTML elements */
-button{
-    border: none;
-}
-input {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 250px;;
-    margin: 0;
-    padding: 15px;
-}
-img {
-    width: 100%;
-}
-
-/* Component Class Elements */
 .headerbox{
     background-color: rgba(41, 100, 76, 0.658)
 }
-.footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    background-color: #efefef;
-    text-align: center;
-  }
 
-#brand-logo {
-    padding: 50px 30px;
+body {
+    background-image: url("https://i.pinimg.com/originals/58/7e/f0/587ef0e76197c192cbabb5efda0c92d6.jpg");
+}
+.text{
+    font-family: 'Raleway', sans-serif;
+}
+.logo{
+    font-size: 25px;
+    font-weight: 250;
+    width: 100%;
+    /* line-height:  */
+}
+
+button{
+    border: none;
+}
+
+.searched{
+    max-width: 250px;
+    max-height: 50px;
 }
 #searchResults {
     display: none;
@@ -75,25 +65,63 @@ img {
 }
 .degrees {
     text-align: center;
+
+.startlocation{
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 500;
+    }
+.endlocation{
+    font-size: 20px
 }
-#startLocationResult, #endLocationResult {
+.startcard{
+    font-size: 16px
+    font-weight: 250;
+}
+.endcard{
+    font-size: 16px
+}
+.weathercard{
+    font-size: 16px
+}
+nav {
+    position: fixed;
+    height: 75px;
+    top: 0;
+    width: 100%;
+}
+input {
+}
+.navkeys{
+    float: right;
+    color: rgb(207, 203, 203);
     text-align: center;
-    font-size: 22px;
-    font-weight: 700;
+    /* padding-right: 15px; */
+    margin-right: 15px;
+    margin-left: 20px;
+    line-height: 18px;
+    padding-top: 3%;
+    }
+
+ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-#weatherImg {
-    margin-bottom: 15px;
+.input {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 250px;;
+    margin: 0;
+    padding: 15px;
 }
-.card {
-    margin: 0 auto; 
-    float: none; 
-    margin-bottom: 10px; 
-}
-/* Design Elements */
 
+.buttonsearch {
+    border: none;
+}
 .button {
     width: 250px;
     background: #00ba9b;
@@ -101,7 +129,27 @@ img {
     color: #ffffff;
     text-align: center;
 }
-.button:hover {
-    background: #006e5b !important;
+
+.buttonhead{
+    border: none;
+    max-width: 250px;
+    background: #00ba9b;
+    color: #ffffff;
 }
 
+button:hover {
+    background: #006e5b !important;
+}
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+  }
+img {
+    width: 100%;
+    max-width: 100px;
+}
