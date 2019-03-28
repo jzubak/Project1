@@ -43,11 +43,7 @@ img {
   }
 #brand-logo {
     padding: 50px 30px;
-
-button{
-    border: none;
 }
-
 .searched{
     max-width: 250px;
     max-height: 50px;
@@ -80,7 +76,7 @@ button{
     font-weight: 500;
     }
 .endlocation{
-    font-size: 20px
+    font-size: 20px;
 
 }
 #searchResults {
@@ -120,6 +116,9 @@ button{
     margin: 0 auto; 
     float: none; 
     margin-bottom: 10px; 
+}
+.card-img-top {
+    max-width: 300px;
 }
 /* Design Elements */
 .button {
