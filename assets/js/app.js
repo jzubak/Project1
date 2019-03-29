@@ -73,7 +73,21 @@ var votes;
 var pairedValKey;
 var obj_city1 = [];
 var obj_city2 = [];
+var obj_city1_price_range1 = [];
+var obj_city1_price_range2= [];
+var obj_city1_price_range3= [];
+var obj_city1_price_range4= [];
+var obj_city2_price_range1= [];
+var obj_city2_price_range2= [];
+var obj_city2_price_range3= [];
+var obj_city2_price_range4= [];
 var rando_resto1;
+var img1;
+var name1;
+var cuisine1;
+var currency1;
+var price1;
+var rating1;
 var pName;
 var pImg;
 var pCuisine;
@@ -140,8 +154,8 @@ $(document).ready(function () {
         console.log("the city1CuisineID is: " + city1cuisineID);
 
         // STATIC RESPONSE COUNT AMOUNTS
-        // var count_id=20;
-        var count_id=3;
+        var count_id=20;
+        // var count_id=3;
     
         var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + city1cuisineID + "&entity_type=city&count=" + count_id; 
     
@@ -196,57 +210,84 @@ $(document).ready(function () {
                 avg_cost_two: avg_cost_two,
                 agg_rating : agg_rating,
                 rating_text: rating_text,
-                votes: votes}
-                
+                votes: votes
+                }
+            
+            console.log(price_range);
+            
+            if (price_range===1){
+
+                obj_city1_price_range1.push(pairedValKey);
+
+            } if(pairedValKey.price_range===2){
+                console.log("hello");
+                obj_city1_price_range2.push(pairedValKey);
+
+            };
+
             obj_city1.push(pairedValKey);
 
+            console.log(obj_city1_price_range1);
+            console.log(obj_city1_price_range2);
             console.log(obj_city1);
 
             // POPULATE THE DIV
             city1resto = $("<div class='city1resto'>");
             
             // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
+
+            img1 = obj_city1[i].restoImg;
+            name1 = obj_city1[i].name;
+            cuisine1= obj_city1[i].cuisine;
+            currency1 = obj_city1[i].currency;
+            price1 = obj_city1[i].average_cost_for_two;
+            rating1=obj_city1[i].rating_text;
+
+            pImg = $("<img>").attr({
+                    "class": "city1restoIMG",
+                    "src": img1,
+                    "data-value": restoURL
+                    });
             
-            pName = $("<p>").attr({
-                "class": "city1restoName",
-                "text": name
-                });
-            // pName = $("<p>").text(name1);
+            console.log(pImg);
+            city1resto.append(pImg)
+
+            pName = $("<p>").text(name1);
+
+            // pName = $("<p>").attr({
+            //     "class": "city1restoName",
+            //     "text": name1
+            //     });
             city1resto.append(pName);
 
-            // ADD RATING, CUISINES --> NEED CLASS 
+            console.log(city1resto);
 
-            pPrice = $("<p>").attr({
-                "class": "city1restoPrice",
-                "text": currency + avg_cost_two
-                });
-            city1resto.append(pPrice);
+            // pPrice = $("<p>").attr({
+            //     "class": "city1restoPrice",
+            //     "text": currency + price1
+            //     });
+            // city1resto.append(pPrice);
 
             // console.log(pPrice);
 
-            pCuisine = $("<p>").attr({
-                "class": "city1restoCuisine",
-                "text": cuisine
-                });
-            city1resto.append(pCuisine);
-
-            pRating = $("<p>").attr({
-                "class": "city1restoRating",
-                "text": agg_rating
-                });
-            city1resto.append(pRating);
-
-            // pImg = $("<img>").attr({
-            //     "class": "city1restoIMG",
-            //     "src": restoImg,
-            //     "data-value": restoURL
+            // pCuisine = $("<p>").attr({
+            //     "class": "city1restoCuisine",
+            //     "text": cuisine1
             //     });
+            // city1resto.append(pCuisine);
+            
+            // console.log(pCuisine);
 
-            // city1resto.append(pImg)
+            // pRating = $("<p>").attr({
+            //     "class": "city1restoRating",
+            //     "text": rating1
+            //     });
+            // city1resto.append(pRating);
+
+            // console.log(pRating);
 
             // PREPEND TO startCards DIV
-            // $("#startCards").prepend(city1resto);
-            $("#startCards").append(city1resto);    
+            $("#startCards").prepend(city1resto);    
 
             // BEGIN END CITY AKA CITY2
             //
@@ -273,17 +314,23 @@ $(document).ready(function () {
             avgRating = parseFloat(totalRating/count_id).toFixed(1);
             console.log("The average RATING is: " + avgRating);
 
-            // index on each restaurant from the object
-            // need a for loop for the object
-            // push index to each key pair-value for
-            //  --> Votes
-            //  --> Price
-            //  --> Rating
+            //  (1) PUSH THESE FIELDS TO the obj_city1
+            //  loop to each restaurant from the object
 
-            //  (2) 
+            for (var i=0; i<obj_city1.length; i++){
+            
+            //  --> Votes
+                // share of Total Votes (column G from Excel)
+                // total index on Votes (column R from Excel)
+            //  --> Price
+                // total index on Price (column O from Excel)
+            //  --> Rating
+                // total index on Rating (column L from Excel)
+            };
+
+            //  (2) PUSH THESE FIELDS TO THE OBJECT--THE SEGMENT PARTS BY PRICE RANGE
             //  SUB-SEGMENT BY PRICE_RANGE OBJECT METRICS
             //
-            // separate EACH CITY object into 4 NEW ARRAYS BY price_range (1, 2, 3, 4) segment 
             //
             // segCount =
             // segTotalVote =
@@ -322,7 +369,7 @@ $(document).ready(function () {
             //
             //
             //
-
+            
         });
 
     });
