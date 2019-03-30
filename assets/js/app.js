@@ -121,6 +121,9 @@ var indexPrice = 0;
 var indexRating = 0;
 
 var segCount = 0;
+var segTotalVotes=0;
+var segTotalPrice=0;
+var segTotalRatings=0;
 var segVotes = 0;
 var segPrice = 0;
 var segRating = 0;
@@ -230,17 +233,17 @@ $(document).ready(function () {
                 
                     console.log(price_range);
             
-                    if (price_range===1){
+                    if (pairedValKey.resto_id.price_range===1){
 
                         obj_city1_price_range1.push(pairedValKey);
 
-                    } if(pairedValKey.price_range===2){
+                    } if(pairedValKey.resto_id.price_range===2){
                         obj_city1_price_range2.push(pairedValKey);
 
-                    } if(pairedValKey.price_range===3){
+                    } if(pairedValKey.resto_id.price_range===3){
                         obj_city1_price_range3.push(pairedValKey);
                 
-                    } if(pairedValKey.price_range===4){
+                    } if(pairedValKey.resto_id.price_range===4){
                         obj_city1_price_range4.push(pairedValKey);
                 
                     };
@@ -288,6 +291,7 @@ $(document).ready(function () {
 
                 arr_city1_price_range.push(obj_city1_price_range1, obj_city1_price_range2, obj_city1_price_range3,obj_city1_price_range4);
                 
+                // // (1) LOOP THROUGH THE subObjectsByPrice_Range_Segment
 
                 for (var i=0; i< arr_city1_price_range.length; i++){
 
@@ -296,31 +300,46 @@ $(document).ready(function () {
                     console.log (arr_city1_price_range);
 
                     segCount = arr_city1_price_range[i].length;
-                    segAvgVotes = arr_city1_price_range[i].Sum(votes)/segCount;
-                    segAvgPrice = arr_city1_price_range[i].Sum(avg_cost_two)/segCount;
-                    segAvgRating = arr_city1_price_range[i].Sum(agg_rating)/segCount;
+
+                    segTotalVotes=arr_city1_price_range[i].reduce(function(totalVotes,currVal){
+                        return totalVotes+currVal.resto_id.votes
+                    },0)
+
+                    segAvgVotes = segTotalVotes/segCount;
+
+                    segTotalPrice =arr_city1_price_range[i].reduce(function(totalPrice,currVal){
+                        return totalPrice+currVal.resto_id.avg_cost_two
+                    },0)
+
+                    segAvgPrice = segTotalPrice/segCount;
+
+                    segTotalRating =arr_city1_price_range[i].reduce(function(totalRating,currVal){
+                        return totalRating+currVal.resto_id.agg_rating
+                    },0)
+
+                    segAvgRating = segTotalRating/segCount;
                     
-                    arr_city1_price_range[i].array.forEach(element => {
-                        obj_city1_segRestoID = arr_city1_price_range[i].resto_id;
+                    arr_city1_price_range[i].forEach(element => {
+                        // obj_city1_segRestoID = element.resto_id;
                         // ADD share of segment votes
-                        arr_city1_price_range[i].array.segIndexVotes = ((arr_city1_price_range[i].votes-segAvgVotes)/arr_city1_price_range[i].votes)*100
-                        arr_city1_price_range[i].array.segIndexPrice = ((arr_city1_price_range[i].avg_cost_two-segAvgPrice)/arr_city1_price_range[i].avg_cost_two)*100
-                        arr_city1_price_range[i].array.segIndexRating =((arr_city1_price_range[i].agg_rating-segAvgRating)/arr_city1_price_range[i].agg_rating)*100
+                        element.resto_id.segIndexVotes = ((element.resto_id.votes-segAvgVotes)/element.resto_id.votes)*100
+                        element.resto_id.segIndexPrice = ((element.resto_id.avg_cost_two-segAvgPrice)/element.resto_id.avg_cost_two)*100
+                        element.resto_id.segIndexRating =((element.resto_id.agg_rating-segAvgRating)/element.resto_id.agg_rating)*100
                         });
                     
-                    //  PERFORM ANALYSIS ON INICES TO DETERMINE THE RECOMMENDED RESTIO 
-                    //  IF THERE'S A "TIE" BETWEEN 2 OR MORE RESTOS WITHIN A SEGMENT, 
+                    // (2) PERFORM ANALYSIS ON INDICES TO DETERMINE THE RECOMMENDED RESTIO 
+                    // (3) IF THERE'S A "TIE" BETWEEN 2 OR MORE RESTOS WITHIN A SEGMENT, 
                     //  TIE-BREAKERS ARE DETERMINED BY INDICES AT TOTAL LEVEL, i.e., wrt entire obj_city1 
                     //
-                    //  PUSH indices to EACH RESTAURANT IN obj_city1 per the equivalent resto_id IN obj_city1 
+                    //  (4) PUSH indices to EACH RESTAURANT IN obj_city1 per the equivalent resto_id IN obj_city1 
                     //
-                    //  --> BASED ON THE RESULTS OF THE ANALYSIS, PUSH A NEW PROPERTY TO THE obj_city1 = TRUE ON 
+                    //  (5) BASED ON THE RESULTS OF THE ANALYSIS, PUSH A NEW PROPERTY TO THE obj_city1 = TRUE ON 
                     //  THE RESTOS THAT WILL BE DRAWN TO THE PAGE <DIV> PREPEND & APPEND AND USE THIS ^^PROPERTY 
                     //  TO DETERMINE AND PERFORM THE POPULATING OF THE PAGE
                 
                 };
 
-                //  POPULATE THE DIV
+                //  (6) POPULATE THE DIV FOR CITY1
                     // city1resto = $("<div class='city1resto'>");
                     
                     // // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
@@ -378,12 +397,17 @@ $(document).ready(function () {
                     // // PREPEND TO startCards DIV
                     // $("#startCards").prepend(city1resto);    
 
-                    // // BEGIN END CITY AKA CITY2
+                    // // (7) BEGIN END CITY AKA CITY2
                     // //
                     // //
-                    // // REPEAT ENTIRETY OF LINES 141:374 FOR CITY2
+                    // // (8) REPEAT ENTIRETY OF LINES 141:322 FOR CITY2
                     // //
-                    // // END OF ZOMATO JAVASCRIPT
+                    // // (9) THE DIV FOR CITY2
+                    // // 
+                    // // (10) CREATE FUNCTIONALITY TO BE ABLE TO CROSS-X-PRODUCT CUISINES + WEATHJER ACROSS CITIES
+                    // //
+                    // //
+
 
 // // END OF ZOMATO JAVASCRIPT
 
