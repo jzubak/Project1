@@ -1,9 +1,5 @@
 # Project1
 
-Group Project 1
 
-Test test test
+https://jzubak.github.io/Three-Course-Travel/index.html
 
-hello!
-
-Seans comment
