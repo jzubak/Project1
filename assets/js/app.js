@@ -71,9 +71,39 @@ var cuisines;
 var votes;
 
 var pairedValKey;
+
 var obj_city1 = [];
+var arr_city1_price_range = [];
+var obj_city1_price_range1 = [];
+var obj_city1_price_range2= [];
+var obj_city1_price_range3= [];
+var obj_city1_price_range4= [];
+var obj_city1_segRestoID;
+
 var obj_city2 = [];
-var rando_resto1;
+var arr_city2_price_range=[];
+var obj_city2_price_range1= [];
+var obj_city2_price_range2= [];
+var obj_city2_price_range3= [];
+var obj_city2_price_range4= [];
+var obj_city2_segRestoID;
+
+var city1resto;
+var img1;
+var name1;
+var cuisine1;
+var currency1;
+var price1;
+var rating1;
+
+var city2resto;
+var img2;
+var name2;
+var cuisine2;
+var currency2;
+var price2;
+var rating2;
+
 var pName;
 var pImg;
 var pCuisine;
@@ -94,382 +124,411 @@ var segCount = 0;
 var segVotes = 0;
 var segPrice = 0;
 var segRating = 0;
-var segTotalVotes = 0;
+var segAvgVotes = 0;
 var segAvgPrice = 0;
 var segAvgRating = 0;
 var segIndexVotes = 0;
 var segIndexPrice = 0;
 var segIndexRating = 0;
 
-
 $(document).ready(function () {
     
     $("#submit-btn").on("click", (event) => {
     event.preventDefault();
     
-    // BEGIN STARTCITY AKA CITY1
+        // BEGIN STARTCITY AKA CITY1
 
-    city1name = $("#startLocation").val();
-    console.log("the city1name is: " + city1name);  
+        city1name = $("#startLocation").val();
+        console.log("the city1name is: " + city1name);  
 
-    var queryURL ="https://developers.zomato.com/api/v2.1/cities?q=" + city1name + "&count=1";
-    
-    $.ajax({
-        url: queryURL,
-        method: "GET",
-        headers: {"X-Zomato-API-KEY":"fb4f91615b9755f2f7a9d0b29a4b8483"}
-    }).then(function(city1response) {
-    
-        console.log(city1response);     
-        
-        city1_id= city1response.location_suggestions[0].id;
-
-        city1country_id = city1response.location_suggestions[0].country_id;
-        console.log("the start city COUNTRY ID is: " + city1country_id);
-        city1country_name = city1response.location_suggestions[0].country_name;
-        console.log("the start city COUNTRY NAME is: " + city1country_name);
-        
-        console.log("The number of cuisines for " + city1name + ", " + city1country_name + " is : " + objCountryCuisines[city1country_id].cuisines.length);
-
-        // loop to collect cusisine_id(s) from objCountryCuisines for the [city1name and city1country_id]
-        for (var i=0;i<objCountryCuisines[city1country_id].cuisines.length;i++){
-
-            city1cuisineID = objCountryCuisines[city1country_id].cuisines[i].cuisine_id + ", " + city1cuisineID;
-        };
-
-        console.log("the city1CuisineID is: " + city1cuisineID);
-
-        // STATIC RESPONSE COUNT AMOUNTS
-        // var count_id=20;
-        var count_id=3;
-    
-        var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + city1cuisineID + "&entity_type=city&count=" + count_id; 
+        var queryURL ="https://developers.zomato.com/api/v2.1/cities?q=" + city1name + "&count=1";
     
         $.ajax({
             url: queryURL,
             method: "GET",
             headers: {"X-Zomato-API-KEY":"fb4f91615b9755f2f7a9d0b29a4b8483"}
-        }).then(function(city1search) {
+        }).then(function(city1response) {
     
-            console.log(city1search); 
+            console.log(city1response);     
+        
+            city1_id= city1response.location_suggestions[0].id;
 
-            for(i=0;i<city1search.restaurants.length;i++){
-            //  price_range SEGMENTATION
-            price_range= city1search.restaurants[i].restaurant.price_range;
-            // id
-            resto_id = city1search.restaurants[i].restaurant.id;
-            //  name
-            restoName = city1search.restaurants[i].restaurant.name;
-            //  cuisine
-            cuisine = city1search.restaurants[i].restaurant.cuisines;
-            console.log("the cuisines are: " + cuisine);
-            //  image
-            restoImg = city1search.restaurants[i].restaurant.featured_image;
-            //  url
-            restoURL = city1search.restaurants[i].restaurant.url;
-            //  currency
-            currency = city1search.restaurants[i].restaurant.currency;
-            //  avg_cost_two
-            avg_cost_two = city1search.restaurants[i].restaurant.average_cost_for_two;
-            //  aggregate_rating
-            agg_rating = parseFloat(city1search.restaurants[i].restaurant.user_rating.aggregate_rating);
-            //  rating_text
-            rating_text = city1search.restaurants[i].restaurant.user_rating.rating_text;
-            //  votes
-            votes = parseFloat(city1search.restaurants[i].restaurant.user_rating.votes);
-            
-            // TOTALS
-            totalVotes = votes + totalVotes;
-            totalPrice = avg_cost_two + totalPrice;
-            totalRating = agg_rating  + totalRating;
+            city1country_id = city1response.location_suggestions[0].country_id;
+            console.log("the start city COUNTRY ID is: " + city1country_id);
+            city1country_name = city1response.location_suggestions[0].country_name;
+            console.log("the start city COUNTRY NAME is: " + city1country_name);
+        
+            console.log("The number of cuisines for " + city1name + ", " + city1country_name + " is : " + objCountryCuisines[city1country_id].cuisines.length);
 
-            // CREATE ARRAY OF API DATA
-            pairedValKey={
-                price_range: price_range,
-                resto_id: resto_id,
-                name : restoName,
-                cuisine_id: city1cuisineID,
-                cuisine: cuisine,
-                restoImg: restoImg,    
-                url: restoURL,
-                currency: currency,
-                avg_cost_two: avg_cost_two,
-                agg_rating : agg_rating,
-                rating_text: rating_text,
-                votes: votes}
-                
-            obj_city1.push(pairedValKey);
+            // loop to collect cusisine_id(s) from objCountryCuisines for the [city1name and city1country_id]
+            for (var i=0;i<objCountryCuisines[city1country_id].cuisines.length;i++){
 
-            console.log(obj_city1);
-
-            // POPULATE THE DIV
-            city1resto = $("<div class='city1resto'>");
-            
-            // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
-            
-            pName = $("<p>").attr({
-                "class": "city1restoName",
-                "text": name
-                });
-            // pName = $("<p>").text(name1);
-            city1resto.append(pName);
-
-            // ADD RATING, CUISINES --> NEED CLASS 
-
-            pPrice = $("<p>").attr({
-                "class": "city1restoPrice",
-                "text": currency + avg_cost_two
-                });
-            city1resto.append(pPrice);
-
-            // console.log(pPrice);
-
-            pCuisine = $("<p>").attr({
-                "class": "city1restoCuisine",
-                "text": cuisine
-                });
-            city1resto.append(pCuisine);
-
-            pRating = $("<p>").attr({
-                "class": "city1restoRating",
-                "text": agg_rating
-                });
-            city1resto.append(pRating);
-
-            // pImg = $("<img>").attr({
-            //     "class": "city1restoIMG",
-            //     "src": restoImg,
-            //     "data-value": restoURL
-            //     });
-
-            // city1resto.append(pImg)
-
-            // PREPEND TO startCards DIV
-            // $("#startCards").prepend(city1resto);
-            $("#startCards").append(city1resto);    
-
-            // BEGIN END CITY AKA CITY2
-            //
-            //
-
+                city1cuisineID = objCountryCuisines[city1country_id].cuisines[i].cuisine_id + ", " + city1cuisineID;
             };
 
+            console.log("the city1CuisineID is: " + city1cuisineID);
 
-
-
-
-            // (1) 
-            // FULL METRICS FOR BOTH CITY1 AND CITY2 OBJECTS
-
-            // get averages
-            console.log("The TOTAL VOTES IS: " + totalVotes);
-            console.log("The TOTAL PRICE IS: " + totalPrice);
-            console.log("The TOTAL RATING IS: " + totalRating);
-
-            avgVotes = parseFloat(totalVotes/count_id).toFixed(0);
-            console.log("The average VOTES is: " + avgVotes);
-            avgPrice = parseFloat(totalPrice/count_id).toFixed(0);
-            console.log("The average PRICE is: " + avgPrice);
-            avgRating = parseFloat(totalRating/count_id).toFixed(1);
-            console.log("The average RATING is: " + avgRating);
-
-            // index on each restaurant from the object
-            // need a for loop for the object
-            // push index to each key pair-value for
-            //  --> Votes
-            //  --> Price
-            //  --> Rating
-
-            //  (2) 
-            //  SUB-SEGMENT BY PRICE_RANGE OBJECT METRICS
-            //
-            // separate EACH CITY object into 4 NEW ARRAYS BY price_range (1, 2, 3, 4) segment 
-            //
-            // segCount =
-            // segTotalVote =
-            // segAvgPrice =
-            // segAvgRating =
-            // segVotes =
-            // segPrice =
-            // segRating =
-            // indexVotes =
-            // indexPrice =
-            // indexRating = 
-            //
-            // FOR EACH SUB-SEGMENT BY PRICE-RANGE
-            //  --> calculate totals for
-            //      --> Votes
-            //      --> Price
-            //      --> Rating
-            //  --> calculate averages for
-            //      --> Votes
-            //      --> Price
-            //      --> Rating
-            //  --> calculate indices for
-            //      --> Votes
-            //      --> Price
-            //      --> Rating
-            //
-            //  --> PUSH indices to EACH RESTAURANT IN SEGMENT ARRAY
-            //
-            //  PERFORM ANALYSIS ON PRICE_RANGE SEGMENT ARRAYS TO DETERMINE THE 
-            //  OPTIMAL RESTAURANT RECOMMENDATION BY SEGMENT=4, SEGMENT =1, and SEGMENT OR(2,3)
-
-            // need for loop to append each from the SEGMENT ARRAYS
-
-            // MOVE THE <DIV> APPEND/PREPEBD PROCESS ^^^ DOWN HERE FOR BOTH CITY1 AND CITY2
-            //
-            //
-            //
-            //
-
-        });
-
-    });
+            // STATIC RESPONSE COUNT AMOUNTS
+            var count_id=20;
+            // var count_id=3;
     
-    // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
-    authDomain: "project1-2f7ae.firebaseapp.com",
-    databaseURL: "https://project1-2f7ae.firebaseio.com",
-    projectId: "project1-2f7ae",
-    storageBucket: "project1-2f7ae.appspot.com",
-    messagingSenderId: "842716287063"
-  };
-  firebase.initializeApp(config);
+            var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + city1cuisineID + "&entity_type=city&count=" + count_id; 
+    
+            $.ajax({
+                url: queryURL,
+                method: "GET",
+                headers: {"X-Zomato-API-KEY":"fb4f91615b9755f2f7a9d0b29a4b8483"}
+            }).then(function(city1search) {
+    
+                console.log(city1search); 
 
-function resetVars() {
-    sumTemp = 0;
-    sumClouds = 0;
-    sumRain = 0;
-}
-function findAverages() {
-    aveTemp = sumTemp / 8;
-    aveClouds = sumClouds / 8;
-    aveRain = sumRain / 8;
-}
-function consoleLogs() {
-    console.log("Average temp: " + sumTemp / 8 + " degrees fahrenheit.");
-    console.log("Average clouds: " + sumClouds / 8);
-    console.log("Average rain: " + sumRain / 8);
-    console.log("------------------------------------------------");
-}
-$.ajax({
-    url: queryURL,
-    method: "GET"
-}).then(function (response) {
-    console.log(response);
-    console.log("City: " + response.city.name);
+                for(i=0;i<city1search.restaurants.length;i++){
+                    // id
+                    resto_id = city1search.restaurants[i].restaurant.id;
+                    //  price_range SEGMENTATION
+                    price_range= city1search.restaurants[i].restaurant.price_range;
+                    //  name
+                    restoName = city1search.restaurants[i].restaurant.name;
+                    //  cuisine
+                    cuisine = city1search.restaurants[i].restaurant.cuisines;
+                    console.log("the cuisines are: " + cuisine);
+                    //  image
+                    restoImg = city1search.restaurants[i].restaurant.featured_image;
+                    //  url
+                    restoURL = city1search.restaurants[i].restaurant.url;
+                    //  currency
+                    currency = city1search.restaurants[i].restaurant.currency;
+                    //  avg_cost_two
+                    avg_cost_two = city1search.restaurants[i].restaurant.average_cost_for_two;
+                    //  aggregate_rating
+                    agg_rating = parseFloat(city1search.restaurants[i].restaurant.user_rating.aggregate_rating);
+                    //  rating_text
+                    rating_text = city1search.restaurants[i].restaurant.user_rating.rating_text;
+                    //  votes
+                    votes = parseFloat(city1search.restaurants[i].restaurant.user_rating.votes);
+                    
+                    // TOTALS
+                    totalVotes = votes + totalVotes;
+                    totalPrice = avg_cost_two + totalPrice;
+                    totalRating = agg_rating  + totalRating;
 
-    //!!!TO DO!!!! slideshow, temp, rain, clouds
-    var tempDiv = $("<div>");
-    var cloudsDiv = $("<div>");
-    var rainDiv = $("<div>");
-    tempDiv.addClass("temp");
-    cloudsDiv.addClass("clouds");
-    rainDiv.addClass("rain");
-    $("#temp").append(tempDiv);
-    $("#clouds").append(cloudsDiv);
-    $("#rain").append(rainDiv);
+                    // CREATE OBJECT OF API DATA
+                    pairedValKey={
+                        resto_id: {
+                            name : restoName,
+                            price_range: price_range,
+                            cuisine_id: city1cuisineID,
+                            cuisine: cuisine,
+                            restoImg: restoImg,    
+                            url: restoURL,
+                            currency: currency,
+                            avg_cost_two: avg_cost_two,
+                            agg_rating : agg_rating,
+                            rating_text: rating_text,
+                            votes: votes}
+                        };
+                
+                    console.log(price_range);
+            
+                    if (price_range===1){
 
-    function updateWeather() {
-    $(tempDiv).text(aveTemp);
-    $(cloudsDiv).text(aveClouds);
-    $(rainDiv).text(aveRain);
-    }
+                        obj_city1_price_range1.push(pairedValKey);
 
-    $("#forecast").click(function() {
-        $("#forecast").css("display","none");
-        $("#weather").css("display","block");
-        console.log("DAY 1:");
-        $("#day").text("Today: ");
-        for (var i = 0; i < 8; i++) {
-            sumTemp = + response.list[i].main.temp;
-            sumSun = + response.list[i].clouds.all;
-            var typeOfRain = typeof response.list[i].rain["3h"];
-            if (typeOfRain === "number") {
-                sumRain = + response.list[i].rain["3h"];
-            }
-        }
-        $("#nextDay").attr("data-day","1");
-        findAverages();
-        updateWeather();
-        consoleLogs();
+                    } if(pairedValKey.price_range===2){
+                        obj_city1_price_range2.push(pairedValKey);
+
+                    } if(pairedValKey.price_range===3){
+                        obj_city1_price_range3.push(pairedValKey);
+                
+                    } if(pairedValKey.price_range===4){
+                        obj_city1_price_range4.push(pairedValKey);
+                
+                    };
+
+                    obj_city1.push(pairedValKey);
+
+                };
+
+                // (1) 
+                // FULL METRICS FOR BOTH CITY1 AND CITY2 OBJECTS
+
+                // get averages
+                console.log("The TOTAL VOTES IS: " + totalVotes);
+                console.log("The TOTAL PRICE IS: " + totalPrice);
+                console.log("The TOTAL RATING IS: " + totalRating);
+
+                avgVotes = parseFloat(totalVotes/count_id).toFixed(0);
+                console.log("The average VOTES is: " + avgVotes);
+                avgPrice = parseFloat(totalPrice/count_id).toFixed(0);
+                console.log("The average PRICE is: " + avgPrice);
+                avgRating = parseFloat(totalRating/count_id).toFixed(1);
+                console.log("The average RATING is: " + avgRating);
+
+                for(i=0; i<obj_city1.length; i++){
+                    console.log("the obj_city1.length is: " + obj_city1.length);
+
+                    //  --> Votes
+                        // share of Total Votes (column G from Excel)
+                        obj_city1[i].shareTotalVotes = obj_city1[i].votes/totalVotes;
+                        console.log("The total votes share is: " + obj_city1.shareTotalVotes)
+
+                        // total index on Votes (column R from Excel)
+                        obj_city1[i].indexTotalVotes = ((obj_city1[i].votes-avgVotes)/obj_city1[i].votes)*100;
+
+                    //  --> Price
+                        // total index on Price (column O from Excel)
+                        obj_city1[i].indexTotalPrice = ((obj_city1[i].avg_cost_two-avgPrice)/obj_city1[i].avg_cost_two)*100;
+
+                    //  --> Rating
+                        // total index on Rating (column L from Excel)
+                        obj_city1[i].indexTotalRating = ((obj_city1[i].agg_rating-avgRating)/obj_city1[i].agg_rating)*100;
+                };
+
+                //  loop to each restaurant from the object
+
+                arr_city1_price_range.push(obj_city1_price_range1, obj_city1_price_range2, obj_city1_price_range3,obj_city1_price_range4);
+                
+
+                for (var i=0; i< arr_city1_price_range.length; i++){
+
+                    console.log("hello");
+                    console.log ("the arr_city1_price_range length is: " + arr_city1_price_range[i].length);
+                    console.log (arr_city1_price_range);
+
+                    segCount = arr_city1_price_range[i].length;
+                    segAvgVotes = arr_city1_price_range[i].Sum(votes)/segCount;
+                    segAvgPrice = arr_city1_price_range[i].Sum(avg_cost_two)/segCount;
+                    segAvgRating = arr_city1_price_range[i].Sum(agg_rating)/segCount;
+                    
+                    arr_city1_price_range[i].array.forEach(element => {
+                        obj_city1_segRestoID = arr_city1_price_range[i].resto_id;
+                        // ADD share of segment votes
+                        arr_city1_price_range[i].array.segIndexVotes = ((arr_city1_price_range[i].votes-segAvgVotes)/arr_city1_price_range[i].votes)*100
+                        arr_city1_price_range[i].array.segIndexPrice = ((arr_city1_price_range[i].avg_cost_two-segAvgPrice)/arr_city1_price_range[i].avg_cost_two)*100
+                        arr_city1_price_range[i].array.segIndexRating =((arr_city1_price_range[i].agg_rating-segAvgRating)/arr_city1_price_range[i].agg_rating)*100
+                        });
+                    
+                    //  PERFORM ANALYSIS ON INICES TO DETERMINE THE RECOMMENDED RESTIO 
+                    //  IF THERE'S A "TIE" BETWEEN 2 OR MORE RESTOS WITHIN A SEGMENT, 
+                    //  TIE-BREAKERS ARE DETERMINED BY INDICES AT TOTAL LEVEL, i.e., wrt entire obj_city1 
+                    //
+                    //  PUSH indices to EACH RESTAURANT IN obj_city1 per the equivalent resto_id IN obj_city1 
+                    //
+                    //  --> BASED ON THE RESULTS OF THE ANALYSIS, PUSH A NEW PROPERTY TO THE obj_city1 = TRUE ON 
+                    //  THE RESTOS THAT WILL BE DRAWN TO THE PAGE <DIV> PREPEND & APPEND AND USE THIS ^^PROPERTY 
+                    //  TO DETERMINE AND PERFORM THE POPULATING OF THE PAGE
+                
+                };
+
+                //  POPULATE THE DIV
+                    // city1resto = $("<div class='city1resto'>");
+                    
+                    // // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
+
+                    // img1 = obj_city1[i].restoImg;
+                    // name1 = obj_city1[i].name;
+                    // cuisine1= obj_city1[i].cuisine;
+                    // currency1 = obj_city1[i].currency;
+                    // price1 = obj_city1[i].average_cost_for_two;
+                    // rating1=obj_city1[i].rating_text;
+
+                    // pImg = $("<img>").attr({
+                    //         "class": "city1restoIMG",
+                    //         "src": img1,
+                    //         "data-value": restoURL
+                    //         });
+                    
+                    // console.log(pImg);
+                    // city1resto.append(pImg)
+
+                    // pName = $("<p>").text(name1);
+
+                    // // pName = $("<p>").attr({
+                    // //     "class": "city1restoName",
+                    // //     "text": name1
+                    // //     });
+                    // city1resto.append(pName);
+
+                    // console.log(city1resto);
+
+                    // // pPrice = $("<p>").attr({
+                    // //     "class": "city1restoPrice",
+                    // //     "text": currency + price1
+                    // //     });
+                    // // city1resto.append(pPrice);
+
+                    // // console.log(pPrice);
+
+                    // // pCuisine = $("<p>").attr({
+                    // //     "class": "city1restoCuisine",
+                    // //     "text": cuisine1
+                    // //     });
+                    // // city1resto.append(pCuisine);
+                    
+                    // // console.log(pCuisine);
+
+                    // // pRating = $("<p>").attr({
+                    // //     "class": "city1restoRating",
+                    // //     "text": rating1
+                    // //     });
+                    // // city1resto.append(pRating);
+
+                    // // console.log(pRating);
+
+                    // // PREPEND TO startCards DIV
+                    // $("#startCards").prepend(city1resto);    
+
+                    // // BEGIN END CITY AKA CITY2
+                    // //
+                    // //
+                    // // REPEAT ENTIRETY OF LINES 141:374 FOR CITY2
+                    // //
+                    // // END OF ZOMATO JAVASCRIPT
+
+// // END OF ZOMATO JAVASCRIPT
+
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
+                    authDomain: "project1-2f7ae.firebaseapp.com",
+                    databaseURL: "https://project1-2f7ae.firebaseio.com",
+                    projectId: "project1-2f7ae",
+                    storageBucket: "project1-2f7ae.appspot.com",
+                    messagingSenderId: "842716287063"
+                };
+                firebase.initializeApp(config);
+
+                function resetVars() {
+                    sumTemp = 0;
+                    sumClouds = 0;
+                    sumRain = 0;
+                }   
+                function findAverages() {
+                    aveTemp = sumTemp / 8;
+                    aveClouds = sumClouds / 8;
+                    aveRain = sumRain / 8;
+                }
+                function consoleLogs() {
+                    console.log("Average temp: " + sumTemp / 8 + " degrees fahrenheit.");
+                    console.log("Average clouds: " + sumClouds / 8);
+                    console.log("Average rain: " + sumRain / 8);
+                    console.log("------------------------------------------------");
+                }
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function (response) {
+                    console.log(response);
+                    console.log("City: " + response.city.name);
+
+                    //!!!TO DO!!!! slideshow, temp, rain, clouds
+                    var tempDiv = $("<div>");
+                    var cloudsDiv = $("<div>");
+                    var rainDiv = $("<div>");
+                    tempDiv.addClass("temp");
+                    cloudsDiv.addClass("clouds");
+                    rainDiv.addClass("rain");
+                    $("#temp").append(tempDiv);
+                    $("#clouds").append(cloudsDiv);
+                    $("#rain").append(rainDiv);
+
+                    function updateWeather() {
+                    $(tempDiv).text(aveTemp);
+                    $(cloudsDiv).text(aveClouds);
+                    $(rainDiv).text(aveRain);
+                    }
+
+                    $("#forecast").click(function() {
+                    $("#forecast").css("display","none");
+                    $("#weather").css("display","block");
+                    console.log("DAY 1:");
+                    $("#day").text("Today: ");
+                    for (var i = 0; i < 8; i++) {
+                        sumTemp = + response.list[i].main.temp;
+                        sumSun = + response.list[i].clouds.all;
+                        var typeOfRain = typeof response.list[i].rain["3h"];
+                        if (typeOfRain === "number") {
+                        sumRain = + response.list[i].rain["3h"];
+                        }
+                    }
+                    $("#nextDay").attr("data-day","1");
+                    findAverages();
+                    updateWeather();
+                    consoleLogs();
+                    });
+
+
+                    $("#nextDay").click(function() {
+                    resetVars();
+                        if ($("#nextDay").attr("data-day") === "0") {
+                            console.log("DAY 1:");
+                            $("#day").text("Today: ");
+                            for (var i = 0; i < 8; i++) {
+                                sumTemp = + response.list[i].main.temp;
+                                sumSun = + response.list[i].clouds.all;
+                                var typeOfRain = typeof response.list[i].rain["3h"];
+                                if (typeOfRain === "number") {
+                                    sumRain = + response.list[i].rain["3h"];
+                                }
+                            }
+                            $("#nextDay").attr("data-day","1");
+                        } else if ($("#nextDay").attr("data-day") === "1") {
+                            console.log("DAY 2:");
+                            $("#day").text("Tomorrow: ");
+                            for (var i = 8; i < 16; i++) {
+                                sumTemp = + response.list[i].main.temp;
+                                sumClouds = + response.list[i].clouds.all;
+                                var typeOfRain = typeof response.list[i].rain["3h"];
+                                if (typeOfRain === "number") {
+                                    sumRain = + response.list[i].rain["3h"];
+                                }
+                            }
+                            $("#nextDay").attr("data-day","2");
+                        } else if ($("#nextDay").attr("data-day") === "2") {
+                            console.log("DAY 3:");
+                            $("#day").text("Day 3: ");
+                            for (var i = 16; i < 24; i++) {
+                                sumTemp = + response.list[i].main.temp;
+                                sumClouds = + response.list[i].clouds.all;
+                                var typeOfRain = typeof response.list[i].rain["3h"];
+                                if (typeOfRain === "number") {
+                                    sumRain = + response.list[i].rain["3h"];
+                                }
+                            }
+                            $("#nextDay").attr("data-day","3");
+                        } else if ($("#nextDay").attr("data-day") === "3") {
+                            console.log("DAY 4:");
+                            $("#day").text("Day 4: ");
+                            for (var i = 24; i < 32; i++) {
+                                sumTemp = + response.list[i].main.temp;
+                                sumClouds = + response.list[i].clouds.all;
+                                var typeOfRain = typeof response.list[i].rain["3h"];
+                                if (typeOfRain === "number") {
+                                    sumRain = + response.list[i].rain["3h"];
+                                } 
+                            }
+                            $("#nextDay").attr("data-day","4");
+                        } else {
+                            console.log("DAY 5:");
+                            $("#day").text("Day 5: ");
+                            for (var i = 32; i < response.list.length; i++) {
+                                sumTemp = + response.list[i].main.temp;
+                                console.log(sumTemp);
+                                sumClouds = + response.list[i].clouds.all;
+                                var typeOfRain = typeof response.list[i].rain["3h"];
+                                if (typeOfRain === "number") {
+                                    sumRain = + response.list[i].rain["3h"];
+                                } 
+                            }
+                            $("#nextDay").attr("data-day","0");
+                        };
+                        findAverages();
+                        updateWeather();
+                        consoleLogs();
+                    });
+                });
+            });
+        });
     });
-
-
-    $("#nextDay").click(function() {
-       resetVars();
-       if ($("#nextDay").attr("data-day") === "0") {
-           console.log("DAY 1:");
-           $("#day").text("Today: ");
-            for (var i = 0; i < 8; i++) {
-                sumTemp = + response.list[i].main.temp;
-                sumSun = + response.list[i].clouds.all;
-                var typeOfRain = typeof response.list[i].rain["3h"];
-                if (typeOfRain === "number") {
-                    sumRain = + response.list[i].rain["3h"];
-                }
-            }
-        $("#nextDay").attr("data-day","1");
-       } else if ($("#nextDay").attr("data-day") === "1") {
-           console.log("DAY 2:");
-           $("#day").text("Tomorrow: ");
-            for (var i = 8; i < 16; i++) {
-                sumTemp = + response.list[i].main.temp;
-                sumClouds = + response.list[i].clouds.all;
-                var typeOfRain = typeof response.list[i].rain["3h"];
-                if (typeOfRain === "number") {
-                    sumRain = + response.list[i].rain["3h"];
-                }
-            }
-        $("#nextDay").attr("data-day","2");
-        } else if ($("#nextDay").attr("data-day") === "2") {
-            console.log("DAY 3:");
-            $("#day").text("Day 3: ");
-            for (var i = 16; i < 24; i++) {
-                sumTemp = + response.list[i].main.temp;
-                sumClouds = + response.list[i].clouds.all;
-                var typeOfRain = typeof response.list[i].rain["3h"];
-                if (typeOfRain === "number") {
-                    sumRain = + response.list[i].rain["3h"];
-                }
-            }
-        $("#nextDay").attr("data-day","3");
-        } else if ($("#nextDay").attr("data-day") === "3") {
-            console.log("DAY 4:");
-            $("#day").text("Day 4: ");
-            for (var i = 24; i < 32; i++) {
-                sumTemp = + response.list[i].main.temp;
-                sumClouds = + response.list[i].clouds.all;
-                var typeOfRain = typeof response.list[i].rain["3h"];
-                if (typeOfRain === "number") {
-                    sumRain = + response.list[i].rain["3h"];
-                } 
-            }
-        $("#nextDay").attr("data-day","4");
-        } else {
-           console.log("DAY 5:");
-            $("#day").text("Day 5: ");
-            for (var i = 32; i < response.list.length; i++) {
-                sumTemp = + response.list[i].main.temp;
-                console.log(sumTemp);
-                sumClouds = + response.list[i].clouds.all;
-                var typeOfRain = typeof response.list[i].rain["3h"];
-                if (typeOfRain === "number") {
-                    sumRain = + response.list[i].rain["3h"];
-                } 
-            }
-        $("#nextDay").attr("data-day","0");
-        }
-        findAverages();
-        updateWeather();
-        consoleLogs();
-    });
-
-});
-        
-});
-
 });
 
