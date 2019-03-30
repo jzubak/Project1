@@ -176,8 +176,8 @@ $(document).ready(function () {
             console.log("the city1CuisineID is: " + city1cuisineID);
 
             // STATIC RESPONSE COUNT AMOUNTS
-            var count_id=20;
-            // var count_id=3;
+            // var count_id=20;
+            var count_id=3;
     
             var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + city1cuisineID + "&entity_type=city&count=" + count_id; 
     
@@ -362,58 +362,79 @@ $(document).ready(function () {
                     
                     // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
 
-                    img1 = obj_city1[i].restoImg;
-                    name1 = obj_city1[i].name;
-                    cuisine1= obj_city1[i].cuisine;
-                    currency1 = obj_city1[i].currency;
-                    price1 = obj_city1[i].average_cost_for_two;
-                    rating1=obj_city1[i].rating_text;
+                    for(i=0; i< obj_city1.length; i++){
 
-                    pImg = $("<img>").attr({
+                        img1 = obj_city1[i].resto_id.restoImg;
+
+                        console.log(img1);
+
+                        name1 = obj_city1[i].resto_id.name;
+
+                        console.log(name1);
+
+                        cuisine1= obj_city1[i].resto_id.cuisine;
+
+                        console.log(cuisine1);
+
+                        currency1 = obj_city1[i].resto_id.currency;
+                        price1 = obj_city1[i].resto_id.avg_cost_two;
+
+                        console.log(currency1 + price1);
+                        rating1=obj_city1[i].resto_id.rating_text;
+
+                        console.log(rating1);
+
+                        // pImg = $("<img>").attr({
+                        //         "class": "city1restoIMG",
+                        //         "src": img1,
+                        //         "data-value": restoURL
+                        //         });
+
+                        pImg = $("<img>").attr({
                             "class": "city1restoIMG",
-                            "src": img1,
+                            "src": obj_city1[i].resto_id.restoImg,
                             "data-value": restoURL
                             });
-                    
-                    console.log(pImg);
-                    city1resto.append(pImg);
+                        
+                        console.log(pImg);
+                        city1resto.append(pImg);
 
-                    pName = $("<p>").text(name1);
+                        pName = $("<p>")
+                            .text(name1)
+                            .addClass("city1restoName");
 
-                    // pName = $("<p>").attr({
-                    //     "class": "city1restoName",
-                    //     "text": name1
-                    //     });
-                    city1resto.append(pName);
+                        city1resto.append(pName);
 
-                    console.log(city1resto);
+                        console.log(city1resto);
 
-                    // pPrice = $("<p>").attr({
-                    //     "class": "city1restoPrice",
-                    //     "text": currency + price1
-                    //     });
-                    // city1resto.append(pPrice);
+                        pPrice = $("<p>")
+                            .text(currency + price1)
+                            .addClass("city1restoPrice");
+                      
+                        city1resto.append(pPrice);
 
-                    // console.log(pPrice);
+                        console.log(pPrice);
 
-                    // pCuisine = $("<p>").attr({
-                    //     "class": "city1restoCuisine",
-                    //     "text": cuisine1
-                    //     });
-                    // city1resto.append(pCuisine);
-                    
-                    // console.log(pCuisine);
+                        pCuisine = $("<p>")
+                                .text(cuisine1)
+                                .addClass("city1restoCuisine");
+                                
+                        city1resto.append(pCuisine);
+                        
+                        console.log(pCuisine);
 
-                    // pRating = $("<p>").attr({
-                    //     "class": "city1restoRating",
-                    //     "text": rating1
-                    //     });
-                    // city1resto.append(pRating);
+                        pRating = $("<p>")
+                                .text(rating1)
+                                .addClass("city1restoRating");
+                
+                        city1resto.append(pRating);
 
-                    // console.log(pRating);
+                        console.log(pRating);
 
-                    // PREPEND TO startCards DIV
-                    $("#startCards").prepend(city1resto);    
+                        // PREPEND TO startCards DIV
+                        $("#startCards").prepend(city1resto);
+
+                    };    
 
                     // // (7) BEGIN END CITY AKA CITY2
                     // //
