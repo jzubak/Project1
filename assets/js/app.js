@@ -344,62 +344,62 @@ $(document).ready(function () {
                 };
 
                 //  (6) POPULATE THE DIV FOR CITY1
-                    // city1resto = $("<div class='city1resto'>");
+                    city1resto = $("<div class='city1resto'>");
                     
-                    // // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
+                    // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
 
-                    // img1 = obj_city1[i].restoImg;
-                    // name1 = obj_city1[i].name;
-                    // cuisine1= obj_city1[i].cuisine;
-                    // currency1 = obj_city1[i].currency;
-                    // price1 = obj_city1[i].average_cost_for_two;
-                    // rating1=obj_city1[i].rating_text;
+                    img1 = obj_city1[i].restoImg;
+                    name1 = obj_city1[i].name;
+                    cuisine1= obj_city1[i].cuisine;
+                    currency1 = obj_city1[i].currency;
+                    price1 = obj_city1[i].average_cost_for_two;
+                    rating1=obj_city1[i].rating_text;
 
-                    // pImg = $("<img>").attr({
-                    //         "class": "city1restoIMG",
-                    //         "src": img1,
-                    //         "data-value": restoURL
-                    //         });
+                    pImg = $("<img>").attr({
+                            "class": "city1restoIMG",
+                            "src": img1,
+                            "data-value": restoURL
+                            });
                     
-                    // console.log(pImg);
-                    // city1resto.append(pImg)
+                    console.log(pImg);
+                    city1resto.append(pImg)
 
-                    // pName = $("<p>").text(name1);
+                    pName = $("<p>").text(name1);
 
-                    // // pName = $("<p>").attr({
-                    // //     "class": "city1restoName",
-                    // //     "text": name1
-                    // //     });
-                    // city1resto.append(pName);
+                    // pName = $("<p>").attr({
+                    //     "class": "city1restoName",
+                    //     "text": name1
+                    //     });
+                    city1resto.append(pName);
 
-                    // console.log(city1resto);
+                    console.log(city1resto);
 
-                    // // pPrice = $("<p>").attr({
-                    // //     "class": "city1restoPrice",
-                    // //     "text": currency + price1
-                    // //     });
-                    // // city1resto.append(pPrice);
+                    // pPrice = $("<p>").attr({
+                    //     "class": "city1restoPrice",
+                    //     "text": currency + price1
+                    //     });
+                    // city1resto.append(pPrice);
 
-                    // // console.log(pPrice);
+                    // console.log(pPrice);
 
-                    // // pCuisine = $("<p>").attr({
-                    // //     "class": "city1restoCuisine",
-                    // //     "text": cuisine1
-                    // //     });
-                    // // city1resto.append(pCuisine);
+                    // pCuisine = $("<p>").attr({
+                    //     "class": "city1restoCuisine",
+                    //     "text": cuisine1
+                    //     });
+                    // city1resto.append(pCuisine);
                     
-                    // // console.log(pCuisine);
+                    // console.log(pCuisine);
 
-                    // // pRating = $("<p>").attr({
-                    // //     "class": "city1restoRating",
-                    // //     "text": rating1
-                    // //     });
-                    // // city1resto.append(pRating);
+                    // pRating = $("<p>").attr({
+                    //     "class": "city1restoRating",
+                    //     "text": rating1
+                    //     });
+                    // city1resto.append(pRating);
 
-                    // // console.log(pRating);
+                    // console.log(pRating);
 
-                    // // PREPEND TO startCards DIV
-                    // $("#startCards").prepend(city1resto);    
+                    // PREPEND TO startCards DIV
+                    $("#startCards").prepend(city1resto);    
 
                     // // (7) BEGIN END CITY AKA CITY2
                     // //
