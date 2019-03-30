@@ -176,8 +176,8 @@ $(document).ready(function () {
             console.log("the city1CuisineID is: " + city1cuisineID);
 
             // STATIC RESPONSE COUNT AMOUNTS
-            // var count_id=20;
-            var count_id=3;
+            var count_id=20;
+            // var count_id=3;
     
             var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + city1cuisineID + "&entity_type=city&count=" + count_id; 
     
@@ -364,25 +364,25 @@ $(document).ready(function () {
 
                     for(i=0; i< obj_city1.length; i++){
 
-                        img1 = obj_city1[i].resto_id.restoImg;
+                    img1 = obj_city1[i].resto_id.restoImg;
 
-                        console.log(img1);
+                        // console.log(img1);
 
                         name1 = obj_city1[i].resto_id.name;
 
-                        console.log(name1);
+                        // console.log(name1);
 
                         cuisine1= obj_city1[i].resto_id.cuisine;
 
-                        console.log(cuisine1);
+                        // console.log(cuisine1);
 
                         currency1 = obj_city1[i].resto_id.currency;
                         price1 = obj_city1[i].resto_id.avg_cost_two;
 
-                        console.log(currency1 + price1);
+                        // console.log(currency1 + price1);
                         rating1=obj_city1[i].resto_id.rating_text;
 
-                        console.log(rating1);
+                        // console.log(rating1);
 
                         // pImg = $("<img>").attr({
                         //         "class": "city1restoIMG",
@@ -390,51 +390,48 @@ $(document).ready(function () {
                         //         "data-value": restoURL
                         //         });
 
-                        pImg = $("<img>").attr({
-                            "class": "city1restoIMG",
-                            "src": obj_city1[i].resto_id.restoImg,
+                        
+                    pImg = $("<img>").attr({
+                            "class": obj_city1[i].resto_id.restoImg,
+                            "src": img1,
                             "data-value": restoURL
                             });
-                        
-                        console.log(pImg);
-                        city1resto.append(pImg);
+                    
+                    // console.log(pImg);
+                    city1resto.append(pImg);
 
-                        pName = $("<p>")
-                            .text(name1)
-                            .addClass("city1restoName");
+                    // pName = $("<p>").text(name1);
 
-                        city1resto.append(pName);
+                    pName = $("<p>")
+                    .text(name1)
+                    .addClass("city1restoName");
+                    city1resto.append(pName);
 
-                        console.log(city1resto);
+                    // console.log(city1resto);
 
-                        pPrice = $("<p>")
+                    pPrice = $("<p>")
                             .text(currency + price1)
                             .addClass("city1restoPrice");
-                      
-                        city1resto.append(pPrice);
+                    city1resto.append(pPrice);
 
-                        console.log(pPrice);
+                    // console.log(pPrice);
 
-                        pCuisine = $("<p>")
+                    pCuisine = $("<p>")
                                 .text(cuisine1)
                                 .addClass("city1restoCuisine");
-                                
-                        city1resto.append(pCuisine);
-                        
-                        console.log(pCuisine);
+                    city1resto.append(pCuisine);
+                    
+                    // console.log(pCuisine);
 
-                        pRating = $("<p>")
+                    pRating = $("<p>")
                                 .text(rating1)
                                 .addClass("city1restoRating");
-                
-                        city1resto.append(pRating);
+                    city1resto.append(pRating);
+                    };
+                    // console.log(pRating);
 
-                        console.log(pRating);
-
-                        // PREPEND TO startCards DIV
-                        $("#startCards").prepend(city1resto);
-
-                    };    
+                    // PREPEND TO startCards DIV
+                    $("#startCards").prepend(city1resto);    
 
                     // // (7) BEGIN END CITY AKA CITY2
                     // //
@@ -449,7 +446,7 @@ $(document).ready(function () {
 
 
 // // END OF ZOMATO JAVASCRIPT
-            });
+            // });
 // start of weather
         function resetVars() {
             console.log("start of resetVars()");
@@ -769,6 +766,7 @@ $(document).ready(function () {
             });
         });
     });
+});
 });
 // Initialize Firebase
                 // var config = {
