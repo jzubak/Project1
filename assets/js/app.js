@@ -1,10 +1,8 @@
 //declare variables
-var home;
-var dest;
-var city1 = "philadelphia";
-var city2 = "miami";
-var country1 = "us";
-var country2 = "us";
+var city1;
+var city2;
+var country1;
+var country2;
 var APIKeyWeather = "30bacb09b1a6ec05e34d8f5ac74ca7de";
 var queryURL;
 var sumTemp = 0;
@@ -142,6 +140,8 @@ $(document).ready(function () {
     
     $("#submit-btn").on("click", (event) => {
     event.preventDefault();
+    city1 = $("#startLocation").val().trim();
+    city2 = $("#endLocation").val().trim();
     
         // BEGIN STARTCITY AKA CITY1
 
