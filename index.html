@@ -7,20 +7,15 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>      
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
-      <script src="assets/js/app.js"></script>
-      <script src="assets/js/index.js"></script>
-      <style>
-      </style>
-
    </head>
    <body>
       <!-- Nav -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light">
 
-         <a class="navbar-brand" href="#">Three Course Travel</a>
+         <a class="navbar-brand" href="index.html">Three Course Travel</a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
          </button>
@@ -36,18 +31,12 @@
                   <a class="nav-link disabled" href="contact.html">Contact Us</a>
                </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-               <input class="form-control mr-sm-2" type="search" placeholder="Search">
-               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            
          </div>
       </nav>
-      <!-- SVG 
-         <svg viewBox="0 0 1366 768">
-               <polygon class="polymorph" points="1366,768 0,768 0,0 683,0 1366,0 	"/>
-            </svg>-->
-
-      <div class="container-fluid">
+      <!-- SVG Background -->
+     
+      <div id="foreground">
          <!-- Brand Hero -->
          <div class="container">
             <div class="row">
@@ -60,10 +49,10 @@
          <div class="container-fluid vcenter" id="searching">
             <div class="row justify-content-center align-self-center" >
                <div class="col-12-sm ">
-                  <form id="form">
-                     <div class="col-12">
+                  <form id="form" autocomplete="off">
+                     <div class="col-12 autocomplete">
                         <label>
-                        <input type="text" placeholder="Where are you located?" id="startLocation">
+                        <input type="text" placeholder="Where are you located?" id="startLocation" name="myCountry">
                         </label>
                         <br>
                         <label>
@@ -75,119 +64,61 @@
                </div>
             </div>
          </div>
-         <!-- Loading -->
          <!-- Results -->
          <div class="container" id="searchResults">
+               <div class="row justify-content-center">
+                  <button class="button" id="newSearch">
+                     New Search
+                  </button>
+               </div>
             <div class="row justify-content-center">
                <!-- Start Location Column -->
                <div class="col col-sm-6" id="startCol">
                   <div id="startLocationResult">
-                     Start Location
+                     <span id="startLocationResult"></span>
                   </div>
                   <div id="startWeather">
-                     <div>
-                        Weather
-                     </div>
-                     <div class="degrees">
-                        81&#176;
-                     </div>
-                     <div id="weatherImg">
-                        <img src="assets/images/Sunny.png" style="max-width: 150px;">
-                     </div>
+                     
                   </div>
                   <div id="startCards">
-                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="http://lorempixel.com/400/300/abstract" alt="Card image cap">
-                        <div class="card-body">
-                           <h5 class="card-title">Restaurant</h5>
-                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                           <a href="#" class="btn btn-primary">Website</a>
-                        </div>
-                     </div>
-                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="http://lorempixel.com/400/300/abstract" alt="Card image cap">
-                        <div class="card-body">
-                           <h5 class="card-title">Restaurant</h5>
-                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                           <a href="#" class="btn btn-primary">Website</a>
-                        </div>
-                     </div>
-                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="http://lorempixel.com/400/300/abstract" alt="Card image cap">
-                        <div class="card-body">
-                           <h5 class="card-title">Restaurant</h5>
-                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                           <a href="#" class="btn btn-primary">Website</a>
-                        </div>
-                     </div>
+
+                     
                   </div>
                </div>
                <!-- End Location Column -->
                <div class="col col-sm-6" id="endCol">
                   <div id="endLocationResult">
-                     End Location
+                     <span id="endLocationResult"></span>
                   </div>
                   <div id="endWeather">
-                     <div>
-                        Weather
-                     </div>
-                     <div class="degrees">
-                        81&#176;
-                     </div>
-                     <div id="weatherImg">
-                        <img src="assets/images/Partly Cloudy.png" style="max-width: 150px;">
-                     </div>
+                     
                   </div>
                   <div id="endCards">
-                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="http://lorempixel.com/400/300/abstract" alt="Card image cap">
-                        <div class="card-body">
-                           <h5 class="card-title">Restaurant</h5>
-                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                           <a href="#" class="btn btn-primary">Website</a>
-                        </div>
-                     </div>
-                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="http://lorempixel.com/400/250/abstract" alt="Card image cap">
-                        <div class="card-body">
-                           <h5 class="card-title">Restaurant</h5>
-                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                           <a href="#" class="btn btn-primary">Website</a>
-                        </div>
-                     </div>
-                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="http://lorempixel.com/400/200/abstract" alt="Card image cap">
-                        <div class="card-body">
-                           <h5 class="card-title">Restaurant</h5>
-                           <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                           <a href="#" class="btn btn-primary">Website</a>
-                        </div>
-                     </div>
+
+                    
                   </div>
                </div>
             </div>
          </div>
          <!-- Footer -->
       </div>
-
+      <svg viewBox="0 0 215 110" preserveAspectRatio="none" id="foo">
+            <polygon class="polymorph" points="215,110 0,110 0,0 47.7,0 215,0 	"/>
+         </svg>
       <footer>
          <div class="footer text-center">© 2019 Copyright:
             <a href="https://mdbootstrap.com/education/bootstrap/"> github.com</a>
          </div>
       </footer>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>
-      <script>
-         $(document).ready(function(){
-            $("#submit-btn").click(function(){
-               $("#searching").hide();
-               $("#searchResults").show();
-               return false;
-            });
-         });
-         
-         
-         
-         
-      </script>
+
+       <!--
+<script src="assets/js/index.js"></script>
+<script src="assets/js/app.js"></script>
+       -->
+     
+       <script src="assets/js/anime.js"></script>
+       <script src="assets/js/autocomplete.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>
+       
    </body>
 </html>
