@@ -474,6 +474,48 @@ $(document).ready(function () {
             console.log("SumClouds: " + sumClouds);
             console.log("SumRain: " + sumRain);
         }
+        var countryAbbreviations = [
+            ["au", "Australia"],
+            ["cz", "Czech Republic"],
+            ["it", "Italy"],
+            ["ph", "Philippines"],
+            ["sg", "Singapore"],
+            ["tr", "Turkey"],
+            ["br", "Brasil"],
+            ["in", "India"],
+            ["lb", "Lebanon"],
+            ["pl", "Poland"],
+            ["sk", "Slovakia"],
+            ["ae", "UAE"],
+            ["ca", "Canada"],
+            ["id", "Indonesia"],
+            ["my", "Malaysia"],
+            ["pt", "Portugal"],
+            ["za", "South Africa"],
+            ["uk", "United Kingdom"],
+            ["cl", "Chile"],
+            ["ie", "Ireland"],
+            ["nz", "New Zealand"],
+            ["qa", "Qatar"],
+            ["lk", "Sri Lanka"],
+            ["us", "United States"]
+        ]
+        //find home country abbreviation for weather api
+        for (var i = 0; i < countryAbbreviations.length; i++) {
+            if (city1country_name === countryAbbreviations[i][1]) {
+                country1 = countryAbbreviations[i][0];
+                console.log(country1);
+                break;
+            }
+        }
+        //find destination country abbreviation for weather api
+        for (var i = 0; i < countryAbbreviations.length; i++) {
+            if (city2country_name === countryAbbreviations[i][1]) {
+                country2 = countryAbbreviations[i][0];
+                console.log(country2);
+                break;
+            }
+        }
             var queryURL1 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city1 + ", " + country1 + "&units=imperial&appid=" + APIKeyWeather;
             $.ajax({
                 url: queryURL1,
