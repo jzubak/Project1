@@ -20,6 +20,10 @@ $(document).ready(function(){
       // Append resutls to page
       $("#startLocationResult").text(city1name);
       $("#endLocationResult").text(city2name);
+
+
+   
+    });
    
     
     
@@ -47,7 +51,12 @@ $(document).ready(function(){
                   duration: 500,
                   translateY:-170
                 })
-                
+                anime({
+                  targets: '#searching',
+                  opacity: 0,
+                  duration: 500,
+                  translateY: 0
+                })
                 
                 var promise = morphing.finished.then(() => {
                   btn2.onclick = function(){
