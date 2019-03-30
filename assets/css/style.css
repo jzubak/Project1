@@ -153,6 +153,11 @@ border: 1px black solid;
 padding: 10px;
 }
 
+.restoImg1 {
+    width: 100%;
+    max-width: 250px;
+}
+
 /* Contact Styles */
 .headshots{
 position: relative;
