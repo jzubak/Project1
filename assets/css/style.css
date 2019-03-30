@@ -81,13 +81,34 @@ h1, .navbar-brand, .text, .brand-title {
     line-height: 20px;
     color: #000000; /* Color 5 */
 }
+#startWeather, #endWeather {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+}
 .startlocation{
     font-size: 20px;
     font-weight: 700;
     }
 .endlocation{
     font-size: 20px;
+}
+/* Fonts Classes */
+.brand-title {
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    line-height: 65px;
     font-weight: 700;
+}
+.text {
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+#startWeather, #endWeather {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
 }
 div#startLocationResult, div#endLocationResult {
     text-align: center;
@@ -97,11 +118,6 @@ div#startLocationResult, div#endLocationResult {
     background:#ffffff;
     padding: 10px;
 }
-#weatherImg {
-    margin-bottom: 15px;
-}
-
-/* Design Elements */
 .autocomplete-items {
     background: #FFE5E5; /* Color 2 */
     position: absolute;
