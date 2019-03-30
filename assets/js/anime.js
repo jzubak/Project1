@@ -21,20 +21,17 @@ $(document).ready(function(){
       $("#startLocationResult").text(city1name);
       $("#endLocationResult").text(city2name);
 
-
-   
     });
-   
-    
-    
     
   });
 
- 
+  // Define button onclick elements
   var btn = document.getElementById('submit-btn');
   var btn2 = document.getElementById('newSearch');
 
+
       btn.onclick = function() {
+        // Anime morphing technique, contort SVG
         var morphing = anime({
           targets: '.polymorph',
           points: [
@@ -44,51 +41,54 @@ $(document).ready(function(){
           duration: 1200,
           loop: false
         });
-                
-                anime({
-                  targets: '#searchResults',
-                  opacity: 1,
-                  duration: 500,
-                  translateY:-170
-                })
-                anime({
-                  targets: '#searching',
-                  opacity: 0,
-                  duration: 500,
-                  translateY: 0
-                })
-                
-                var promise = morphing.finished.then(() => {
-                  btn2.onclick = function(){
-                    var morphing = anime({
-                  targets: '.polymorph',
-                  points: [
-                  { value: '215,110 0,110 0,0 47.7,0 215,0 ' },
-                  ],
-                  easing: 'easeOutQuad',
-                  duration: 1200,
-                  loop: false
-                });
-                    
-                     anime({
-                  targets: '#searchResults',
-                  opacity: 0,
-                  duration: 500,
-                  translateY: 100
-                })
+          //  make search results div visible by pulling up and setting opacity from 0 to 1
+          anime({
+            targets: '#searchResults',
+            opacity: 1,
+            duration: 500,
+            translateY:-170
+          })
 
-                anime({
-                  targets: '#searching',
-                  opacity: 1,
-                  duration: 500,
-                  translateY: 0
-                })
+          //  Do the opposite for search results, set opacity from 1 to 0
+          anime({
+            targets: '#searching',
+            opacity: 0,
+            duration: 500,
+            translateY: 0
+          })
 
-                  }
-                  
-                })
+          // reverse the technique when users select new search, take them back to original state.
+          var promise = morphing.finished.then(() => {
+            btn2.onclick = function(){
+              var morphing = anime({
+            targets: '.polymorph',
+            points: [
+            { value: '215,110 0,110 0,0 47.7,0 215,0 ' },
+            ],
+            easing: 'easeOutQuad',
+            duration: 1200,
+            loop: false
+          });
+            
+            // hide search results div
+            anime({
+              targets: '#searchResults',
+              opacity: 0,
+              duration: 500,
+              translateY: 100
+            })
+            // show search bar 
+            anime({
+              targets: '#searching',
+              opacity: 1,
+              duration: 500,
+              translateY: 0
+            })
+
+            }
+            
+          })
                 
-        
       };
 
 
