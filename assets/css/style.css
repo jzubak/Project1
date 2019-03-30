@@ -1,34 +1,52 @@
+/* Brand Pallate
+1: #008080
+2: #004040
+3: #000000
+4: #400000
+5: #800000
+
+
+1: #841b2d
+2: #36454f
+3: #cb6d51
+4: #6f4e37
+5: #b9d9eb
+*/
+
+
 /* Resets */
 html {
     height: 100%;
     box-sizing: border-box;
   }
-  
-.polymorph {
-    fill:#00A99D;
-}
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
+
   body {
-    padding-bottom: 6rem;
+    margin:0;
     min-height: 100%;
     font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+    background: #ffe0e0; /* Color 1 */
   }
+ 
 /* HTML elements */
-
-input {
-    float: none;
-    display: block;
-    text-align: left;
-    width: 250px;;
-    margin: 0;
-    padding: 15px;
+.polymorph {
+    fill:#ff7e7e; /* Color 2 */
+    background-size: 100% 3em;
 }
-img {
+svg{
+    display: block;
     width: 100%;
+    height: 100vh;
+    
+  }
+#foreground {
+    position: absolute;
+    margin: 5em auto 0 auto;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+#searchResults {
+    opacity: 0;
 }
 
 /* Component Class Elements */
@@ -38,49 +56,43 @@ img {
     bottom: 0;
     left: 0;
     padding: 1rem;
-    background-color: #efefef;
+    background-color: #FFE5E5; /* Color 3 */
     text-align: center;
   }
 #brand-logo {
-    padding: 50px 30px;
-}
-.searched{
-    max-width: 250px;
-    max-height: 50px;
-}
-#searchResults {
-    display: none;
+    padding: 30px;
 }
 /* Fonts Classes */
-.brand-title {
+h1, .navbar-brand, .text, .brand-title {
     font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
-    font-size: 50px;
-    line-height: 65px;
+}
+.brand-title {
+    font-size: 55px;
+    line-height: 60px;
     font-weight: 700;
+    color: #ffffff; /* Color White */
+    font-style: italic;
+    -webkit-text-fill-color: #ffffff; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #a50000;/* Color 4 */
 }
 .text {
-    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
     font-size: 16px;
     line-height: 20px;
+    color: #000000; /* Color 5 */
 }
 #startWeather, #endWeather {
     text-align: center;
     font-size: 16px;
     font-weight: 300;
 }
-.degrees {
-    text-align: center;
-}
 .startlocation{
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 700;
     }
 .endlocation{
     font-size: 20px;
 }
-#searchResults {
-    display: none;
-}
 /* Fonts Classes */
 .brand-title {
     font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
@@ -98,39 +110,68 @@ img {
     font-size: 16px;
     font-weight: 300;
 }
-.degrees {
+div#startLocationResult, div#endLocationResult {
     text-align: center;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 700;
+    border: #a50000 1px solid; /* Color 4 */
+    background:#ffffff;
+    padding: 10px;
 }
-#startLocationResult, #endLocationResult {
-    text-align: center;
-    font-size: 22px;
-    font-weight: 700;
+.autocomplete-items {
+    background: #FFE5E5; /* Color 2 */
+    position: absolute;
+    width: 250px;
 }
-#weatherImg {
-    margin-bottom: 15px;
-}
-.card {
-    margin: 0 auto; 
-    float: none; 
-    margin-bottom: 10px; 
-}
-.card-img-top {
-    max-width: 300px;
-}
-/* Design Elements */
 .button {
     width: 250px;
-    background: #00ba9b;
+    background: #a50000; /* Color 4 */
     padding: 15px;
     color: #ffffff;
     text-align: center;
+    border: 2px white solid;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 .button:hover {
-    background: #006e5b !important;
+    background: #ffe976 !important; /* Color 5 */
+    color:#a50000 !important; /* Color 4 */
 }
-/*contact page images*/
+input {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 250px;;
+    margin: 0;
+    padding: 15px;
+}
+/* Results Styles */
+div.temp {
+    font-size: 30px;
+    line-height: 35px;
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+    border: #a50000 1px solid; /* Color 4 */
+    text-align: center;
+    padding: 10px;
+}
+.clouds {
+    font-size: 25px;
+    line-height: 25px;
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+}
+.rain {
+    font-size: 25px;
+    line-height: 25px;
+    font-family: 'Raleway', sans-serif, Arial, Helvetica, sans-serif;
+}
+.rando_resto {
+    background: #FFE5E5; /* Color 3 */
+    border: 1px black solid;
+    padding: 10px;
+}
+
+/* Contact Styles */
 .headshots{
     position: relative;
     float: left;
@@ -138,4 +179,16 @@ img {
     width: 200px;
     padding-left: 20px;
     margin-right: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+   
+    div#startLocationResult, div#endLocationResult{ 
+        font-size: 18px !important;
+        line-height: 18px !important;
+    }
+    div.temp, .rain, .clouds { 
+        font-size: 18px !important;
+        line-height: 18px !important;
+    }
 }
