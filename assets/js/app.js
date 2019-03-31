@@ -234,7 +234,8 @@ $(document).ready(function () {
                             avg_cost_two: avg_cost_two,
                             agg_rating : agg_rating,
                             rating_text: rating_text,
-                            votes: votes}
+                            votes: votes,
+                            div_draw: "false"}
                         };
                 
                     console.log(price_range);
@@ -550,7 +551,8 @@ $(document).ready(function () {
                             avg_cost_two: avg_cost_two,
                             agg_rating : agg_rating,
                             rating_text: rating_text,
-                            votes: votes}
+                            votes: votes,
+                            div_draw: "false"}
                         };
                 
                     console.log(price_range);
