@@ -138,7 +138,7 @@ var segIndexVotes = 0;
 var segIndexPrice = 0;
 var segIndexRating = 0;
 var rankIndex;
-var rank_resto_id;
+var highestRanked_resto_id;
 
 $(document).ready(function () {
     
@@ -301,7 +301,7 @@ $(document).ready(function () {
 
                 for (var i=0; i< arr_city1_price_range.length; i++){
 
-                    if(arr_city1_price_range[i].length !== 0){
+                    if(arr_city1_price_range[i].length !== 0)   {
 
                         segCount = arr_city1_price_range[i].length;
 
@@ -332,7 +332,8 @@ $(document).ready(function () {
                         arr_city1_price_range[i].forEach(element => {
                     
                             element.resto_id.segIndexVotes = ((element.resto_id.votes-segAvgVotes)/element.resto_id.votes)*100
-                            
+                            // arr_city1_price_range[i].resto_id.segIndexVotes=element.resto_id.segIndexVotes;
+
                             console.log("The segIndexVotes is: " + element.resto_id.segIndexVotes);
                             
                             element.resto_id.segIndexPrice = ((element.resto_id.avg_cost_two-segAvgPrice)/element.resto_id.avg_cost_two)*100
@@ -345,35 +346,33 @@ $(document).ready(function () {
 
                             element.rankIndex = (element.resto_id.segIndexVotes+element.resto_id.segIndexRating)-element.resto_id.segIndexPrice 
                             console.log("the rank index is: " + element.rankIndex);
-
-                            // need to determine the max value of the rank index within the segment for $ and $$$$
-                            // 
-                            // between $$ and $$$$ --> whichever is a higher rankIndex, that's the 3rd reco
-                            //
-                            // based on the above designations, find the corresponding resto_id in obj_city1 and 
-                            // set reco boolean to TRUE...use this field in the for loop for drawing the div
-                            // add the if (){} for the reco boolean
-                        
+        
                             });
 
-                            //Math.max()
-
                     };  
-                
+
+                    // ****
+                    //
+                    //
+                    // highestRanked_resto_id = arr_city1_price_range[i].reduce(function(highest, resto_id) {
+                    //     return (highest.resto_id.rankIndex || 0) > arr_city1_price_range[i].resto_id.rankIndex ? highest : resto_id;
+                    // }, {});
+                    //
+                    //
+                    // LOGIC BELOW for $ and $$$$
+                    // between $$ and $$$ --> whichever is a higher rankIndex, that's the 3rd reco
+                    //
+                    // ****
+                    //
+                    // console.log("the highest-ranked resto_id is: " + highestRanked_resto_id);
+                            
+                    // obj_city1[highestRanked_resto_id].divDraw = true;
+                    //
+                    // ****
+
                 };
 
-                // (1) PERFORM ANALYSIS ON INDICES TO DETERMINE THE RECOMMENDED RESTIO 
-                // (2) IF THERE'S A "TIE" BETWEEN 2 OR MORE RESTOS WITHIN A SEGMENT, 
-                // TIE-BREAKERS ARE DETERMINED BY INDICES AT TOTAL LEVEL, i.e., wrt entire obj_city1 
-                //
-                // (3) PUSH indices to EACH RESTAURANT IN obj_city1 per the equivalent resto_id IN obj_city1 
-                //
-                // (4) BASED ON THE RESULTS OF THE ANALYSIS, PUSH A NEW PROPERTY TO THE obj_city1 = TRUE ON 
-                // THE RESTOS THAT WILL BE DRAWN TO THE PAGE <DIV> PREPEND & APPEND AND USE THIS ^^PROPERTY 
-                // TO DETERMINE AND PERFORM THE POPULATING OF THE PAGE
-
-
-                //  (5) POPULATE THE DIV FOR CITY1
+                //  POPULATE THE DIV FOR CITY1
                     city1resto = $("<div class='city1resto'>");
                     
                     // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
@@ -480,9 +479,9 @@ $(document).ready(function () {
             city2_id= city2response.location_suggestions[0].id;
 
             city2country_id = city2response.location_suggestions[0].country_id;
-            console.log("the start city COUNTRY ID is: " + city2country_id);
+            console.log("the end city COUNTRY ID is: " + city2country_id);
             city2country_name = city2response.location_suggestions[0].country_name;
-            console.log("the start city COUNTRY NAME is: " + city2country_name);
+            console.log("the end city COUNTRY NAME is: " + city2country_name);
 
             console.log("The number of cuisines for " + city2name + ", " + city2country_name + " is : " + objCountryCuisines[city2country_id].cuisines.length);
 
@@ -492,7 +491,7 @@ $(document).ready(function () {
                 city2cuisineID = objCountryCuisines[city2country_id].cuisines[i].cuisine_id + ", " + city2cuisineID;
             };
 
-            console.log("the city1CuisineID is: " + city2cuisineID);
+            console.log("the city2CuisineID is: " + city2cuisineID);
 
             // STATIC RESPONSE COUNT AMOUNTS
             // var count_id=20;
@@ -661,22 +660,12 @@ $(document).ready(function () {
                             console.log("The segIndexRating is: " + element.resto_id.segIndexRating);
                         
                             });
-                        
-                        // (2) PERFORM ANALYSIS ON INDICES TO DETERMINE THE RECOMMENDED RESTIO 
-                        // (3) IF THERE'S A "TIE" BETWEEN 2 OR MORE RESTOS WITHIN A SEGMENT, 
-                        //  TIE-BREAKERS ARE DETERMINED BY INDICES AT TOTAL LEVEL, i.e., wrt entire obj_city1 
-                        //
-                        //  (4) PUSH indices to EACH RESTAURANT IN obj_city1 per the equivalent resto_id IN obj_city1 
-                        //
-                        //  (5) BASED ON THE RESULTS OF THE ANALYSIS, PUSH A NEW PROPERTY TO THE obj_city1 = TRUE ON 
-                        //  THE RESTOS THAT WILL BE DRAWN TO THE PAGE <DIV> PREPEND & APPEND AND USE THIS ^^PROPERTY 
-                        //  TO DETERMINE AND PERFORM THE POPULATING OF THE PAGE
 
                     };  
                 
                 };
 
-                //  (6) POPULATE THE DIV FOR CITY2
+                //  POPULATE THE DIV FOR CITY2
                     city2resto = $("<div class='city2resto'>");
                     
                     // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
@@ -705,7 +694,7 @@ $(document).ready(function () {
 
                         // pImg = $("<img>").attr({
                         //         "class": "city2restoIMG",
-                        //         "src": img1,
+                        //         "src": img2,
                         //         "data-value": restoURL
                         //         });
 
@@ -754,24 +743,19 @@ $(document).ready(function () {
                         $("#endCards").prepend(city2resto);
 
                     };    
-
-                    // // (7) BEGIN END CITY AKA CITY2
-                    // //
-                    // //
-                    // // (8) REPEAT ENTIRETY OF LINES 141:322 FOR CITY2
-                    // //
-                    // // (9) THE DIV FOR CITY2
-                    // // 
-                    // // (10) CREATE FUNCTIONALITY TO BE ABLE TO CROSS-X-PRODUCT CUISINES + WEATHJER ACROSS CITIES
-                    // //
-                    // //
+                    
+// //
+// // CREATE FUNCTIONALITY TO BE ABLE TO CROSS-X-PRODUCT CUISINES + WEATHJER ACROSS CITIES
+// //
 
 
-        // // END OF ZOMATO JAVASCRIPT
+// // END OF ZOMATO JAVASCRIPT
+
             });
-            
 
- //===========================           
+//            
+//===========================    
+//       
 // start of weather
         function resetVars() {
             console.log("start of resetVars()");
