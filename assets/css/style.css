@@ -31,9 +31,9 @@
     background: #ffbaba; /* Color 1 */
     }
     /* HTML elements */
-    .polymorph {
+    .polymorph, .polymorph-contact {
     fill:#ff5252; /* Color 2 */
-    background-size: 100% 3em;
+    background-size: 100% 5em;
     }
     svg{
     display: block;
@@ -42,7 +42,7 @@
     }
     #foreground {
     position: absolute;
-    margin: 5em auto 0 auto;
+    margin: 2em auto 3em auto;
     left: 0;
     right: 0;
     }
@@ -78,20 +78,17 @@
     h1, .navbar-brand, .brand-title {
     font-family: 'proxima-nova-black', sans-serif, Arial, Helvetica, sans-serif;
     }
+    
     .brand-title {
-    font-size: 55px;
-    line-height: 60px;
+    font-size: 100px;
+    line-height: 80px;
     font-weight: 700;
     color: #ffffff; /* Color White */
     -webkit-text-fill-color: #ffffff; /* Will override color (regardless of order) */
-    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: #3f0000;/* Color 4 */
     }
-    .text {
-    font-size: 16px;
-    line-height: 20px;
-    color: #000000; /* Color 5 */
-    }
+   
     .startlocation{
     font-size: 20px;
     font-weight: 700;
@@ -220,7 +217,10 @@
     }
     
     @media only screen and (max-width: 600px) {
-    
+    .brand-title {
+        font-size: 70px;
+        line-height: 60px;
+    }
     div#startLocationResult, div#endLocationResult{ 
     font-size: 16px !important;
     line-height: 18px !important;
