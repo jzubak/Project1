@@ -99,6 +99,7 @@ var cuisine1;
 var currency1;
 var price1;
 var rating1;
+var price_range1;
 
 var city2resto;
 var img2;
@@ -107,12 +108,14 @@ var cuisine2;
 var currency2;
 var price2;
 var rating2;
+var price_range2;
 
 var pName;
 var pImg;
 var pCuisine;
 var pPrice;
 var pRating;
+var pRange;
 
 var totalVotes = 0;
 var totalPrice = 0;
@@ -306,24 +309,26 @@ $(document).ready(function () {
 
                         segCount = arr_city1_price_range[i].length;
 
-                        segTotalVotes=arr_city1_price_range[i].reduce(function(totalVotes,currVal){
-                            return totalVotes+currVal.resto_id.votes
+                        segTotalVotes=arr_city1_price_range[i].reduce(function(segTotalVotes,currVal){
+                            return segTotalVotes+currVal.resto_id.votes
                         },0)
+
+                        console.log("the segTotalVotes is: " + segTotalVotes);
 
                         segAvgVotes = segTotalVotes/segCount;
 
                         console.log("the segAvgVotes is: "+ segAvgVotes);
 
-                        segTotalPrice =arr_city1_price_range[i].reduce(function(totalPrice,currVal){
-                            return totalPrice+currVal.resto_id.avg_cost_two
+                        segTotalPrice =arr_city1_price_range[i].reduce(function(segTotalPrice,currVal){
+                            return segTotalPrice+currVal.resto_id.avg_cost_two
                         },0)
 
                         segAvgPrice = parseFloat(segTotalPrice/segCount.toFixed(0));
 
                         console.log("the segAvgPrice is: "+ parseFloat(segAvgPrice).toFixed(0));
 
-                        segTotalRating =arr_city1_price_range[i].reduce(function(totalRating,currVal){
-                            return totalRating+currVal.resto_id.agg_rating
+                        segTotalRating =arr_city1_price_range[i].reduce(function(segTotalRating,currVal){
+                            return segTotalRating+currVal.resto_id.agg_rating
                         },0)
 
                         segAvgRating = segTotalRating/segCount;
@@ -355,9 +360,9 @@ $(document).ready(function () {
                     // ****
                     //
                     //
-                    // highestRanked_resto_id = arr_city1_price_range[i].reduce(function(highest, resto_id) {
-                    //     return (highest.resto_id.rankIndex || 0) > arr_city1_price_range[i].resto_id.rankIndex ? highest : resto_id;
-                    // }, {});
+                    // highestRanked_resto_id = arr_city1_price_range[i].reduce(function(highest, _rankIndex) {
+                    //     return (highest.resto_id || 0) > arr_city1_price_range[i].resto_id.rankIndex ? highest : rank_index;
+                    // }, rankIndex);
                     //
                     //
                     // LOGIC BELOW for $ and $$$$
@@ -400,6 +405,8 @@ $(document).ready(function () {
 
                         console.log(rating1);
 
+                        price_range1=obj_city1[i].resto_id.price_range;
+
                         // pImg = $("<img>").attr({
                         //         "class": "city1restoIMG",
                         //         "src": img1,
@@ -422,6 +429,14 @@ $(document).ready(function () {
                         city1resto.append(pName);
 
                         console.log(city1resto);
+                        
+                        pRange = $("<p>")
+                                .text("Price Range: " + price_range1)
+                                .addClass("city1restoRange");
+                
+                        city1resto.append(pRange);
+
+                        console.log(pRange);
 
                         pPrice = $("<p>")
                             .text(currency + price1)
@@ -623,24 +638,26 @@ $(document).ready(function () {
 
                         segCount = arr_city2_price_range[i].length;
 
-                        segTotalVotes=arr_city2_price_range[i].reduce(function(totalVotes,currVal){
-                            return totalVotes+currVal.resto_id.votes
+                        segTotalVotes=arr_city2_price_range[i].reduce(function(segTotalVotes,currVal){
+                            return segTotalVotes+currVal.resto_id.votes
                         },0)
+
+                        console.log("the segTotalVotes is: " + segTotalVotes);
 
                         segAvgVotes = segTotalVotes/segCount;
 
                         console.log("the segAvgVotes is: "+ segAvgVotes);
 
-                        segTotalPrice =arr_city2_price_range[i].reduce(function(totalPrice,currVal){
-                            return totalPrice+currVal.resto_id.avg_cost_two
+                        segTotalPrice =arr_city2_price_range[i].reduce(function(segTotalPrice,currVal){
+                            return segTotalPrice+currVal.resto_id.avg_cost_two
                         },0)
 
                         segAvgPrice = parseFloat(segTotalPrice/segCount.toFixed(0));
 
                         console.log("the segAvgPrice is: "+ parseFloat(segAvgPrice).toFixed(0));
 
-                        segTotalRating =arr_city2_price_range[i].reduce(function(totalRating,currVal){
-                            return totalRating+currVal.resto_id.agg_rating
+                        segTotalRating =arr_city2_price_range[i].reduce(function(segTotalRating,currVal){
+                            return segTotalRating+currVal.resto_id.agg_rating
                         },0)
 
                         segAvgRating = segTotalRating/segCount;
@@ -694,6 +711,8 @@ $(document).ready(function () {
 
                         console.log(rating2);
 
+                        price_range2=obj_city2[i].resto_id.price_range;
+
                         // pImg = $("<img>").attr({
                         //         "class": "city2restoIMG",
                         //         "src": img2,
@@ -716,6 +735,14 @@ $(document).ready(function () {
                         city2resto.append(pName);
 
                         console.log(city2resto);
+
+                        pRange = $("<p>")
+                                .text("Price Range: " + price_range2)
+                                .addClass("city2restoRange");
+                
+                        city2resto.append(pRange);
+
+                        console.log(pRange);
 
                         pPrice = $("<p>")
                             .text(currency2 + price2)
