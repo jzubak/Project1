@@ -1,8 +1,10 @@
 //declare variables
-var city1;
-var city2;
-var country1;
-var country2;
+var home;
+var dest;
+var city1 = "philadelphia";
+var city2 = "miami";
+var country1 = "us";
+var country2 = "us";
 var APIKeyWeather = "30bacb09b1a6ec05e34d8f5ac74ca7de";
 var queryURL;
 var sumTemp = 0;
@@ -135,13 +137,13 @@ var segAvgRating = 0;
 var segIndexVotes = 0;
 var segIndexPrice = 0;
 var segIndexRating = 0;
+var rankIndex;
+var rank_resto_id;
 
 $(document).ready(function () {
     
     $("#submit-btn").on("click", (event) => {
     event.preventDefault();
-    city1 = $("#startLocation").val().trim();
-    city2 = $("#endLocation").val().trim();
     
         // BEGIN STARTCITY AKA CITY1
 
@@ -291,11 +293,11 @@ $(document).ready(function () {
                         obj_city1[i].indexTotalRating = ((obj_city1[i].resto_id.agg_rating-avgRating)/obj_city1[i].agg_rating)*100;
                 };
 
-                //  loop to each restaurant from the object
+                //  array of the price_range segment sub-objects
 
                 arr_city1_price_range.push(obj_city1_price_range1, obj_city1_price_range2, obj_city1_price_range3,obj_city1_price_range4);
                 
-                // // (1) LOOP THROUGH THE subObjectsByPrice_Range_Segment
+                // LOOP THROUGH THE sub-Objects and calculate the indices by VOTES, PRICE, RATING
 
                 for (var i=0; i< arr_city1_price_range.length; i++){
 
@@ -340,24 +342,38 @@ $(document).ready(function () {
                             element.resto_id.segIndexRating =((element.resto_id.agg_rating-segAvgRating)/element.resto_id.agg_rating)*100
                             
                             console.log("The segIndexRating is: " + element.resto_id.segIndexRating);
+
+                            element.rankIndex = (element.resto_id.segIndexVotes+element.resto_id.segIndexRating)-element.resto_id.segIndexPrice 
+                            console.log("the rank index is: " + element.rankIndex);
+
+                            // need to determine the max value of the rank index within the segment for $ and $$$$
+                            // 
+                            // between $$ and $$$$ --> whichever is a higher rankIndex, that's the 3rd reco
+                            //
+                            // based on the above designations, find the corresponding resto_id in obj_city1 and 
+                            // set reco boolean to TRUE...use this field in the for loop for drawing the div
+                            // add the if (){} for the reco boolean
                         
                             });
-                        
-                        // (2) PERFORM ANALYSIS ON INDICES TO DETERMINE THE RECOMMENDED RESTIO 
-                        // (3) IF THERE'S A "TIE" BETWEEN 2 OR MORE RESTOS WITHIN A SEGMENT, 
-                        //  TIE-BREAKERS ARE DETERMINED BY INDICES AT TOTAL LEVEL, i.e., wrt entire obj_city1 
-                        //
-                        //  (4) PUSH indices to EACH RESTAURANT IN obj_city1 per the equivalent resto_id IN obj_city1 
-                        //
-                        //  (5) BASED ON THE RESULTS OF THE ANALYSIS, PUSH A NEW PROPERTY TO THE obj_city1 = TRUE ON 
-                        //  THE RESTOS THAT WILL BE DRAWN TO THE PAGE <DIV> PREPEND & APPEND AND USE THIS ^^PROPERTY 
-                        //  TO DETERMINE AND PERFORM THE POPULATING OF THE PAGE
+
+                            //Math.max()
 
                     };  
                 
                 };
 
-                //  (6) POPULATE THE DIV FOR CITY1
+                // (1) PERFORM ANALYSIS ON INDICES TO DETERMINE THE RECOMMENDED RESTIO 
+                // (2) IF THERE'S A "TIE" BETWEEN 2 OR MORE RESTOS WITHIN A SEGMENT, 
+                // TIE-BREAKERS ARE DETERMINED BY INDICES AT TOTAL LEVEL, i.e., wrt entire obj_city1 
+                //
+                // (3) PUSH indices to EACH RESTAURANT IN obj_city1 per the equivalent resto_id IN obj_city1 
+                //
+                // (4) BASED ON THE RESULTS OF THE ANALYSIS, PUSH A NEW PROPERTY TO THE obj_city1 = TRUE ON 
+                // THE RESTOS THAT WILL BE DRAWN TO THE PAGE <DIV> PREPEND & APPEND AND USE THIS ^^PROPERTY 
+                // TO DETERMINE AND PERFORM THE POPULATING OF THE PAGE
+
+
+                //  (5) POPULATE THE DIV FOR CITY1
                     city1resto = $("<div class='city1resto'>");
                     
                     // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
@@ -436,12 +452,6 @@ $(document).ready(function () {
 
                     };    
 
-                    // // (7) BEGIN END CITY AKA CITY2
-                    // //
-                    // //
-                    // // (8) REPEAT ENTIRETY OF LINES 141:322 FOR CITY2
-                    // //
-                    // // (9) THE DIV FOR CITY2
                     // // 
                     // // (10) CREATE FUNCTIONALITY TO BE ABLE TO CROSS-X-PRODUCT CUISINES + WEATHJER ACROSS CITIES
                     // //
@@ -679,7 +689,7 @@ $(document).ready(function () {
 
                         name2 = obj_city2[i].resto_id.name;
 
-                        console.log(name1);
+                        console.log(name2);
 
                         cuisine2= obj_city2[i].resto_id.cuisine;
 
@@ -785,48 +795,6 @@ $(document).ready(function () {
             console.log("SumTemp: " + sumTemp);
             console.log("SumClouds: " + sumClouds);
             console.log("SumRain: " + sumRain);
-        }
-        var countryAbbreviations = [
-            ["au", "Australia"],
-            ["cz", "Czech Republic"],
-            ["it", "Italy"],
-            ["ph", "Philippines"],
-            ["sg", "Singapore"],
-            ["tr", "Turkey"],
-            ["br", "Brasil"],
-            ["in", "India"],
-            ["lb", "Lebanon"],
-            ["pl", "Poland"],
-            ["sk", "Slovakia"],
-            ["ae", "UAE"],
-            ["ca", "Canada"],
-            ["id", "Indonesia"],
-            ["my", "Malaysia"],
-            ["pt", "Portugal"],
-            ["za", "South Africa"],
-            ["uk", "United Kingdom"],
-            ["cl", "Chile"],
-            ["ie", "Ireland"],
-            ["nz", "New Zealand"],
-            ["qa", "Qatar"],
-            ["lk", "Sri Lanka"],
-            ["us", "United States"]
-        ]
-        //find home country abbreviation for weather api
-        for (var i = 0; i < countryAbbreviations.length; i++) {
-            if (city1country_name === countryAbbreviations[i][1]) {
-                country1 = countryAbbreviations[i][0];
-                console.log(country1);
-                break;
-            }
-        }
-        //find destination country abbreviation for weather api
-        for (var i = 0; i < countryAbbreviations.length; i++) {
-            if (city2country_name === countryAbbreviations[i][1]) {
-                country2 = countryAbbreviations[i][0];
-                console.log(country2);
-                break;
-            }
         }
             var queryURL1 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city1 + ", " + country1 + "&units=imperial&appid=" + APIKeyWeather;
             $.ajax({
