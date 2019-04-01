@@ -352,7 +352,8 @@ $(document).ready(function () {
                             console.log("The indexSegRating is: " + element.resto_id.indexSegRating);
 
                             element.resto_id.indexSegRank = (element.resto_id.indexSegVotes+element.resto_id.indexSegRating)-element.resto_id.indexSegPrice 
-                            console.log("the indexSegRank index is: " + element.resto_id.indexSegRank);
+                            
+                            console.log("the indexSegRank is: " + element.resto_id.indexSegRank);
 
                             // obj_city1[element.resto_id].resto_id.indexSegRank = element.resto_id.indexSegRank;
                             
@@ -643,6 +644,7 @@ $(document).ready(function () {
                     //  --> RANK
 
                         obj_city2[i].resto_id.indexTotalRank = (obj_city2[i].resto_id.indexTotalRating+obj_city2[i].resto_id.indexTotalVotes)-obj_city2[i].resto_id.indexTotalPrice;    
+                        
                         console.log("The index total rank is: " + obj_city2[i].resto_id.indexTotalRank);
                 };
 
