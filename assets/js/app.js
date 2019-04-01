@@ -97,6 +97,7 @@ var cuisine1;
 var currency1;
 var price1;
 var rating1;
+var price_range1;
 
 var city2resto;
 var img2;
@@ -105,12 +106,14 @@ var cuisine2;
 var currency2;
 var price2;
 var rating2;
+var price_range2;
 
 var pName;
 var pImg;
 var pCuisine;
 var pPrice;
 var pRating;
+var pRange;
 
 var totalVotes = 0;
 var totalPrice = 0;
@@ -135,17 +138,20 @@ var segAvgRating = 0;
 var segIndexVotes = 0;
 var segIndexPrice = 0;
 var segIndexRating = 0;
+var rankIndex;
+var highestRanked_resto_id;
 
 $(document).ready(function () {
     
     $("#submit-btn").on("click", (event) => {
     event.preventDefault();
+
     city1 = $("#startLocation").val().trim();
     city2 = $("#endLocation").val().trim();
     
         // BEGIN STARTCITY AKA CITY1
 
-        city1name = $("#startLocation").val();
+        city1name = $("#startLocation").val().trim();
         console.log("the city1name is: " + city1name);  
 
         var queryURL ="https://developers.zomato.com/api/v2.1/cities?q=" + city1name + "&count=1";
@@ -232,7 +238,8 @@ $(document).ready(function () {
                             avg_cost_two: avg_cost_two,
                             agg_rating : agg_rating,
                             rating_text: rating_text,
-                            votes: votes}
+                            votes: votes,
+                            div_draw: "false"}
                         };
                 
                     console.log(price_range);
@@ -291,36 +298,38 @@ $(document).ready(function () {
                         obj_city1[i].indexTotalRating = ((obj_city1[i].resto_id.agg_rating-avgRating)/obj_city1[i].agg_rating)*100;
                 };
 
-                //  loop to each restaurant from the object
+                //  array of the price_range segment sub-objects
 
                 arr_city1_price_range.push(obj_city1_price_range1, obj_city1_price_range2, obj_city1_price_range3,obj_city1_price_range4);
                 
-                // // (1) LOOP THROUGH THE subObjectsByPrice_Range_Segment
+                // LOOP THROUGH THE sub-Objects and calculate the indices by VOTES, PRICE, RATING
 
                 for (var i=0; i< arr_city1_price_range.length; i++){
 
-                    if(arr_city1_price_range[i].length !== 0){
+                    if(arr_city1_price_range[i].length !== 0)   {
 
                         segCount = arr_city1_price_range[i].length;
 
-                        segTotalVotes=arr_city1_price_range[i].reduce(function(totalVotes,currVal){
-                            return totalVotes+currVal.resto_id.votes
+                        segTotalVotes=arr_city1_price_range[i].reduce(function(segTotalVotes,currVal){
+                            return segTotalVotes+currVal.resto_id.votes
                         },0)
+
+                        console.log("the segTotalVotes is: " + segTotalVotes);
 
                         segAvgVotes = segTotalVotes/segCount;
 
                         console.log("the segAvgVotes is: "+ segAvgVotes);
 
-                        segTotalPrice =arr_city1_price_range[i].reduce(function(totalPrice,currVal){
-                            return totalPrice+currVal.resto_id.avg_cost_two
+                        segTotalPrice =arr_city1_price_range[i].reduce(function(segTotalPrice,currVal){
+                            return segTotalPrice+currVal.resto_id.avg_cost_two
                         },0)
 
                         segAvgPrice = parseFloat(segTotalPrice/segCount.toFixed(0));
 
                         console.log("the segAvgPrice is: "+ parseFloat(segAvgPrice).toFixed(0));
 
-                        segTotalRating =arr_city1_price_range[i].reduce(function(totalRating,currVal){
-                            return totalRating+currVal.resto_id.agg_rating
+                        segTotalRating =arr_city1_price_range[i].reduce(function(segTotalRating,currVal){
+                            return segTotalRating+currVal.resto_id.agg_rating
                         },0)
 
                         segAvgRating = segTotalRating/segCount;
@@ -330,7 +339,8 @@ $(document).ready(function () {
                         arr_city1_price_range[i].forEach(element => {
                     
                             element.resto_id.segIndexVotes = ((element.resto_id.votes-segAvgVotes)/element.resto_id.votes)*100
-                            
+                            // arr_city1_price_range[i].resto_id.segIndexVotes=element.resto_id.segIndexVotes;
+
                             console.log("The segIndexVotes is: " + element.resto_id.segIndexVotes);
                             
                             element.resto_id.segIndexPrice = ((element.resto_id.avg_cost_two-segAvgPrice)/element.resto_id.avg_cost_two)*100
@@ -340,24 +350,44 @@ $(document).ready(function () {
                             element.resto_id.segIndexRating =((element.resto_id.agg_rating-segAvgRating)/element.resto_id.agg_rating)*100
                             
                             console.log("The segIndexRating is: " + element.resto_id.segIndexRating);
-                        
+
+                            element.rankIndex = (element.resto_id.segIndexVotes+element.resto_id.segIndexRating)-element.resto_id.segIndexPrice 
+                            console.log("the rank index is: " + element.rankIndex);
+                            
                             });
-                        
-                        // (2) PERFORM ANALYSIS ON INDICES TO DETERMINE THE RECOMMENDED RESTIO 
-                        // (3) IF THERE'S A "TIE" BETWEEN 2 OR MORE RESTOS WITHIN A SEGMENT, 
-                        //  TIE-BREAKERS ARE DETERMINED BY INDICES AT TOTAL LEVEL, i.e., wrt entire obj_city1 
-                        //
-                        //  (4) PUSH indices to EACH RESTAURANT IN obj_city1 per the equivalent resto_id IN obj_city1 
-                        //
-                        //  (5) BASED ON THE RESULTS OF THE ANALYSIS, PUSH A NEW PROPERTY TO THE obj_city1 = TRUE ON 
-                        //  THE RESTOS THAT WILL BE DRAWN TO THE PAGE <DIV> PREPEND & APPEND AND USE THIS ^^PROPERTY 
-                        //  TO DETERMINE AND PERFORM THE POPULATING OF THE PAGE
+
+                            // highestRanked_resto_id = arr_city1_price_range[i].map(function(highestRank){
+
+                            //     return Math.max(arr_city1_price_range[i].resto_id.rankIndex), arr_city1_price_range[i].resto_id;
+
+                            // });
+
+                            // console.log(highestRank_resto_id);
 
                     };  
-                
+
+                    // ****
+                    //
+                    //
+                    // highestRanked_resto_id = arr_city1_price_range[i].reduce(function(highest, _rankIndex) {
+                    //     return (highest.resto_id || 0) > arr_city1_price_range[i].resto_id.rankIndex ? highest : rank_index;
+                    // }, rankIndex);
+                    //
+                    //
+                    // LOGIC BELOW for $ and $$$$
+                    // between $$ and $$$ --> whichever is a higher rankIndex, that's the 3rd reco
+                    //
+                    // ****
+                    //
+                    // console.log("the highest-ranked resto_id is: " + highestRanked_resto_id);
+                            
+                    // obj_city1[highestRanked_resto_id].divDraw = true;
+                    //
+                    // ****
+
                 };
 
-                //  (6) POPULATE THE DIV FOR CITY1
+                //  POPULATE THE DIV FOR CITY1
                     city1resto = $("<div class='city1resto'>");
                     
                     // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
@@ -384,6 +414,8 @@ $(document).ready(function () {
 
                         console.log(rating1);
 
+                        price_range1=obj_city1[i].resto_id.price_range;
+
                         // pImg = $("<img>").attr({
                         //         "class": "city1restoIMG",
                         //         "src": img1,
@@ -406,6 +438,14 @@ $(document).ready(function () {
                         city1resto.append(pName);
 
                         console.log(city1resto);
+                        
+                        pRange = $("<p>")
+                                .text("Price Range: " + price_range1)
+                                .addClass("city1restoRange");
+                
+                        city1resto.append(pRange);
+
+                        console.log(pRange);
 
                         pPrice = $("<p>")
                             .text(currency + price1)
@@ -436,12 +476,6 @@ $(document).ready(function () {
 
                     };    
 
-                    // // (7) BEGIN END CITY AKA CITY2
-                    // //
-                    // //
-                    // // (8) REPEAT ENTIRETY OF LINES 141:322 FOR CITY2
-                    // //
-                    // // (9) THE DIV FOR CITY2
                     // // 
                     // // (10) CREATE FUNCTIONALITY TO BE ABLE TO CROSS-X-PRODUCT CUISINES + WEATHJER ACROSS CITIES
                     // //
@@ -454,7 +488,7 @@ $(document).ready(function () {
 
         // BEGIN ENDCITY AKA CITY2
 
-        city2name = $("#endLocation").val();
+        city2name = $("#endLocation").val().trim();
         console.log("the city2name is: " + city2name);  
 
         var queryURL ="https://developers.zomato.com/api/v2.1/cities?q=" + city2name + "&count=1";
@@ -470,9 +504,9 @@ $(document).ready(function () {
             city2_id= city2response.location_suggestions[0].id;
 
             city2country_id = city2response.location_suggestions[0].country_id;
-            console.log("the start city COUNTRY ID is: " + city2country_id);
+            console.log("the end city COUNTRY ID is: " + city2country_id);
             city2country_name = city2response.location_suggestions[0].country_name;
-            console.log("the start city COUNTRY NAME is: " + city2country_name);
+            console.log("the end city COUNTRY NAME is: " + city2country_name);
 
             console.log("The number of cuisines for " + city2name + ", " + city2country_name + " is : " + objCountryCuisines[city2country_id].cuisines.length);
 
@@ -482,7 +516,7 @@ $(document).ready(function () {
                 city2cuisineID = objCountryCuisines[city2country_id].cuisines[i].cuisine_id + ", " + city2cuisineID;
             };
 
-            console.log("the city1CuisineID is: " + city2cuisineID);
+            console.log("the city2CuisineID is: " + city2cuisineID);
 
             // STATIC RESPONSE COUNT AMOUNTS
             // var count_id=20;
@@ -541,7 +575,8 @@ $(document).ready(function () {
                             avg_cost_two: avg_cost_two,
                             agg_rating : agg_rating,
                             rating_text: rating_text,
-                            votes: votes}
+                            votes: votes,
+                            div_draw: "false"}
                         };
                 
                     console.log(price_range);
@@ -612,24 +647,26 @@ $(document).ready(function () {
 
                         segCount = arr_city2_price_range[i].length;
 
-                        segTotalVotes=arr_city2_price_range[i].reduce(function(totalVotes,currVal){
-                            return totalVotes+currVal.resto_id.votes
+                        segTotalVotes=arr_city2_price_range[i].reduce(function(segTotalVotes,currVal){
+                            return segTotalVotes+currVal.resto_id.votes
                         },0)
+
+                        console.log("the segTotalVotes is: " + segTotalVotes);
 
                         segAvgVotes = segTotalVotes/segCount;
 
                         console.log("the segAvgVotes is: "+ segAvgVotes);
 
-                        segTotalPrice =arr_city2_price_range[i].reduce(function(totalPrice,currVal){
-                            return totalPrice+currVal.resto_id.avg_cost_two
+                        segTotalPrice =arr_city2_price_range[i].reduce(function(segTotalPrice,currVal){
+                            return segTotalPrice+currVal.resto_id.avg_cost_two
                         },0)
 
                         segAvgPrice = parseFloat(segTotalPrice/segCount.toFixed(0));
 
                         console.log("the segAvgPrice is: "+ parseFloat(segAvgPrice).toFixed(0));
 
-                        segTotalRating =arr_city2_price_range[i].reduce(function(totalRating,currVal){
-                            return totalRating+currVal.resto_id.agg_rating
+                        segTotalRating =arr_city2_price_range[i].reduce(function(segTotalRating,currVal){
+                            return segTotalRating+currVal.resto_id.agg_rating
                         },0)
 
                         segAvgRating = segTotalRating/segCount;
@@ -651,22 +688,12 @@ $(document).ready(function () {
                             console.log("The segIndexRating is: " + element.resto_id.segIndexRating);
                         
                             });
-                        
-                        // (2) PERFORM ANALYSIS ON INDICES TO DETERMINE THE RECOMMENDED RESTIO 
-                        // (3) IF THERE'S A "TIE" BETWEEN 2 OR MORE RESTOS WITHIN A SEGMENT, 
-                        //  TIE-BREAKERS ARE DETERMINED BY INDICES AT TOTAL LEVEL, i.e., wrt entire obj_city1 
-                        //
-                        //  (4) PUSH indices to EACH RESTAURANT IN obj_city1 per the equivalent resto_id IN obj_city1 
-                        //
-                        //  (5) BASED ON THE RESULTS OF THE ANALYSIS, PUSH A NEW PROPERTY TO THE obj_city1 = TRUE ON 
-                        //  THE RESTOS THAT WILL BE DRAWN TO THE PAGE <DIV> PREPEND & APPEND AND USE THIS ^^PROPERTY 
-                        //  TO DETERMINE AND PERFORM THE POPULATING OF THE PAGE
 
                     };  
                 
                 };
 
-                //  (6) POPULATE THE DIV FOR CITY2
+                //  POPULATE THE DIV FOR CITY2
                     city2resto = $("<div class='city2resto'>");
                     
                     // APPEND THE TEXT ELEMENTS, THEN PREPEND THE IMAGE TO THE DIV
@@ -679,7 +706,7 @@ $(document).ready(function () {
 
                         name2 = obj_city2[i].resto_id.name;
 
-                        console.log(name1);
+                        console.log(name2);
 
                         cuisine2= obj_city2[i].resto_id.cuisine;
 
@@ -693,9 +720,11 @@ $(document).ready(function () {
 
                         console.log(rating2);
 
+                        price_range2=obj_city2[i].resto_id.price_range;
+
                         // pImg = $("<img>").attr({
                         //         "class": "city2restoIMG",
-                        //         "src": img1,
+                        //         "src": img2,
                         //         "data-value": restoURL
                         //         });
 
@@ -715,6 +744,14 @@ $(document).ready(function () {
                         city2resto.append(pName);
 
                         console.log(city2resto);
+
+                        pRange = $("<p>")
+                                .text("Price Range: " + price_range2)
+                                .addClass("city2restoRange");
+                
+                        city2resto.append(pRange);
+
+                        console.log(pRange);
 
                         pPrice = $("<p>")
                             .text(currency2 + price2)
@@ -744,24 +781,19 @@ $(document).ready(function () {
                         $("#endCards").prepend(city2resto);
 
                     };    
-
-                    // // (7) BEGIN END CITY AKA CITY2
-                    // //
-                    // //
-                    // // (8) REPEAT ENTIRETY OF LINES 141:322 FOR CITY2
-                    // //
-                    // // (9) THE DIV FOR CITY2
-                    // // 
-                    // // (10) CREATE FUNCTIONALITY TO BE ABLE TO CROSS-X-PRODUCT CUISINES + WEATHJER ACROSS CITIES
-                    // //
-                    // //
+                    
+// //
+// // CREATE FUNCTIONALITY TO BE ABLE TO CROSS-X-PRODUCT CUISINES + WEATHJER ACROSS CITIES
+// //
 
 
-        // // END OF ZOMATO JAVASCRIPT
+// // END OF ZOMATO JAVASCRIPT
+
             });
-            
 
- //===========================           
+//            
+//===========================    
+//       
 // start of weather
         function resetVars() {
             console.log("start of resetVars()");
@@ -827,7 +859,7 @@ $(document).ready(function () {
                 console.log(country2);
                 break;
             }
-        }
+
             var queryURL1 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city1 + ", " + country1 + "&units=imperial&appid=" + APIKeyWeather;
             $.ajax({
                 url: queryURL1,
@@ -1040,98 +1072,100 @@ $(document).ready(function () {
                     updateWeather2();
                     //next day button click to display other days' weathers
                     $("#nextDay2").click(function () {
-                    resetVars();
-                        if ($("#nextDay2").attr("data-day") === "0") {
-                            console.log("DAY 1:");
-                            $("#day2").text("Today: ");
-                            for (var i = 0; i < 8; i++) {
+                        resetVars();
+                            if ($("#nextDay2").attr("data-day") === "0") {
+                                console.log("DAY 1:");
+                                $("#day2").text("Today: ");
+                                for (var i = 0; i < 8; i++) {
+                                    sumTemp = sumTemp + response.list[i].main.temp;
+                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                    if (response.list[i].rain !== undefined) {
+                                        var typeOfRain = typeof response.list[i].rain["3h"];
+                                        if (typeOfRain === "number") {
+                                            sumRain = sumRain + response.list[i].rain["3h"];
+                                        }
+                                    }
+                                    consoleLogs();
+                                }
+                                $("#nextDay2").attr("data-day", "1");
+                            } else if ($("#nextDay2").attr("data-day") === "1") {
+                                console.log("DAY 2:");
+                                $("#day2").text("Tomorrow: ");
+                                for (var i = 8; i < 16; i++) {
                                 sumTemp = sumTemp + response.list[i].main.temp;
                                 sumClouds = sumClouds + response.list[i].clouds.all;
-                                if (response.list[i].rain !== undefined) {
-                                    var typeOfRain = typeof response.list[i].rain["3h"];
-                                    if (typeOfRain === "number") {
-                                        sumRain = sumRain + response.list[i].rain["3h"];
-                                    }
+                                        if (response.list[i].rain !== undefined) {
+                                        var typeOfRain = typeof response.list[i].rain["3h"];
+                                            if (typeOfRain === "number") {
+                                            sumRain = sumRain + response.list[i].rain["3h"];
+                                            }
+                                        }
+                                    consoleLogs();
                                 }
-                                consoleLogs();
-                            }
-                            $("#nextDay2").attr("data-day", "1");
-                        } else if ($("#nextDay2").attr("data-day") === "1") {
-                            console.log("DAY 2:");
-                            $("#day2").text("Tomorrow: ");
-                            for (var i = 8; i < 16; i++) {
-                            sumTemp = sumTemp + response.list[i].main.temp;
-                            sumClouds = sumClouds + response.list[i].clouds.all;
-                                    if (response.list[i].rain !== undefined) {
-                                    var typeOfRain = typeof response.list[i].rain["3h"];
+                                $("#nextDay2").attr("data-day", "2");
+                            } else if ($("#nextDay2").attr("data-day") === "2") {
+                                console.log("DAY 3:");
+                                $("#day2").text("Day 3: ");
+                                for (var i = 16; i < 24; i++) {
+                                    sumTemp = sumTemp + response.list[i].main.temp;
+                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                        if (response.list[i].rain !== undefined) {
+                                            var typeOfRain = typeof response.list[i].rain["3h"];
+                                            if (typeOfRain === "number") {
+                                            sumRain = sumRain + response.list[i].rain["3h"];
+                                            }
+                                        }   
+                                    consoleLogs();
+                                }
+                                $("#nextDay2").attr("data-day", "3");
+                            } else if ($("#nextDay2").attr("data-day") === "3") {
+                                console.log("DAY 4:");
+                                $("#day2").text("Day 4: ");
+                                for (var i = 24; i < 32; i++) {
+                                    sumTemp = sumTemp + response.list[i].main.temp;
+                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                        if (response.list[i].rain !== undefined) {
+                                            var typeOfRain = typeof response.list[i].rain["3h"];
                                         if (typeOfRain === "number") {
                                         sumRain = sumRain + response.list[i].rain["3h"];
                                         }
                                     }
                                 consoleLogs();
-                            }
-                            $("#nextDay2").attr("data-day", "2");
-                        } else if ($("#nextDay2").attr("data-day") === "2") {
-                            console.log("DAY 3:");
-                            $("#day2").text("Day 3: ");
-                            for (var i = 16; i < 24; i++) {
-                                sumTemp = sumTemp + response.list[i].main.temp;
-                                sumClouds = sumClouds + response.list[i].clouds.all;
-                                    if (response.list[i].rain !== undefined) {
-                                        var typeOfRain = typeof response.list[i].rain["3h"];
-                                        if (typeOfRain === "number") {
-                                        sumRain = sumRain + response.list[i].rain["3h"];
-                                        }
-                                    }   
-                                consoleLogs();
-                            }
-                            $("#nextDay2").attr("data-day", "3");
-                        } else if ($("#nextDay2").attr("data-day") === "3") {
-                            console.log("DAY 4:");
-                            $("#day2").text("Day 4: ");
-                            for (var i = 24; i < 32; i++) {
-                                sumTemp = sumTemp + response.list[i].main.temp;
-                                sumClouds = sumClouds + response.list[i].clouds.all;
+                                }
+                                $("#nextDay2").attr("data-day", "4");
+                            } else {
+                                console.log("DAY 5:");
+                                $("#day2").text("Day 5: ");
+                                for (var i = 32; i < response.list.length; i++) {
+                                    sumTemp = sumTemp + response.list[i].main.temp;
+                                    sumClouds = sumClouds + response.list[i].clouds.all;
                                     if (response.list[i].rain !== undefined) {
                                         var typeOfRain = typeof response.list[i].rain["3h"];
                                     if (typeOfRain === "number") {
-                                    sumRain = sumRain + response.list[i].rain["3h"];
+                                        sumRain = sumRain + response.list[i].rain["3h"];
+                                        }
                                     }
+                                consoleLogs();
                                 }
-                            consoleLogs();
+                                $("#nextDay2").attr("data-day", "0");
                             }
-                            $("#nextDay2").attr("data-day", "4");
-                        } else {
-                            console.log("DAY 5:");
-                            $("#day2").text("Day 5: ");
-                            for (var i = 32; i < response.list.length; i++) {
-                                sumTemp = sumTemp + response.list[i].main.temp;
-                                sumClouds = sumClouds + response.list[i].clouds.all;
-                                if (response.list[i].rain !== undefined) {
-                                    var typeOfRain = typeof response.list[i].rain["3h"];
-                                if (typeOfRain === "number") {
-                                    sumRain = sumRain + response.list[i].rain["3h"];
-                                    }
-                                }
-                            consoleLogs();
-                            }
-                            $("#nextDay2").attr("data-day", "0");
-                        }
-                        findAverages();
-                        updateWeather2();
+                            findAverages();
+                            updateWeather2();
+                        });
                     });
-                });
+                };
             });
         });
+                    // Initialize Firebase
+                    // var config = {
+                    //     apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
+                    //     authDomain: "project1-2f7ae.firebaseapp.com",
+                    //     databaseURL: "https://project1-2f7ae.firebaseio.com",
+                    //     projectId: "project1-2f7ae",
+                    //     storageBucket: "project1-2f7ae.appspot.com",
+                    //     messagingSenderId: "842716287063"
+                    // };
+                    // firebase.initializeApp(config);
     });
-                // Initialize Firebase
-                // var config = {
-                //     apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
-                //     authDomain: "project1-2f7ae.firebaseapp.com",
-                //     databaseURL: "https://project1-2f7ae.firebaseio.com",
-                //     projectId: "project1-2f7ae",
-                //     storageBucket: "project1-2f7ae.appspot.com",
-                //     messagingSenderId: "842716287063"
-                // };
-                // firebase.initializeApp(config);
+
 });
