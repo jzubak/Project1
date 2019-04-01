@@ -8,7 +8,7 @@ https://docs.google.com/presentation/d/1ZtD1PFPklUL9GoSS5xQX1N-ulPC1DN-PA3Z5onCr
 
 When you are planning a trip to a new place, two of the most intimidating things to know on arrival are:
 
- -->Where to eat and;
+ -->Where to eat and
  -->What the weather looks like
  
 At Three Course Travel we want to ease that stress by giving you a forecast and a taste of what to expect.
