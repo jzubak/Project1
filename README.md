@@ -1,6 +1,6 @@
 # Project1
 
-threecoursetravel.com
+http://threecoursetravel.com
 
 https://jzubak.github.io/Three-Course-Travel/index.html
 
@@ -21,6 +21,6 @@ Then, click the Go! button and watch as the screen is re-drawn with weather info
 
 We're even at work right now on enhancements and new features such as showing destination cuisines in the current city and vice versa, so check back with us regularly!
 
-We aim to satisfy taste buds and travel bugs with the intelligence and the opportunity to experience in your own backyard what will soon be front and center elswhere in your travels.
+We aim to satisfy taste buds and travel bugs with the intelligence and the opportunity to experience in your own backyard what will soon be front and center elswhere as you traverse the globe.
 
 Three Course Travel is serving up the world!
