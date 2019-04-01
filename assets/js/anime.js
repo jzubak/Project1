@@ -22,7 +22,59 @@ $(document).ready(function(){
       $("#endLocationResult").text(city2name);
 
     });
-    
+    // When contact page is opened, run SVG animation
+      if(window.location !== "contact.html"){
+        var morphing = anime({
+          targets: '.polymorph-contact',
+          points: [
+          { value: '215,110 190,30 0,30 0,0 215,0   ' },
+          ],
+          easing: 'easeOutQuad',
+          duration: 1200,
+          loop: false
+        });
+
+        // Animation to move profiles around screen upon page load
+        anime({
+  targets: '.profile1',
+  translateX: 250,
+  duration: 1800
+});
+
+anime({
+  targets: '.profile2',
+  translateX: -250,
+  duration: 2400
+});
+
+anime({
+  targets: '.profile3',
+  translateX: 250,
+  duration: 2800
+});
+
+anime({
+  targets: '.profile4',
+  translateX: -250,
+  duration: 3200
+});
+
+      }
+      // When history page is opened, run SVG animation
+ if(window.loctaion !=="history.html") {
+  var morphing = anime({
+    targets: '.polymorph-history',
+    points: [
+    { value: '215,110 190,30 0,30 0,0 215,0   ' },
+    ],
+    easing: 'easeOutQuad',
+    duration: 1200,
+    loop: false
+  });
+ }
+
+
+
   });
 
   // Define button onclick elements
