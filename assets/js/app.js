@@ -1,10 +1,8 @@
 //declare variables
-var home;
-var dest;
-var city1 = "philadelphia";
-var city2 = "miami";
-var country1 = "us";
-var country2 = "us";
+var city1;
+var city2;
+var country1;
+var country2;
 var APIKeyWeather = "30bacb09b1a6ec05e34d8f5ac74ca7de";
 var queryURL;
 var sumTemp = 0;
@@ -147,10 +145,13 @@ $(document).ready(function () {
     
     $("#submit-btn").on("click", (event) => {
     event.preventDefault();
+
+    city1 = $("#startLocation").val().trim();
+    city2 = $("#endLocation").val().trim();
     
         // BEGIN STARTCITY AKA CITY1
 
-        city1name = $("#startLocation").val();
+        city1name = $("#startLocation").val().trim();
         console.log("the city1name is: " + city1name);  
 
         var queryURL ="https://developers.zomato.com/api/v2.1/cities?q=" + city1name + "&count=1";
@@ -352,8 +353,16 @@ $(document).ready(function () {
 
                             element.rankIndex = (element.resto_id.segIndexVotes+element.resto_id.segIndexRating)-element.resto_id.segIndexPrice 
                             console.log("the rank index is: " + element.rankIndex);
-        
+                            
                             });
+
+                            // highestRanked_resto_id = arr_city1_price_range[i].map(function(highestRank){
+
+                            //     return Math.max(arr_city1_price_range[i].resto_id.rankIndex), arr_city1_price_range[i].resto_id;
+
+                            // });
+
+                            // console.log(highestRank_resto_id);
 
                     };  
 
@@ -479,7 +488,7 @@ $(document).ready(function () {
 
         // BEGIN ENDCITY AKA CITY2
 
-        city2name = $("#endLocation").val();
+        city2name = $("#endLocation").val().trim();
         console.log("the city2name is: " + city2name);  
 
         var queryURL ="https://developers.zomato.com/api/v2.1/cities?q=" + city2name + "&count=1";
@@ -809,6 +818,48 @@ $(document).ready(function () {
             console.log("SumClouds: " + sumClouds);
             console.log("SumRain: " + sumRain);
         }
+        var countryAbbreviations = [
+            ["au", "Australia"],
+            ["cz", "Czech Republic"],
+            ["it", "Italy"],
+            ["ph", "Philippines"],
+            ["sg", "Singapore"],
+            ["tr", "Turkey"],
+            ["br", "Brasil"],
+            ["in", "India"],
+            ["lb", "Lebanon"],
+            ["pl", "Poland"],
+            ["sk", "Slovakia"],
+            ["ae", "UAE"],
+            ["ca", "Canada"],
+            ["id", "Indonesia"],
+            ["my", "Malaysia"],
+            ["pt", "Portugal"],
+            ["za", "South Africa"],
+            ["uk", "United Kingdom"],
+            ["cl", "Chile"],
+            ["ie", "Ireland"],
+            ["nz", "New Zealand"],
+            ["qa", "Qatar"],
+            ["lk", "Sri Lanka"],
+            ["us", "United States"]
+        ]
+        //find home country abbreviation for weather api
+        for (var i = 0; i < countryAbbreviations.length; i++) {
+            if (city1country_name === countryAbbreviations[i][1]) {
+                country1 = countryAbbreviations[i][0];
+                console.log(country1);
+                break;
+            }
+        }
+        //find destination country abbreviation for weather api
+        for (var i = 0; i < countryAbbreviations.length; i++) {
+            if (city2country_name === countryAbbreviations[i][1]) {
+                country2 = countryAbbreviations[i][0];
+                console.log(country2);
+                break;
+            }
+
             var queryURL1 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city1 + ", " + country1 + "&units=imperial&appid=" + APIKeyWeather;
             $.ajax({
                 url: queryURL1,
