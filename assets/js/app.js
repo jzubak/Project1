@@ -1072,98 +1072,100 @@ $(document).ready(function () {
                     updateWeather2();
                     //next day button click to display other days' weathers
                     $("#nextDay2").click(function () {
-                    resetVars();
-                        if ($("#nextDay2").attr("data-day") === "0") {
-                            console.log("DAY 1:");
-                            $("#day2").text("Today: ");
-                            for (var i = 0; i < 8; i++) {
+                        resetVars();
+                            if ($("#nextDay2").attr("data-day") === "0") {
+                                console.log("DAY 1:");
+                                $("#day2").text("Today: ");
+                                for (var i = 0; i < 8; i++) {
+                                    sumTemp = sumTemp + response.list[i].main.temp;
+                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                    if (response.list[i].rain !== undefined) {
+                                        var typeOfRain = typeof response.list[i].rain["3h"];
+                                        if (typeOfRain === "number") {
+                                            sumRain = sumRain + response.list[i].rain["3h"];
+                                        }
+                                    }
+                                    consoleLogs();
+                                }
+                                $("#nextDay2").attr("data-day", "1");
+                            } else if ($("#nextDay2").attr("data-day") === "1") {
+                                console.log("DAY 2:");
+                                $("#day2").text("Tomorrow: ");
+                                for (var i = 8; i < 16; i++) {
                                 sumTemp = sumTemp + response.list[i].main.temp;
                                 sumClouds = sumClouds + response.list[i].clouds.all;
-                                if (response.list[i].rain !== undefined) {
-                                    var typeOfRain = typeof response.list[i].rain["3h"];
-                                    if (typeOfRain === "number") {
-                                        sumRain = sumRain + response.list[i].rain["3h"];
-                                    }
+                                        if (response.list[i].rain !== undefined) {
+                                        var typeOfRain = typeof response.list[i].rain["3h"];
+                                            if (typeOfRain === "number") {
+                                            sumRain = sumRain + response.list[i].rain["3h"];
+                                            }
+                                        }
+                                    consoleLogs();
                                 }
-                                consoleLogs();
-                            }
-                            $("#nextDay2").attr("data-day", "1");
-                        } else if ($("#nextDay2").attr("data-day") === "1") {
-                            console.log("DAY 2:");
-                            $("#day2").text("Tomorrow: ");
-                            for (var i = 8; i < 16; i++) {
-                            sumTemp = sumTemp + response.list[i].main.temp;
-                            sumClouds = sumClouds + response.list[i].clouds.all;
-                                    if (response.list[i].rain !== undefined) {
-                                    var typeOfRain = typeof response.list[i].rain["3h"];
+                                $("#nextDay2").attr("data-day", "2");
+                            } else if ($("#nextDay2").attr("data-day") === "2") {
+                                console.log("DAY 3:");
+                                $("#day2").text("Day 3: ");
+                                for (var i = 16; i < 24; i++) {
+                                    sumTemp = sumTemp + response.list[i].main.temp;
+                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                        if (response.list[i].rain !== undefined) {
+                                            var typeOfRain = typeof response.list[i].rain["3h"];
+                                            if (typeOfRain === "number") {
+                                            sumRain = sumRain + response.list[i].rain["3h"];
+                                            }
+                                        }   
+                                    consoleLogs();
+                                }
+                                $("#nextDay2").attr("data-day", "3");
+                            } else if ($("#nextDay2").attr("data-day") === "3") {
+                                console.log("DAY 4:");
+                                $("#day2").text("Day 4: ");
+                                for (var i = 24; i < 32; i++) {
+                                    sumTemp = sumTemp + response.list[i].main.temp;
+                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                        if (response.list[i].rain !== undefined) {
+                                            var typeOfRain = typeof response.list[i].rain["3h"];
                                         if (typeOfRain === "number") {
                                         sumRain = sumRain + response.list[i].rain["3h"];
                                         }
                                     }
                                 consoleLogs();
-                            }
-                            $("#nextDay2").attr("data-day", "2");
-                        } else if ($("#nextDay2").attr("data-day") === "2") {
-                            console.log("DAY 3:");
-                            $("#day2").text("Day 3: ");
-                            for (var i = 16; i < 24; i++) {
-                                sumTemp = sumTemp + response.list[i].main.temp;
-                                sumClouds = sumClouds + response.list[i].clouds.all;
-                                    if (response.list[i].rain !== undefined) {
-                                        var typeOfRain = typeof response.list[i].rain["3h"];
-                                        if (typeOfRain === "number") {
-                                        sumRain = sumRain + response.list[i].rain["3h"];
-                                        }
-                                    }   
-                                consoleLogs();
-                            }
-                            $("#nextDay2").attr("data-day", "3");
-                        } else if ($("#nextDay2").attr("data-day") === "3") {
-                            console.log("DAY 4:");
-                            $("#day2").text("Day 4: ");
-                            for (var i = 24; i < 32; i++) {
-                                sumTemp = sumTemp + response.list[i].main.temp;
-                                sumClouds = sumClouds + response.list[i].clouds.all;
+                                }
+                                $("#nextDay2").attr("data-day", "4");
+                            } else {
+                                console.log("DAY 5:");
+                                $("#day2").text("Day 5: ");
+                                for (var i = 32; i < response.list.length; i++) {
+                                    sumTemp = sumTemp + response.list[i].main.temp;
+                                    sumClouds = sumClouds + response.list[i].clouds.all;
                                     if (response.list[i].rain !== undefined) {
                                         var typeOfRain = typeof response.list[i].rain["3h"];
                                     if (typeOfRain === "number") {
-                                    sumRain = sumRain + response.list[i].rain["3h"];
+                                        sumRain = sumRain + response.list[i].rain["3h"];
+                                        }
                                     }
+                                consoleLogs();
                                 }
-                            consoleLogs();
+                                $("#nextDay2").attr("data-day", "0");
                             }
-                            $("#nextDay2").attr("data-day", "4");
-                        } else {
-                            console.log("DAY 5:");
-                            $("#day2").text("Day 5: ");
-                            for (var i = 32; i < response.list.length; i++) {
-                                sumTemp = sumTemp + response.list[i].main.temp;
-                                sumClouds = sumClouds + response.list[i].clouds.all;
-                                if (response.list[i].rain !== undefined) {
-                                    var typeOfRain = typeof response.list[i].rain["3h"];
-                                if (typeOfRain === "number") {
-                                    sumRain = sumRain + response.list[i].rain["3h"];
-                                    }
-                                }
-                            consoleLogs();
-                            }
-                            $("#nextDay2").attr("data-day", "0");
-                        }
-                        findAverages();
-                        updateWeather2();
+                            findAverages();
+                            updateWeather2();
+                        });
                     });
-                });
+                };
             });
         });
+                    // Initialize Firebase
+                    // var config = {
+                    //     apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
+                    //     authDomain: "project1-2f7ae.firebaseapp.com",
+                    //     databaseURL: "https://project1-2f7ae.firebaseio.com",
+                    //     projectId: "project1-2f7ae",
+                    //     storageBucket: "project1-2f7ae.appspot.com",
+                    //     messagingSenderId: "842716287063"
+                    // };
+                    // firebase.initializeApp(config);
     });
-                // Initialize Firebase
-                // var config = {
-                //     apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
-                //     authDomain: "project1-2f7ae.firebaseapp.com",
-                //     databaseURL: "https://project1-2f7ae.firebaseio.com",
-                //     projectId: "project1-2f7ae",
-                //     storageBucket: "project1-2f7ae.appspot.com",
-                //     messagingSenderId: "842716287063"
-                // };
-                // firebase.initializeApp(config);
+
 });
