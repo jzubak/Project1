@@ -17,9 +17,7 @@
     font-style:normal;font-weight:400;
     }
     /* Resets */
-    div {
-        border: 1px black
-    }
+   
     html {
     height: 100%;
     box-sizing: border-box;
@@ -31,7 +29,7 @@
     background: #ffbaba; /* Color 1 */
     }
     /* HTML elements */
-    .polymorph, .polymorph-contact {
+    .polymorph, .polymorph-contact, .polymorph-history {
     fill:#ff5252; /* Color 2 */
     background-size: 100% 5em;
     }
@@ -42,7 +40,7 @@
     }
     #foreground {
     position: absolute;
-    margin: 2em auto 3em auto;
+    margin: 2em auto 5em auto;
     left: 0;
     right: 0;
     }
@@ -67,6 +65,7 @@
     }
     .footer a {
     color: #ffffff; 
+    font-size: 14px;
     }
     #brand-logo {
     padding: 30px;
@@ -230,6 +229,13 @@
     font-size: 14px !important;
     line-height: 18px !important;
     }
+    a:hover + .gitbox,.gitbox:hover {
+        right: 65 !important;
+    }
+    #employee-table {
+    font-size: 10px;
+    line-height: 14px;
+    }
     }
     
     #profile  {
@@ -258,3 +264,66 @@
     button:hover, a:hover {
     opacity: 0.7;
     }
+
+    .profile {
+        margin: 1em;
+        height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+    }
+    .contact {
+        min-height: 150px;
+        max-width: 220px;
+        text-align: center;
+        position: relative;
+    }
+    .profile-img img {
+        border-radius: 150px;
+        background: #a50000;
+        border: 5px #ffffff solid;
+    }
+    .profile-img img:hover {
+        background: #ffffff !important;
+        border: 5px white solid !important;
+    }
+    .name, .position, .github {
+      font-family: 'proxima-nova', sans-serif, Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      line-height: 25px;
+      padding-top: 5px;
+    }
+    .name {
+      font-family: 'proxima-nova-black', sans-serif, Arial, Helvetica, sans-serif;
+      padding-top: 10px;
+    }
+     .github a {
+      font-family: 'proxima-nova-black', sans-serif, Arial, Helvetica, sans-serif;
+      color: #a50000;
+    }
+
+    a:hover + .gitbox,.gitbox:hover{
+      display: block;
+      position: absolute;
+      z-index: 100;
+      bottom: 0;
+      right:35;
+  }
+          .gitbox{
+     display: none;
+      width: 100%;
+      position: absolute;
+  }
+
+  .profile1 {
+      left: -250;
+  }
+  .profile2 {
+      left: 250;
+  }
+  .profile3 {
+      left: -250;
+  }
+  .profile4 {
+      left: 250;
+  }
