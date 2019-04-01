@@ -23,4 +23,31 @@ We're even at work right now on enhancements and new features such as showing de
 
 We aim to satisfy taste buds and travel bugs with the intelligence and the opportunity to experience in your own backyard what will soon be front and center elswhere as you traverse the globe.
 
-Three Course Travel is serving up the world!
+Three Course Travel is serving up the world! 
+
+...but as of today, we're only available for results from the following countries. please enjoy.
+
+Australia
+Brasil
+Canada
+Chile
+Czech Republic
+India
+Indonesia
+Ireland
+Italy
+Lebanon
+Malaysia
+New Zealand
+Philippines
+Poland
+Portugal
+Qatar
+Singapore
+South Africa
+Sri Lanka
+Turkey
+UAE
+United Kingdom
+United States
+
