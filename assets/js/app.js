@@ -886,7 +886,7 @@ $(document).ready(function () {
             }).then(function (response) {
                 console.log(response);
                 console.log("City: " + response.city.name);
-
+                $("#startWeather").empty();
                 //!!!TO DO!!!! slideshow, temp, rain, clouds
                 var dayDiv = $("<div>");
                 var tempDiv = $("<div>");
@@ -1034,7 +1034,7 @@ $(document).ready(function () {
             }).then(function (response) {
                 console.log(response);
                 console.log("City: " + response.city.name);
-
+                $("#endWeather").empty();
                 //!!!TO DO!!!! slideshow, temp, rain, clouds
                 var dayDiv2 = $("<div>");
                 var tempDiv2 = $("<div>");
