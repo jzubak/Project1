@@ -176,8 +176,8 @@ $(document).ready(function () {
             console.log("the city1CuisineID is: " + city1cuisineID);
 
             // STATIC RESPONSE COUNT AMOUNTS
-            var count_id=20;
-            // var count_id=3;
+            // var count_id=20;
+            var count_id=3;
     
             var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city1_id + "&cuisines=" + city1cuisineID + "&entity_type=city&count=" + count_id; 
     
@@ -279,22 +279,23 @@ $(document).ready(function () {
 
                     //  --> Votes
                         // share of Total Votes (column G from Excel)
-                        obj_city1[i].shareTotalVotes = obj_city1[i].resto_id.votes/totalVotes;
+                        obj_city1[i].resto_id.shareTotalVotes = obj_city1[i].resto_id.votes/totalVotes;
                         console.log("The total votes share is: " + obj_city1[i].shareTotalVotes)
 
                         // total index on Votes (column R from Excel)
-                        obj_city1[i].indexTotalVotes = ((obj_city1[i].resto_id.votes-avgVotes)/obj_city1[i].votes)*100;
+                        obj_city1[i].resto_id.indexTotalVotes = ((obj_city1[i].resto_id.votes-avgVotes)/obj_city1[i].resto_id.votes)*100;
 
                     //  --> Price
                         // total index on Price (column O from Excel)
-                        obj_city1[i].indexTotalPrice = ((obj_city1[i].resto_id.avg_cost_two-avgPrice)/obj_city1[i].avg_cost_two)*100;
+                        obj_city1[i].resto_id.indexTotalPrice = ((obj_city1[i].resto_id.avg_cost_two-avgPrice)/obj_city1[i].resto_id.avg_cost_two)*100;
 
                     //  --> Rating
                         // total index on Rating (column L from Excel)
-                        obj_city1[i].indexTotalRating = ((obj_city1[i].resto_id.agg_rating-avgRating)/obj_city1[i].agg_rating)*100;
+                        obj_city1[i].resto_id.indexTotalRating = ((obj_city1[i].resto_id.agg_rating-avgRating)/obj_city1[i].resto_id.agg_rating)*100;
 
                     //  --> RANK
-                        obj_city1[i].indexTotalRank = (obj_city1[i].indexTotalRating+obj_city1[i].indexTotalVotes)-obj_city1[i].indexTotalPrice;
+                        obj_city1[i].resto_id.indexTotalRank = (obj_city1[i].resto_id.indexTotalRating+obj_city1[i].resto_id.indexTotalVotes)-obj_city1[i].resto_id.indexTotalPrice;
+                        console.log("The index total rank is: " + obj_city1[i].resto_id.indexTotalRank);
                 };
 
                 //  array of the price_range segment sub-objects
@@ -350,12 +351,10 @@ $(document).ready(function () {
                             
                             console.log("The indexSegRating is: " + element.resto_id.indexSegRating);
 
-                            
-
                             element.resto_id.indexSegRank = (element.resto_id.indexSegVotes+element.resto_id.indexSegRating)-element.resto_id.indexSegPrice 
                             console.log("the indexSegRank index is: " + element.resto_id.indexSegRank);
 
-                            // obj_city1[element.resto_id].indexSegRank = element.resto_id.indexSegRank;
+                            // obj_city1[element.resto_id].resto_id.indexSegRank = element.resto_id.indexSegRank;
                             
                             });
 
@@ -524,8 +523,8 @@ $(document).ready(function () {
             console.log("the city2CuisineID is: " + city2cuisineID);
 
             // STATIC RESPONSE COUNT AMOUNTS
-            var count_id=20;
-            // var count_id=3;
+            // var count_id=20;
+            var count_id=3;
 
             var queryURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + city2_id + "&cuisines=" + city2cuisineID + "&entity_type=city&count=" + count_id; 
 
@@ -627,23 +626,24 @@ $(document).ready(function () {
 
                     //  --> Votes
                         // share of Total Votes (column G from Excel)
-                        obj_city2[i].shareTotalVotes = obj_city2[i].resto_id.votes/totalVotes;
-                        console.log("The total votes share is: " + obj_city2[i].shareTotalVotes)
+                        obj_city2[i].resto_id.shareTotalVotes = obj_city2[i].resto_id.votes/totalVotes;
+                        console.log("The total votes share is: " + obj_city2[i].resto_id.shareTotalVotes)
 
                         // total index on Votes (column R from Excel)
-                        obj_city2[i].indexTotalVotes = ((obj_city2[i].resto_id.votes-avgVotes)/obj_city2[i].votes)*100;
+                        obj_city2[i].resto_id.indexTotalVotes = ((obj_city2[i].resto_id.votes-avgVotes)/obj_city2[i].resto_id.votes)*100;
 
                     //  --> Price
                         // total index on Price (column O from Excel)
-                        obj_city2[i].indexTotalPrice = ((obj_city2[i].resto_id.avg_cost_two-avgPrice)/obj_city2[i].avg_cost_two)*100;
+                        obj_city2[i].resto_id.indexTotalPrice = ((obj_city2[i].resto_id.avg_cost_two-avgPrice)/obj_city2[i].resto_id.avg_cost_two)*100;
 
                     //  --> Rating
                         // total index on Rating (column L from Excel)
-                        obj_city2[i].indexTotalRating = ((obj_city2[i].resto_id.agg_rating-avgRating)/obj_city2[i].agg_rating)*100;
+                        obj_city2[i].resto_id.indexTotalRating = ((obj_city2[i].resto_id.agg_rating-avgRating)/obj_city2[i].resto_id.agg_rating)*100;
 
                     //  --> RANK
 
-                        obj_city2[i].indexTotalRank = (obj_city2[i].indexTotalRating+obj_city2[i].indexTotalVotes)-obj_city2[i].indexTotalPrice;    
+                        obj_city2[i].resto_id.indexTotalRank = (obj_city2[i].resto_id.indexTotalRating+obj_city2[i].resto_id.indexTotalVotes)-obj_city2[i].resto_id.indexTotalPrice;    
+                        console.log("The index total rank is: " + obj_city2[i].resto_id.indexTotalRank);
                 };
 
                 //  loop to each restaurant from the object
@@ -701,7 +701,7 @@ $(document).ready(function () {
                             element.resto_id.indexSegRank = (element.resto_id.indexSegVotes+element.resto_id.indexSegRating)-element.resto_id.indexSegPrice 
                             console.log("the indexSegRank is: " + element.resto_id.indexSegRank);
 
-                            // obj_city2[element.resto_id].indexSegRank = element.resto_id.indexSegRank;
+                            // obj_city2[element.resto_id].resto_id.indexSegRank = element.resto_id.indexSegRank;
                         
                             });
 
@@ -718,7 +718,7 @@ $(document).ready(function () {
 
                         img2 = obj_city2[i].resto_id.restoImg;
 
-                        console.log(img1);
+                        console.log(img2);
 
                         name2 = obj_city2[i].resto_id.name;
 
@@ -732,7 +732,8 @@ $(document).ready(function () {
                         price2 = obj_city2[i].resto_id.avg_cost_two;
 
                         console.log(currency2 + price2);
-                        rating1=obj_city2[i].resto_id.rating_text;
+
+                        rating2=obj_city2[i].resto_id.rating_text;
 
                         console.log(rating2);
 
