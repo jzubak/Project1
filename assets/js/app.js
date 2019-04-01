@@ -1216,7 +1216,7 @@ $(document).ready(function () {
                             consoleLogs();
                         }
                         $("#nextDay").attr("data-day", "0");
-                    }
+                    });
                     findAverages();
                     updateWeather();
                 });
