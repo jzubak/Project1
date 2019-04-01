@@ -11,6 +11,12 @@ var sumRain = 0;
 var aveTemp;
 var aveClouds;
 var aveRain;
+var sumTemp2 = 0;
+var sumClouds2 = 0;
+var sumRain2 = 0;
+var aveTemp2;
+var aveClouds2;
+var aveRain2;
 
 // var city1name = "Sydney"
 // var city2name = "Philadelphia"
@@ -837,6 +843,29 @@ $(document).ready(function () {
             console.log("SumClouds: " + sumClouds);
             console.log("SumRain: " + sumRain);
         }
+        function resetVars2() {
+            console.log("start of resetVars()");
+            sumTemp2 = 0;
+            sumClouds2 = 0;
+            sumRain2 = 0;
+            console.log("SumTemp: "+sumTemp2);
+            console.log("SumClouds: "+sumClouds2);
+            console.log("SumRain: "+sumRain2);
+        }
+        function findAverages2() {
+            console.log("starting findAverages()");
+            aveTemp2 = sumTemp2 / 8;
+            aveClouds2 = sumClouds2 / 8;
+            aveRain2 = sumRain2 / 8;
+            console.log("aveTemp: " + aveTemp2);
+            console.log("aveClouds: " + aveClouds2);
+            console.log("aveRain: " + aveRain2);
+        }
+        function consoleLogs2() {
+            console.log("SumTemp: " + sumTemp2);
+            console.log("SumClouds: " + sumClouds2);
+            console.log("SumRain: " + sumRain2);
+        }
         var countryAbbreviations = [
             ["au", "Australia"],
             ["cz", "Czech Republic"],
@@ -1032,6 +1061,7 @@ $(document).ready(function () {
                 url: queryURL2,
                 method: "GET"
             }).then(function (response) {
+                resetVars2();
                 console.log(response);
                 console.log("City: " + response.city.name);
                 $("#endWeather").empty();
@@ -1055,17 +1085,17 @@ $(document).ready(function () {
 
                 function updateWeather2() {
                     console.log("start of updateWeather");
-                    $(tempDiv2).text("Average Temperature: " + Math.floor(aveTemp) + " (Fahrenheit)");
-                    if (aveClouds < 20) {
+                    $(tempDiv2).text("Average Temperature: " + Math.floor(aveTemp2) + " (Fahrenheit)");
+                    if (aveClouds2 < 20) {
                         $(cloudsDiv2).text("Sunny");
-                    } else if (20 <= aveClouds < 60) {
+                    } else if (20 <= aveClouds2 < 60) {
                         $(cloudsDiv2).text("Partly Cloudy");
                     } else {
                         $(cloudsDiv2).text("Cloudy");
                     }
-                    if (aveRain < 1.5) {
+                    if (aveRain2 < 1.5) {
                         $(rainDiv2).text("No Rain");
-                    } else if (1.5 <= aveRain < 2.5) {
+                    } else if (1.5 <= aveRain2 < 2.5) {
                         $(rainDiv2).text("Light Rain Showers");
                     } else {
                         $(rainDiv2).text("Rainy");
@@ -1076,99 +1106,99 @@ $(document).ready(function () {
                 console.log("DAY 1:");
                 $("#day2").text("Today: ");
                 for (var i = 0; i < 8; i++) {
-                    sumTemp = sumTemp + response.list[i].main.temp;
-                    sumClouds = sumClouds + response.list[i].clouds.all;
+                    sumTemp2 = sumTemp2 + response.list[i].main.temp;
+                    sumClouds2 = sumClouds2 + response.list[i].clouds.all;
                     if (response.list[i].rain !== undefined) {
                         var typeOfRain = typeof response.list[i].rain["3h"];
                         if (typeOfRain === "number") {
-                            sumRain = sumRain + response.list[i].rain["3h"];
+                            sumRain2 = sumRain2 + response.list[i].rain["3h"];
                         }
                     }
-                    consoleLogs();
+                    consoleLogs2();
                 }
                     $("#nextDay2").attr("data-day", "1");
-                    findAverages();
+                    findAverages2();
                     updateWeather2();
                     //next day button click to display other days' weathers
                     $("#nextDay2").click(function () {
-                        resetVars();
+                        resetVars2();
                             if ($("#nextDay2").attr("data-day") === "0") {
                                 console.log("DAY 1:");
                                 $("#day2").text("Today: ");
                                 for (var i = 0; i < 8; i++) {
-                                    sumTemp = sumTemp + response.list[i].main.temp;
-                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                    sumTemp2 = sumTemp2 + response.list[i].main.temp;
+                                    sumClouds2 = sumClouds2 + response.list[i].clouds.all;
                                     if (response.list[i].rain !== undefined) {
                                         var typeOfRain = typeof response.list[i].rain["3h"];
                                         if (typeOfRain === "number") {
-                                            sumRain = sumRain + response.list[i].rain["3h"];
+                                            sumRain2 = sumRain2 + response.list[i].rain["3h"];
                                         }
                                     }
-                                    consoleLogs();
+                                    consoleLogs2();
                                 }
                                 $("#nextDay2").attr("data-day", "1");
                             } else if ($("#nextDay2").attr("data-day") === "1") {
                                 console.log("DAY 2:");
                                 $("#day2").text("Tomorrow: ");
                                 for (var i = 8; i < 16; i++) {
-                                sumTemp = sumTemp + response.list[i].main.temp;
-                                sumClouds = sumClouds + response.list[i].clouds.all;
+                                sumTemp2 = sumTemp2 + response.list[i].main.temp;
+                                sumClouds2 = sumClouds2 + response.list[i].clouds.all;
                                         if (response.list[i].rain !== undefined) {
                                         var typeOfRain = typeof response.list[i].rain["3h"];
                                             if (typeOfRain === "number") {
-                                            sumRain = sumRain + response.list[i].rain["3h"];
+                                            sumRain2 = sumRain2 + response.list[i].rain["3h"];
                                             }
                                         }
-                                    consoleLogs();
+                                    consoleLogs2();
                                 }
                                 $("#nextDay2").attr("data-day", "2");
                             } else if ($("#nextDay2").attr("data-day") === "2") {
                                 console.log("DAY 3:");
                                 $("#day2").text("Day 3: ");
                                 for (var i = 16; i < 24; i++) {
-                                    sumTemp = sumTemp + response.list[i].main.temp;
-                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                    sumTemp2 = sumTemp2 + response.list[i].main.temp;
+                                    sumClouds2 = sumClouds2 + response.list[i].clouds.all;
                                         if (response.list[i].rain !== undefined) {
                                             var typeOfRain = typeof response.list[i].rain["3h"];
                                             if (typeOfRain === "number") {
-                                            sumRain = sumRain + response.list[i].rain["3h"];
+                                            sumRain2 = sumRain2 + response.list[i].rain["3h"];
                                             }
                                         }   
-                                    consoleLogs();
+                                    consoleLogs2();
                                 }
                                 $("#nextDay2").attr("data-day", "3");
                             } else if ($("#nextDay2").attr("data-day") === "3") {
                                 console.log("DAY 4:");
                                 $("#day2").text("Day 4: ");
                                 for (var i = 24; i < 32; i++) {
-                                    sumTemp = sumTemp + response.list[i].main.temp;
-                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                    sumTemp2 = sumTemp2 + response.list[i].main.temp;
+                                    sumClouds2 = sumClouds2 + response.list[i].clouds.all;
                                         if (response.list[i].rain !== undefined) {
                                             var typeOfRain = typeof response.list[i].rain["3h"];
                                         if (typeOfRain === "number") {
-                                        sumRain = sumRain + response.list[i].rain["3h"];
+                                        sumRain2 = sumRain2 + response.list[i].rain["3h"];
                                         }
                                     }
-                                consoleLogs();
+                                consoleLogs2();
                                 }
                                 $("#nextDay2").attr("data-day", "4");
                             } else {
                                 console.log("DAY 5:");
                                 $("#day2").text("Day 5: ");
                                 for (var i = 32; i < response.list.length; i++) {
-                                    sumTemp = sumTemp + response.list[i].main.temp;
-                                    sumClouds = sumClouds + response.list[i].clouds.all;
+                                    sumTemp2 = sumTemp2 + response.list[i].main.temp;
+                                    sumClouds2 = sumClouds2 + response.list[i].clouds.all;
                                     if (response.list[i].rain !== undefined) {
                                         var typeOfRain = typeof response.list[i].rain["3h"];
                                     if (typeOfRain === "number") {
-                                        sumRain = sumRain + response.list[i].rain["3h"];
+                                        sumRain2 = sumRain2 + response.list[i].rain["3h"];
                                         }
                                     }
-                                consoleLogs();
+                                consoleLogs2();
                                 }
                                 $("#nextDay2").attr("data-day", "0");
                             }
-                            findAverages();
+                            findAverages2();
                             updateWeather2();
                         });
                     });
