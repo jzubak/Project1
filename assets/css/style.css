@@ -225,7 +225,8 @@
     line-height: 18px !important;
     }
     #temp, #rain, #clouds, .city1restoPrice, .city1restoCuisine, .city1restoRating,
-    #temp2, #rain2, #clouds2, .city2restoPrice, .city2restoCuisine, .city2restoRating  { 
+    #temp2, #rain2, #clouds2, .city2restoPrice, .city2restoCuisine, .city2restoRating,
+    .city1restoRange, .city2restoRange  { 
     font-size: 14px !important;
     line-height: 18px !important;
     }
@@ -327,3 +328,10 @@
   .profile4 {
       left: 250;
   }
+  .city1restoRange, .city2restoRange {
+    font-size: 18px;
+    line-height: 20px;
+    font-family: 'proxima-nova', sans-serif, Arial, Helvetica, sans-serif;
+    margin: 10px; 
+    color: white;
+    }
