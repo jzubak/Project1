@@ -147,6 +147,7 @@ $(document).ready(function () {
     event.preventDefault();
 
     city1 = $("#startLocation").val().trim();
+    console.log(city1);
     city2 = $("#endLocation").val().trim();
     
         // BEGIN STARTCITY AKA CITY1
@@ -197,7 +198,8 @@ $(document).ready(function () {
 
                 for(i=0;i<city1search.restaurants.length;i++){
                     // id
-                    resto_id = city1search.restaurants[i].restaurant.id;
+                    resto_id = parseInt(city1search.restaurants[i].restaurant.id);
+                    console.log(resto_id);
                     //  price_range SEGMENTATION
                     price_range= city1search.restaurants[i].restaurant.price_range;
                     //  name
@@ -226,8 +228,26 @@ $(document).ready(function () {
                     totalRating = agg_rating  + totalRating;
 
                     // CREATE OBJECT OF API DATA
-                    pairedValKey={
-                        resto_id: {
+                    // pairedValKey={
+                    //     [resto_id]: {
+                    //         name : restoName,
+                    //         price_range: price_range,
+                    //         cuisine_id: city1cuisineID,
+                    //         cuisine: cuisine,
+                    //         restoImg: restoImg,    
+                    //         url: restoURL,
+                    //         currency: currency,
+                    //         avg_cost_two: avg_cost_two,
+                    //         agg_rating : agg_rating,
+                    //         rating_text: rating_text,
+                    //         votes: votes,
+                    //         indexTotalRank: '',
+                    //         indexSegRank: '',
+                    //         div_draw: "false"}
+                    //     };
+
+                        pairedValKey={
+                            resto_id:  resto_id,
                             name : restoName,
                             price_range: price_range,
                             cuisine_id: city1cuisineID,
@@ -241,27 +261,27 @@ $(document).ready(function () {
                             votes: votes,
                             indexTotalRank: '',
                             indexSegRank: '',
-                            div_draw: "false"}
-                        };
+                            div_draw: "false"};
                 
                     console.log(price_range);
             
-                    if (pairedValKey.resto_id.price_range===1){
+                    if (pairedValKey.price_range===1){
 
                         obj_city1_price_range1.push(pairedValKey);
 
-                    } if(pairedValKey.resto_id.price_range===2){
+                    } if(pairedValKey.price_range===2){
                         obj_city1_price_range2.push(pairedValKey);
 
-                    } if(pairedValKey.resto_id.price_range===3){
+                    } if(pairedValKey.price_range===3){
                         obj_city1_price_range3.push(pairedValKey);
                 
-                    } if(pairedValKey.resto_id.price_range===4){
+                    } if(pairedValKey.price_range===4){
                         obj_city1_price_range4.push(pairedValKey);
                 
                     };
 
                     obj_city1.push(pairedValKey);
+                    console.log(obj_city1);
 
                 };
 
@@ -285,23 +305,26 @@ $(document).ready(function () {
 
                     //  --> Votes
                         // share of Total Votes (column G from Excel)
-                        obj_city1[i].resto_id.shareTotalVotes = obj_city1[i].resto_id.votes/totalVotes;
-                        console.log("The total votes share is: " + obj_city1[i].shareTotalVotes)
+                        //console.log(obj_city1[i][17011799].votes);
+
+                        obj_city1[i].shareTotalVotes = obj_city1[i].votes/totalVotes;
+                        // obj_city1[i][resto_id].shareTotalVotes = obj_city1[i][resto_id].votes/totalVotes;
+                        console.log("The total votes share is: " + obj_city1[i].shareTotalVotes);
 
                         // total index on Votes (column R from Excel)
-                        obj_city1[i].resto_id.indexTotalVotes = ((obj_city1[i].resto_id.votes-avgVotes)/obj_city1[i].resto_id.votes)*100;
+                        obj_city1[i].indexTotalVotes = ((obj_city1[i].votes-avgVotes)/obj_city1[i].votes)*100;
 
                     //  --> Price
                         // total index on Price (column O from Excel)
-                        obj_city1[i].resto_id.indexTotalPrice = ((obj_city1[i].resto_id.avg_cost_two-avgPrice)/obj_city1[i].resto_id.avg_cost_two)*100;
+                        obj_city1[i].indexTotalPrice = ((obj_city1[i].avg_cost_two-avgPrice)/obj_city1[i].avg_cost_two)*100;
 
                     //  --> Rating
                         // total index on Rating (column L from Excel)
-                        obj_city1[i].resto_id.indexTotalRating = ((obj_city1[i].resto_id.agg_rating-avgRating)/obj_city1[i].resto_id.agg_rating)*100;
+                        obj_city1[i].indexTotalRating = ((obj_city1[i].agg_rating-avgRating)/obj_city1[i].agg_rating)*100;
 
                     //  --> RANK
-                        obj_city1[i].resto_id.indexTotalRank = (obj_city1[i].resto_id.indexTotalRating+obj_city1[i].resto_id.indexTotalVotes)-obj_city1[i].resto_id.indexTotalPrice;
-                        console.log("The index total rank is: " + obj_city1[i].resto_id.indexTotalRank);
+                        obj_city1[i].indexTotalRank = (obj_city1[i].indexTotalRating+obj_city1[i].indexTotalVotes)-obj_city1[i].indexTotalPrice;
+                        console.log("The index total rank is: " + obj_city1[i].indexTotalRank);
                 };
 
                 //  array of the price_range segment sub-objects
@@ -314,10 +337,13 @@ $(document).ready(function () {
 
                     if(arr_city1_price_range[i].length !== 0)   {
 
+                        // console.log(arr_city1_price_range); 
+                        // console.log("the price_range object is: " + arr_city1_price_range[i][i].price_range);
                         segCount = arr_city1_price_range[i].length;
 
                         segVotes=arr_city1_price_range[i].reduce(function(segVotes,currVal){
-                            return segVotes+currVal.resto_id.votes
+                            // return segVotes+currVal[resto_id].votes
+                            return segVotes+currVal.votes
                         },0)
 
                         console.log("the segVotes is: " + segVotes);
@@ -327,7 +353,8 @@ $(document).ready(function () {
                         console.log("the segAvgVotes is: " + segAvgVotes);
 
                         segPrice =arr_city1_price_range[i].reduce(function(segPrice,currVal){
-                            return segPrice+currVal.resto_id.avg_cost_two
+                            // return segPrice+currVal[resto_id].avg_cost_two
+                            return segPrice+currVal.avg_cost_two
                         },0)
 
                         segAvgPrice = parseFloat(segPrice/segCount.toFixed(0));
@@ -335,7 +362,8 @@ $(document).ready(function () {
                         console.log("the segAvgPrice is: "+ parseFloat(segAvgPrice).toFixed(0));
 
                         segRating =arr_city1_price_range[i].reduce(function(segRating,currVal){
-                            return segRating+currVal.resto_id.agg_rating
+                            // return segRating+currVal[resto_id].agg_rating
+                            return segRating+currVal.agg_rating
                         },0)
 
                         segAvgRating = segRating/segCount;
@@ -344,27 +372,30 @@ $(document).ready(function () {
 
                         arr_city1_price_range[i].forEach(element => {
                     
-                            element.resto_id.indexSegVotes = ((element.resto_id.votes-segAvgVotes)/element.resto_id.votes)*100
+                            element.indexSegVotes = ((element.votes-segAvgVotes)/element.votes)*100
                             // arr_city1_price_range[i].resto_id.segIndexVotes=element.resto_id.segIndexVotes;
 
-                            console.log("The indexSegVotes is: " + element.resto_id.indexSegVotes);
+                            console.log("The indexSegVotes is: " + element.indexSegVotes);
                             
-                            element.resto_id.indexSegPrice = ((element.resto_id.avg_cost_two-segAvgPrice)/element.resto_id.avg_cost_two)*100
+                            console.log("the avg cost for two is: " + element.avg_cost_two);
+                            // element.indexSegPrice = ((element[resto_id].avg_cost_two-segAvgPrice)/element.avg_cost_two)*100
+                            element.indexSegPrice = ((element.avg_cost_two-segAvgPrice)/element.avg_cost_two)*100
                             
-                            console.log("The indexSegPrice is: " + element.resto_id.indexSegPrice);
-                            
-                            element.resto_id.indexSegRating =((element.resto_id.agg_rating-segAvgRating)/element.resto_id.agg_rating)*100
-                            
-                            console.log("The indexSegRating is: " + element.resto_id.indexSegRating);
+                            console.log("The indexSegPrice is: " + element.indexSegPrice);
 
-                            element.resto_id.indexSegRank = (element.resto_id.indexSegVotes+element.resto_id.indexSegRating)-element.resto_id.indexSegPrice 
+                            element.indexSegRating =((element.agg_rating-segAvgRating)/element.agg_rating)*100
                             
-                            console.log("the indexSegRank is: " + element.resto_id.indexSegRank);
+                            console.log("The indexSegRating is: " + element.indexSegRating);
 
-                            // obj_city1[element.resto_id].resto_id.indexSegRank = element.resto_id.indexSegRank;
+                            element.indexSegRank = (element.indexSegVotes+element.indexSegRating)-element.indexSegPrice 
+                            
+                            console.log("the indexSegRank is: " + element.indexSegRank);
+
+                            // obj_city1[element[resto_id]][resto_id].indexSegRank = element[resto_id].indexSegRank;
                             
                             });
 
+                            
                             // highestRanked_resto_id = arr_city1_price_range[i].map(function(highestRank){
 
                             //     return Math.max(arr_city1_price_range[i].resto_id.rankIndex), arr_city1_price_range[i].resto_id;
@@ -405,27 +436,27 @@ $(document).ready(function () {
 
                     for(i=0; i< obj_city1.length; i++){
 
-                        img1 = obj_city1[i].resto_id.restoImg;
+                        img1 = obj_city1[i][resto_id].restoImg;
 
                         console.log(img1);
 
-                        name1 = obj_city1[i].resto_id.name;
+                        name1 = obj_city1[i][resto_id].name;
 
                         console.log(name1);
 
-                        cuisine1= obj_city1[i].resto_id.cuisine;
+                        cuisine1= obj_city1[i][resto_id].cuisine;
 
                         console.log(cuisine1);
 
-                        currency1 = obj_city1[i].resto_id.currency;
-                        price1 = obj_city1[i].resto_id.avg_cost_two;
+                        currency1 = obj_city1[i][resto_id].currency;
+                        price1 = obj_city1[i][resto_id].avg_cost_two;
 
                         console.log(currency1 + price1);
-                        rating1=obj_city1[i].resto_id.rating_text;
+                        rating1=obj_city1[i][resto_id].rating_text;
 
                         console.log(rating1);
 
-                        price_range1=obj_city1[i].resto_id.price_range;
+                        price_range1=obj_city1[i][resto_id].price_range;
 
                         // pImg = $("<img>").attr({
                         //         "class": "city1restoIMG",
@@ -435,7 +466,7 @@ $(document).ready(function () {
 
                         pImg = $("<img>").attr({
                             "class": "city1restoIMG",
-                            "src": obj_city1[i].resto_id.restoImg,
+                            "src": obj_city1[i][resto_id].restoImg,
                             "data-value": restoURL
                             });
                         
@@ -1206,43 +1237,43 @@ $(document).ready(function () {
             });
         });
         // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
-            authDomain: "project1-2f7ae.firebaseapp.com",
-            databaseURL: "https://project1-2f7ae.firebaseio.com",
-            projectId: "project1-2f7ae",
-            storageBucket: "project1-2f7ae.appspot.com",
-            messagingSenderId: "842716287063"
-        };
-        firebase.initializeApp(config);
-        var database = firebase.database();
+        // var config = {
+        //     apiKey: "AIzaSyAwhvcz5UIY3y0nZaA76lSHEm24P99-Wzg",
+        //     authDomain: "project1-2f7ae.firebaseapp.com",
+        //     databaseURL: "https://project1-2f7ae.firebaseio.com",
+        //     projectId: "project1-2f7ae",
+        //     storageBucket: "project1-2f7ae.appspot.com",
+        //     messagingSenderId: "842716287063"
+        // };
+        // firebase.initializeApp(config);
+        // var database = firebase.database();
 
 
-            // Grabs user input
-            var city1 = $("#startLocation").val();
-            var city2 = $("#endLocation").val();
+        //     // Grabs user input
+        //     var city1 = $("#startLocation").val();
+        //     var city2 = $("#endLocation").val();
 
-            var newCity1 = {
-                city1name: city1,
-                city2name: city2,
-            };
-            database.ref().push(newCity1);
-            // database.ref().push(newCity2);
-            console.log(newCity.city1name);
-            console.log(newCity.city2name);
+        //     var newCity1 = {
+        //         city1name: city1,
+        //         city2name: city2,
+        //     };
+        //     database.ref().push(newCity1);
+        //     // database.ref().push(newCity2);
+        //     console.log(newCity.city1name);
+        //     console.log(newCity.city2name);
+        // // });
+        // database.ref().on("child_added", function (childSnaphot) {
+        //     console.log(childSnaphot.val());
+
+        //     var cityname1 = childSnaphot.val().city1name;
+        //     var cityname2 = childSnaphot.val().city2name;
+
+        //     var newRow = $("<tr>").append(
+        //         $("<td>").text(cityname1),
+        //         $("<td>").text(cityname2),
+        //     );
+        //     $("#search-table > tbody").append(newRow);
         // });
-        database.ref().on("child_added", function (childSnaphot) {
-            console.log(childSnaphot.val());
-
-            var cityname1 = childSnaphot.val().city1name;
-            var cityname2 = childSnaphot.val().city2name;
-
-            var newRow = $("<tr>").append(
-                $("<td>").text(cityname1),
-                $("<td>").text(cityname2),
-            );
-            $("#search-table > tbody").append(newRow);
-        });
     });
     });
 // });
